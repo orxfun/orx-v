@@ -1,0 +1,18 @@
+[package]
+name = "orx-nvec"
+version = "0.1.0"
+edition = "2021"
+publish = ["artifactory"]
+
+[dependencies]
+
+[dev-dependencies]
+orx-priority-queue = "1.2.1"
+num-traits = "0.2.19"
+rand = { version = "0.8.5", default-features = false }
+derive-new = { version = "0.6.0", default-features = false }
+
+[features]
+default = ["std"]
+std = []
+impl_all = ["std"]
