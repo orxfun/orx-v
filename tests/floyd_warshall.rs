@@ -16,7 +16,7 @@ where
     E: Ord + Copy + Add<Output = E> + Zero + Bounded,
     OutEdges: IntoIterator<Item = OutEdge<E>>,
     Graph: NVec<D1, OutEdges>,
-    Out: NVec<D2, E> + NVecMut<D2, E>,
+    Out: NVecMut<D2, E>,
 {
     let inf: E = Bounded::max_value();
 
@@ -154,7 +154,7 @@ fn floyd_warshall_nvec_option<E, OutEdges, Graph, Out>(
     E: Ord + Copy + Add<Output = E> + Zero,
     OutEdges: IntoIterator<Item = OutEdge<E>>,
     Graph: NVec<D1, OutEdges>,
-    Out: NVecMut<D2, Option<E>> + NVec<D2, Option<E>>,
+    Out: NVecMut<D2, Option<E>>,
 {
     for u in 0..num_vertices {
         d.set([u, u], Some(Zero::zero()));
