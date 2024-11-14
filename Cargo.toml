@@ -1,18 +1,41 @@
 [package]
-name = "orx-nvec"
-version = "0.1.0"
+name = "orx-v"
+version = "1.0.0"
 edition = "2021"
-publish = ["artifactory"]
+authors = ["orxfun <orx.ugur.arikan@gmail.com>"]
+description = "Vector traits to unify all vectors!"
+license = "MIT"
+repository = "https://github.com/orxfun/orx-imp-vec/"
+keywords = ["vec", "vector", "algorithm", "trait", "monomorphisation"]
+categories = ["data-structures", "algorithms", "no-std"]
 
 [dependencies]
+arrayvec = { version = "0.7.6", default-features = false, optional = true }
+ndarray = { version = "0.16.1", default-features = false, optional = true }
+orx-fixed-vec = { version = "3.10.0", default-features = false, optional = true }
+orx-split-vec = { version = "3.10.0", default-features = false, optional = true }
+smallvec = { version = "1.13.2", default-features = false, optional = true }
+tinyvec = { version = "1.8.0", default-features = false, optional = true, features = [
+    "alloc",
+] }
 
 [dev-dependencies]
-orx-priority-queue = "1.2.1"
-num-traits = "0.2.19"
-rand = { version = "0.8.5", default-features = false }
-derive-new = { version = "0.6.0", default-features = false }
+ndarray = "0.16"
+num = "0.4"
+orx-priority-queue = "1.4"
+orx-split-vec = "3.10"
+rand = "0.8"
+rand_chacha = "0.3"
 
 [features]
-default = ["std"]
+default = []
 std = []
-impl_all = ["std"]
+all = [
+    "std",
+    "arrayvec",
+    "ndarray",
+    "orx-fixed-vec",
+    "orx-split-vec",
+    "smallvec",
+    "tinyvec",
+]
