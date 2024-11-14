@@ -29,7 +29,6 @@ mod fun;
 mod impl_nvec;
 mod impl_nvec_core;
 mod impl_nvec_mut;
-mod impl_nvec_ref;
 mod matrices;
 mod nvec;
 mod nvec_aliases;
