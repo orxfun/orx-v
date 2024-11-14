@@ -4,23 +4,23 @@ use crate::{Dim, Equality, IdxLeqD1, IdxLeqD2, IntoIdx, D2};
 /// or over a flattened representation by a `D1` vector.
 ///
 /// An owned matrix can be created by:
-/// * calling [`v2_into_matrix`] method on a `D2`
+/// * calling [`into_matrix`] method on a `D2`
 ///   vector implementing `NVec<D2, _>`, or equivalently, `V2<_>`; or by:
 /// * calling [`v1_into_matrix`] method on a `D1`
 ///   vector implementing `NVec<D1, _>`, or equivalently, `V1<_>`.
 ///
 /// Alternatively, matrix views can be created by:
-/// * calling [`v2_as_matrix`] or [`v2_as_matrix_col_major`] methods on a `D2`
+/// * calling [`as_matrix`] or [`as_matrix_col_major`] methods on a `D2`
 ///   vector; or by:
-/// * calling [`v1_as_matrix`] or [`v1_as_matrix_col_major`] methods on a `D1`
+/// * calling [`as_matrix`] or [`as_matrix_col_major`] methods on a `D1`
 ///   vector.
 ///
-/// [`v2_into_matrix`]: crate::V2AsMatrix::v2_into_matrix
-/// [`v2_as_matrix`]: crate::V2AsMatrix::v2_as_matrix
-/// [`v2_as_matrix_col_major`]: crate::V2AsMatrix::v2_as_matrix_col_major
+/// [`into_matrix`]: crate::V2AsMatrix::into_matrix
+/// [`as_matrix`]: crate::V2AsMatrix::as_matrix
+/// [`as_matrix_col_major`]: crate::V2AsMatrix::as_matrix_col_major
 /// [`v1_into_matrix`]: crate::V1AsMatrix::v1_into_matrix
-/// [`v1_as_matrix`]: crate::V1AsMatrix::v1_as_matrix
-/// [`v1_as_matrix_col_major`]: crate::V1AsMatrix::v1_as_matrix_col_major
+/// [`as_matrix`]: crate::V1AsMatrix::as_matrix
+/// [`as_matrix_col_major`]: crate::V1AsMatrix::as_matrix_col_major
 ///
 /// All above mentioned methods have their `_mut` versions to create a
 /// mutable matrix view.
@@ -43,17 +43,17 @@ pub trait Matrix<T> {
     /// or column-major.
     ///
     /// Row-major matrices are created by:
-    /// * calling [`v2_as_matrix`] on a `D2` vector, or
-    /// * calling [`v1_as_matrix`] on a `D1` vector.
+    /// * calling [`as_matrix`] on a `D2` vector, or
+    /// * calling [`as_matrix`] on a `D1` vector.
     ///
     /// Column-major matrices are created by:
-    /// * calling [`v2_as_matrix_col_major`] on a `D2` vector, or
-    /// * calling [`v1_as_matrix_col_major`] on a `D1` vector.
+    /// * calling [`as_matrix_col_major`] on a `D2` vector, or
+    /// * calling [`as_matrix_col_major`] on a `D1` vector.
     ///
-    /// [`v2_as_matrix`]: crate::V2AsMatrix::v2_as_matrix
-    /// [`v2_as_matrix_col_major`]: crate::V2AsMatrix::v2_as_matrix_col_major
-    /// [`v1_as_matrix`]: crate::V1AsMatrix::v1_as_matrix
-    /// [`v1_as_matrix_col_major`]: crate::V1AsMatrix::v1_as_matrix_col_major
+    /// [`as_matrix`]: crate::V2AsMatrix::as_matrix
+    /// [`as_matrix_col_major`]: crate::V2AsMatrix::as_matrix_col_major
+    /// [`as_matrix`]: crate::V1AsMatrix::as_matrix
+    /// [`as_matrix_col_major`]: crate::V1AsMatrix::as_matrix_col_major
     ///
     /// All above mentioned methods have their `_mut` versions to create a
     /// mutable matrix view.

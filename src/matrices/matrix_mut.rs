@@ -5,21 +5,21 @@ use crate::{IntoIdx, D2};
 /// or over a flattened representation by a `D1` vector.
 ///
 /// A mutable matrix view can be created by:
-/// * calling [`v2_as_matrix_mut`] or [`v2_as_matrix_col_major_mut`] methods on a `D2`
+/// * calling [`as_matrix_mut`] or [`as_matrix_col_major_mut`] methods on a `D2`
 ///   vector implementing `NVecMut<D2, _>`, or equivalently, `V2Mut<_>`; or by:
-/// * calling [`v1_as_matrix_mut`] or [`v1_as_matrix_col_major_mut`] methods on a `D1`
+/// * calling [`as_matrix_mut`] or [`as_matrix_col_major_mut`] methods on a `D1`
 ///   vector implementing `NVecMut<D1, _>`, or equivalently, `V1Mut<_>`.
 ///
 /// Alternatively an owned mutable matrix can be crated by
-/// * calling [`v2_into_matrix`] method on a `D2` mutable vector; or by:
+/// * calling [`into_matrix`] method on a `D2` mutable vector; or by:
 /// * calling [`v1_into_matrix`] method on a `D1` mutable vector.
 ///
-/// [`v2_into_matrix`]: crate::V2AsMatrix::v2_into_matrix
-/// [`v2_as_matrix_mut`]: crate::V2AsMatrix::v2_as_matrix_mut
-/// [`v2_as_matrix_col_major_mut`]: crate::V2AsMatrix::v2_as_matrix_col_major_mut
+/// [`into_matrix`]: crate::V2AsMatrix::into_matrix
+/// [`as_matrix_mut`]: crate::V2AsMatrix::as_matrix_mut
+/// [`as_matrix_col_major_mut`]: crate::V2AsMatrix::as_matrix_col_major_mut
 /// [`v1_into_matrix`]: crate::V1AsMatrix::v1_into_matrix
-/// [`v1_as_matrix_mut`]: crate::V1AsMatrix::v1_as_matrix_mut
-/// [`v1_as_matrix_col_major_mut`]: crate::V1AsMatrix::v1_as_matrix_col_major_mut
+/// [`as_matrix_mut`]: crate::V1AsMatrix::as_matrix_mut
+/// [`as_matrix_col_major_mut`]: crate::V1AsMatrix::as_matrix_col_major_mut
 pub trait MatrixMut<T>: Matrix<T> {
     /// Returns a mutable reference to the element at the given `idx` of the matrix.
     ///
@@ -54,10 +54,10 @@ pub trait MatrixMut<T>: Matrix<T> {
     ///     [1, 2, 3],
     ///     [4, 5, 6],
     /// ];
-    /// let mut mat = v2.v2_as_matrix_mut();
+    /// let mut mat = v2.as_matrix_mut();
     /// mat.reset_all(42);
     /// assert_eq!(
-    ///     mat.equality(&[[42, 42, 42], [42, 42, 42]].v2_as_matrix()),
+    ///     mat.equality(&[[42, 42, 42], [42, 42, 42]].as_matrix()),
     ///     Equality::<D2>::Equal,
     /// );
     /// ```

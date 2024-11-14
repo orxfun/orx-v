@@ -79,7 +79,7 @@ fn main() {
 
     // matrix from Vec<Vec<f64>>
     let mut full_storage_d2 = vec![vec![0.0; n]; n];
-    let mut full_matrix_d2 = full_storage_d2.v2_as_matrix_mut();
+    let mut full_matrix_d2 = full_storage_d2.as_matrix_mut();
     for (i, l1) in locations.iter().enumerate() {
         let mut row = full_matrix_d2.row_mut(i);
         for (j, l2) in locations.iter().enumerate() {
@@ -109,7 +109,7 @@ fn main() {
             haversine(l1.lat, l1.lng, l2.lat, l2.lng)
         })
         .with_rectangular_bounds([n, n]);
-    let fun_mat_d2 = fun_vec_d2.v2_as_matrix();
+    let fun_mat_d2 = fun_vec_d2.as_matrix();
     let avg = calc_avg_distance(&paths, fun_mat_d2);
     assert_eq!(avg, avg_dist);
 
@@ -122,7 +122,7 @@ fn main() {
         })
         .with_rectangular_bounds([n, n])
         .into_cached();
-    let cached_fun_mat_d2 = cached_fun_vec_d2.v2_as_matrix();
+    let cached_fun_mat_d2 = cached_fun_vec_d2.as_matrix();
     let avg = calc_avg_distance(&paths, cached_fun_mat_d2);
     assert_eq!(avg, avg_dist);
 }

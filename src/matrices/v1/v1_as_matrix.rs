@@ -41,7 +41,7 @@ pub trait V1AsMatrix<T> {
     /// }
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
@@ -94,7 +94,7 @@ pub trait V1AsMatrix<T> {
     /// }
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
@@ -143,7 +143,7 @@ pub trait V1AsMatrix<T> {
     /// assert_eq!(mat.num_cols(), 3);
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 2, 3], [4, 5, 6], [7, 8, 9], [10, 11, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
@@ -202,7 +202,7 @@ pub trait V1AsMatrix<T> {
     /// assert_eq!(mat.all().count(), 12);
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
@@ -243,7 +243,7 @@ pub trait V1AsMatrix<T> {
     ///
     /// let v1 = vec![1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12];
     ///
-    /// let mat = v1.v1_as_matrix_col_major(4, 3);
+    /// let mat = v1.v1_into_matrix_col_major(4, 3);
     ///
     /// assert_eq!(mat.num_rows(), 4);
     /// assert_eq!(mat.num_cols(), 3);
@@ -257,7 +257,7 @@ pub trait V1AsMatrix<T> {
     /// assert_eq!(mat.all().count(), 12);
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
@@ -308,7 +308,7 @@ pub trait V1AsMatrix<T> {
     /// mat.col_mut(1).mut_all(|x| *x += 10); // columns are contagious
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[1, 15, 42], [2, 16, 10], [3, 17, 11], [4, 18, 12]].v2_as_matrix()),
+    ///     mat.equality(&[[1, 15, 42], [2, 16, 10], [3, 17, 11], [4, 18, 12]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///

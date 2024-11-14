@@ -100,7 +100,7 @@ fn with_d2_output(graph: impl V2<Edge>) {
 
     let mut distances = vec![vec![0; n]; n];
 
-    let mut matrix = distances.v2_as_matrix_mut();
+    let mut matrix = distances.as_matrix_mut();
     floyd_warshall(&graph, &mut matrix);
 }
 fn with_d2_output_col_major(graph: impl V2<Edge>) {
@@ -108,7 +108,7 @@ fn with_d2_output_col_major(graph: impl V2<Edge>) {
 
     let mut distances = vec![vec![0; n]; n];
 
-    let mut matrix = distances.v2_as_matrix_col_major_mut();
+    let mut matrix = distances.as_matrix_col_major_mut();
     floyd_warshall(&graph, &mut matrix);
 }
 

@@ -33,7 +33,7 @@ pub trait V2AsMatrix<T> {
     ///     vec![10, 11, 12],
     /// ];
     ///
-    /// let mat = v2.v2_into_matrix();
+    /// let mat = v2.into_matrix();
     ///
     /// assert_eq!(mat.num_rows(), 4);
     /// assert_eq!(mat.num_cols(), 3);
@@ -62,10 +62,10 @@ pub trait V2AsMatrix<T> {
     /// use orx_v::*;
     ///
     /// let v2 = V.d2().constant(0).with_rectangular_bounds([2, 3]);
-    /// let zeros = v2.v2_into_matrix();
+    /// let zeros = v2.into_matrix();
     ///
     /// let v2 = V.d2().constant(1).with_rectangular_bounds([2, 3]);
-    /// let ones = v2.v2_into_matrix();
+    /// let ones = v2.into_matrix();
     ///
     /// let n = 5;
     ///
@@ -76,7 +76,7 @@ pub trait V2AsMatrix<T> {
     ///         false => 0,
     ///     })
     ///     .with_rectangular_bounds([n, n]);
-    /// let diagonal = v2.v2_into_matrix();
+    /// let diagonal = v2.into_matrix();
     ///
     /// for i in 0..diagonal.num_rows() {
     ///     for j in 0..diagonal.num_cols() {
@@ -96,7 +96,7 @@ pub trait V2AsMatrix<T> {
     ///         false => 0,
     ///     })
     ///     .with_rectangular_bounds([n, n]);
-    /// let diagonal = v2.v2_into_matrix();
+    /// let diagonal = v2.into_matrix();
     ///
     /// for i in 0..diagonal.num_rows() {
     ///     for j in 0..diagonal.num_cols() {
@@ -119,7 +119,7 @@ pub trait V2AsMatrix<T> {
     /// let m = 4;
     ///
     /// let mut v2 = V.d2().sparse(0).with_rectangular_bounds([n, m]);
-    /// let mut matrix = v2.v2_as_matrix_mut();
+    /// let mut matrix = v2.as_matrix_mut();
     ///
     /// for row in matrix.rows() {
     ///     assert_eq!(row.equality(&[0, 0, 0, 0]), Equality::Equal);
@@ -129,11 +129,11 @@ pub trait V2AsMatrix<T> {
     /// *matrix.at_mut([2, 1]) = 7;
     ///
     /// assert_eq!(
-    ///     matrix.equality(&[[0, 3, 0, 0], [0, 0, 0, 0], [0, 7, 0, 0]].v2_as_matrix()),
+    ///     matrix.equality(&[[0, 3, 0, 0], [0, 0, 0, 0], [0, 7, 0, 0]].as_matrix()),
     ///     Equality::Equal
     /// );
     /// ```
-    fn v2_into_matrix(self) -> V2MatrixRowMajor<T, Self>
+    fn into_matrix(self) -> V2MatrixRowMajor<T, Self>
     where
         Self: NVec<D2, T>,
     {
@@ -170,7 +170,7 @@ pub trait V2AsMatrix<T> {
     ///     vec![10, 11, 12],
     /// ];
     ///
-    /// let mat = v2.v2_as_matrix();
+    /// let mat = v2.as_matrix();
     ///
     /// assert_eq!(mat.num_rows(), 4);
     /// assert_eq!(mat.num_cols(), 3);
@@ -199,10 +199,10 @@ pub trait V2AsMatrix<T> {
     /// use orx_v::*;
     ///
     /// let v2 = V.d2().constant(0).with_rectangular_bounds([2, 3]);
-    /// let zeros = v2.v2_as_matrix();
+    /// let zeros = v2.as_matrix();
     ///
     /// let v2 = V.d2().constant(1).with_rectangular_bounds([2, 3]);
-    /// let ones = v2.v2_as_matrix();
+    /// let ones = v2.as_matrix();
     ///
     /// let n = 5;
     ///
@@ -213,7 +213,7 @@ pub trait V2AsMatrix<T> {
     ///         false => 0,
     ///     })
     ///     .with_rectangular_bounds([n, n]);
-    /// let diagonal = v2.v2_as_matrix();
+    /// let diagonal = v2.as_matrix();
     ///
     /// for i in 0..diagonal.num_rows() {
     ///     for j in 0..diagonal.num_cols() {
@@ -233,7 +233,7 @@ pub trait V2AsMatrix<T> {
     ///         false => 0,
     ///     })
     ///     .with_rectangular_bounds([n, n]);
-    /// let diagonal = v2.v2_as_matrix();
+    /// let diagonal = v2.as_matrix();
     ///
     /// for i in 0..diagonal.num_rows() {
     ///     for j in 0..diagonal.num_cols() {
@@ -256,7 +256,7 @@ pub trait V2AsMatrix<T> {
     /// let m = 4;
     ///
     /// let mut v2 = V.d2().sparse(0).with_rectangular_bounds([n, m]);
-    /// let mut matrix = v2.v2_as_matrix_mut();
+    /// let mut matrix = v2.as_matrix_mut();
     ///
     /// for row in matrix.rows() {
     ///     assert_eq!(row.equality(&[0, 0, 0, 0]), Equality::Equal);
@@ -266,11 +266,11 @@ pub trait V2AsMatrix<T> {
     /// *matrix.at_mut([2, 1]) = 7;
     ///
     /// assert_eq!(
-    ///     matrix.equality(&[[0, 3, 0, 0], [0, 0, 0, 0], [0, 7, 0, 0]].v2_as_matrix()),
+    ///     matrix.equality(&[[0, 3, 0, 0], [0, 0, 0, 0], [0, 7, 0, 0]].as_matrix()),
     ///     Equality::Equal
     /// );
     /// ```
-    fn v2_as_matrix(&self) -> V2MatrixRowMajor<T, &Self>
+    fn as_matrix(&self) -> V2MatrixRowMajor<T, &Self>
     where
         Self: NVec<D2, T>,
     {
@@ -309,7 +309,7 @@ pub trait V2AsMatrix<T> {
     ///     vec![10, 11, 12],
     /// ];
     ///
-    /// let mut mat = v2.v2_as_matrix_mut();
+    /// let mut mat = v2.as_matrix_mut();
     ///
     /// assert_eq!(mat.num_rows(), 4);
     /// assert_eq!(mat.num_cols(), 3);
@@ -321,7 +321,7 @@ pub trait V2AsMatrix<T> {
     /// assert_eq!(mat.row(0).equality(&[1, 22, 3]), Equality::Equal);
     /// assert_eq!(mat.row(1).equality(&[40, 50, 60]), Equality::Equal);
     /// ```
-    fn v2_as_matrix_mut(&mut self) -> V2MatrixRowMajor<T, &mut Self>
+    fn as_matrix_mut(&mut self) -> V2MatrixRowMajor<T, &mut Self>
     where
         Self: NVecMut<D2, T>,
     {
@@ -357,20 +357,20 @@ pub trait V2AsMatrix<T> {
     /// use orx_v::*;
     ///
     /// let v2 = vec![vec![0, 1], vec![2, 3], vec![4, 5], vec![6, 7]];
-    /// let mat = v2.v2_into_matrix_col_major();
+    /// let mat = v2.into_matrix_col_major();
     ///
     /// assert_eq!(mat.num_rows(), 2);
     /// assert_eq!(mat.num_cols(), 4);
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[0, 2, 4, 6], [1, 3, 5, 7]].v2_as_matrix()),
+    ///     mat.equality(&[[0, 2, 4, 6], [1, 3, 5, 7]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
     /// let col = mat.col(2);
     /// assert_eq!(col.equality(&[4, 5]), Equality::Equal); // columns are contagious
     /// ```
-    fn v2_into_matrix_col_major(self) -> V2MatrixColMajor<T, Self>
+    fn into_matrix_col_major(self) -> V2MatrixColMajor<T, Self>
     where
         Self: NVec<D2, T>,
     {
@@ -406,20 +406,20 @@ pub trait V2AsMatrix<T> {
     /// use orx_v::*;
     ///
     /// let v2 = vec![vec![0, 1], vec![2, 3], vec![4, 5], vec![6, 7]];
-    /// let mat = v2.v2_as_matrix_col_major();
+    /// let mat = v2.as_matrix_col_major();
     ///
     /// assert_eq!(mat.num_rows(), 2);
     /// assert_eq!(mat.num_cols(), 4);
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[0, 2, 4, 6], [1, 3, 5, 7]].v2_as_matrix()),
+    ///     mat.equality(&[[0, 2, 4, 6], [1, 3, 5, 7]].as_matrix()),
     ///     Equality::Equal
     /// );
     ///
     /// let col = mat.col(2);
     /// assert_eq!(col.equality(&[4, 5]), Equality::Equal); // columns are contagious
     /// ```
-    fn v2_as_matrix_col_major(&self) -> V2MatrixColMajor<T, &Self>
+    fn as_matrix_col_major(&self) -> V2MatrixColMajor<T, &Self>
     where
         Self: NVec<D2, T>,
     {
@@ -455,7 +455,7 @@ pub trait V2AsMatrix<T> {
     /// use orx_v::*;
     ///
     /// let mut v2 = vec![vec![0, 10], vec![1, 11], vec![2, 12], vec![3, 13]];
-    /// let mut mat = v2.v2_as_matrix_col_major_mut();
+    /// let mut mat = v2.as_matrix_col_major_mut();
     ///
     /// assert_eq!(mat.num_rows(), 2);
     /// assert_eq!(mat.num_cols(), 4);
@@ -469,11 +469,11 @@ pub trait V2AsMatrix<T> {
     /// }
     ///
     /// assert_eq!(
-    ///     mat.equality(&[[0, 1, 2, 3], [10, 11, 22, 33]].v2_as_matrix()),
+    ///     mat.equality(&[[0, 1, 2, 3], [10, 11, 22, 33]].as_matrix()),
     ///     Equality::Equal
     /// );
     /// ```
-    fn v2_as_matrix_col_major_mut(&mut self) -> V2MatrixColMajor<T, &mut Self>
+    fn as_matrix_col_major_mut(&mut self) -> V2MatrixColMajor<T, &mut Self>
     where
         Self: NVecMut<D2, T>,
     {
