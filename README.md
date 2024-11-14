@@ -191,10 +191,11 @@ V2Mut<T>  <====>   NVecMut<D2, T>
 ## V for Vectors!
 
 You might have noticed in the above examples the use of `V`. This is basically the entry point of builders of different types of multi dimensional vectors. It is followed by the dimension of the vector to be created, such as `V.d1()` or `V.d3()`. Next we can call methods to create special vectors such as:
-* `constant` for `ConstVec`,
-* `empty` for `EmptyVec`,
-* `sparse` and `sparse_from` for `SparseVec`,
-* and last but not the least, `fun` for `FunVec`.
+* `ConstVec` => `V.d1().const(42)`
+* `EmptyVec` => `V.d3().empty::<i32>()`
+* `SparseVec` => `V.d2().sparse(1000)`;
+* `FunVec` => `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j]))`
+* `CachedVec` => `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j])).into_cached()`
 
 ## Practical Example
 
@@ -314,7 +315,7 @@ let _improvement = two_opt(&distances, &mut tour);
 
 `Matrix<T>` and `MatrixMut<T>` traits are also defined to allow for polymorphic matrix types. Their interface is quite similar to those of `V2<T>` and `V2Mut<T>` except that they require rectangular bounds.
 
-They can be crated by calling `as_matrix` or `into_matrix` methods on one-dimensional (flattened matrix) and two-dimensional vectors.
+They can be crated by calling `as_matrix` or `v1_as_matrix` methods on one-dimensional (flattened matrix) and two-dimensional vectors.
 
 ## Features
 
