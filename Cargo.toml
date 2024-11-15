@@ -28,7 +28,7 @@ rand = "0.8"
 rand_chacha = "0.3"
 
 [features]
-default = []
+default = ["std"]
 std = []
 all = [
     "std",

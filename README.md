@@ -369,6 +369,8 @@ Further, any `V1` vector can be transformed or viewed as a flattened matrix by c
 
 Vector trait implementations for vectors in well known external libraries are being included in this crate via features. For instance, you may add "ndarray" feature to be able to use "ndarray::Vector1" as a "V1", or "Vector2" as a "V2", etc.
 
+std is enabled as the default feature, please set "default-features=false" when working in **no-std** programs.
+
 ## Contributing
 
 Contributions, ideas and feedback are welcome!
