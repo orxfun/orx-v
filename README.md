@@ -4,7 +4,7 @@ Vector traits to unify all vectors!
 
 The focus of this crate is computation and algorithms. The goal is to allow algorithm developer to provide a single generic algorithm implementation and that can be called by many polymorphic vector types with a corresponding practical use case.
 
-You may find an article discussing the motivation [here](https://orxfun.github.io/orxfun-notes/#/v-4-vectors-2024-11-18) and various examples in the [examples](https://github.com/orxfun/orx-v/tree/main/examples) folder of the repository.
+You may find an article discussing the motivation [here](https://orxfun.github.io/orxfun-notes/#/v-for-vectors-2024-11-18) and various examples in the [examples](https://github.com/orxfun/orx-v/tree/main/examples) folder of the repository.
 
 ## Traits
 

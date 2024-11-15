@@ -3,7 +3,7 @@ use rand::prelude::*;
 use rand_chacha::ChaCha8Rng;
 use std::u32;
 
-fn apply_two_opt(tour: &mut impl V1Mut<usize>, i: usize, j: usize) {
+fn apply_two_opt(mut tour: impl V1Mut<usize>, i: usize, j: usize) {
     let mut i = i + 1;
     let mut j = j;
     while i < j {
@@ -15,7 +15,7 @@ fn apply_two_opt(tour: &mut impl V1Mut<usize>, i: usize, j: usize) {
     }
 }
 
-fn two_opt(distances: impl V2<u32>, tour: &mut impl V1Mut<usize>) -> u32 {
+fn two_opt(distances: impl V2<u32>, mut tour: impl V1Mut<usize>) -> u32 {
     let mut improvement = 0;
     let d = distances;
     let n = tour.card([]);
@@ -38,7 +38,7 @@ fn two_opt(distances: impl V2<u32>, tour: &mut impl V1Mut<usize>) -> u32 {
                 if removed_len > added_len {
                     improved = true;
                     improvement += removed_len - added_len;
-                    apply_two_opt(tour, i, j);
+                    apply_two_opt(&mut tour, i, j);
                 }
             }
         }
@@ -138,7 +138,7 @@ fn initial_tour(n: usize) -> Vec<usize> {
 }
 
 fn main() {
-    let n = 100;
+    let n = 50;
 
     // complete matrix stored as a V2
     {
