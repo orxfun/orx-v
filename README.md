@@ -1,8 +1,8 @@
 # orx-v
 
-Vector traits to unify all vectors!
+Traits to unify all vectors!
 
-The focus of this crate is computation and algorithms. The goal is to allow algorithm developer to provide a single generic algorithm implementation and that can be called by many polymorphic vector types with a corresponding practical use case.
+The focus of this crate is mainly computation and algorithms. The goal is to allow for a generic algorithm implementation that can be called by many polymorphic vector types having a corresponding practical use case.
 
 You may find an article discussing the motivation [here](https://orxfun.github.io/orxfun-notes/#/v-for-vectors-2024-11-18) and various examples in the [examples](https://github.com/orxfun/orx-v/tree/main/examples) folder of the repository.
 
@@ -14,7 +14,10 @@ Two vector traits are defined:
 
 `NVec<D, T>` is a `D` dimensional vector where the scalar elements are of type `T`.
 
-It has a few required methods and more provided methods and functionalities that tend to grow. However, it has the following two core methods defining the common behavior.
+It has only a few required methods. At its core, the following define the vectors' shared behavior:
+* `at`: efficient random access by indices
+* `card`: complete knowledge of its size
+* `all`: efficient serial access over all scalar elements
 
 #### Random Access
 
@@ -33,10 +36,10 @@ let v1 = vec![1, 7, 42];
 assert_eq!(v1.at(2), 42);
 
 let v1 = V.d1().constant(42);
-assert_eq!(v1.at([121]), 42);
+assert_eq!(v1.at(121), 42);
 
 let v1 = V.d1().fun(|[i]| 2 * i + 7);
-assert_eq!(v1.at([10]), 27);
+assert_eq!(v1.at(10), 27);
 
 let v2 = vec![vec![1, 2], vec![3, 4, 5]];
 assert_eq!(v2.at([0, 1]), 2);
@@ -49,7 +52,7 @@ assert_eq!(v2.at([2, 1]), 21);
 assert_eq!(v2.at([1, 0]), 1000);
 ```
 
-The examples above also hints the goal that various useful concrete types already implement the vector traits, such as:
+As the examples reveal, various useful concrete types implement the vector traits, such as:
 * the standard vector, arrays, slices;
 * ndarray arrays such as Array1, Array2, etc.;
 * sparse vectors;
@@ -63,13 +66,13 @@ Further, due to the abstraction through traits, we can have composed definitions
 
 #### Cardinality
 
-The second shared functionality is the knowledge of the vectors and all of its children's cardinality all the way down to the scalars. This is provided by the `card` method that is analogous to `len` method extended to provide complete cardinality information rather than the number of immediate children.
+The second shared functionality is the knowledge of the vectors and all of its children's cardinality all the way down to the scalars. This is provided by the `card` method that is analogous to `len` method extended to provide complete cardinality information rather than only the number of immediate children.
 
 ```rust ignore
 fn card(&self, idx: impl Into<D::CardIdx>) -> usize;
 ```
 
-Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrates how to defined their bounds.
+Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrates how to define their bounds.
 
 ```rust
 use orx_v::*;
@@ -148,22 +151,49 @@ assert_eq!(v2.card([2]), 3);
 
 You may again notice the benefit of the abstraction in the `num_elements` definition above. In this example, we used a Vec but actually we could use any `NVec<D1, usize>` implementation. For instance, assume we have a `D2` vector where each row has 1000 elements while the last element has 1. We can easily represent this with a functional vector or a sparse vector and avoid allocating the entire vector of number of elements.
 
+#### Sequential Access
+
+Not to be confused with `iter()` method on collections, `all` method yields the inner-most scalar elements.
+
+In order to iterate over the immediate children, `children` method can be used.
+
+```rust
+use orx_v::*;
+
+let vec = vec![vec![0, 1], vec![], vec![2]]; // V2
+
+// inner-most elements, scalars
+let mut all = vec.all();
+assert_eq!(all.next(), Some(0));
+assert_eq!(all.next(), Some(1));
+assert_eq!(all.next(), Some(2));
+assert_eq!(all.next(), None);
+
+// immediate children belonging to previous dimension (D1 here)
+let mut children = vec.children();
+assert_eq!(children.next().unwrap().equality(&[0, 1]), Equality::Equal);
+assert_eq!(children.next().unwrap().equality(&[]), Equality::Equal);
+assert_eq!(children.next().unwrap().equality(&[2]), Equality::Equal);
+assert!(children.next().is_none());
+```
+
+
 ### Mutable Vectors: NVecMut<D, T>
 
-As expected, `NVecMut<D, T>: NVec<D, T>`. Again the provided methods of this trait tend to grow; however, its core ability is defined by the `at_mut` method.
+As expected, `NVecMut` extends `NVec`; i.e., `NVecMut<D, T>: NVec<D, T>`.
+
+Its core functionality is defined by the `at_mut` method.
 
 ```rust ignore
 fn at_mut<Idx: IntoIdx<D>>(&mut self, idx: Idx) -> &mut T;
 ```
-
-And below examples show the use case together with the `set` method.
 
 ```rust
 use orx_v::*;
 
 let mut v1 = vec![1, 7, 42];
 *v1.at_mut(1) = 7;
-v1.set(2, 21); // if you will
+v1.set(2, 21); // if you prefer
 
 let mut v2 = vec![vec![1, 2], vec![3, 4, 5]];
 *v2.at_mut([0, 1]) = 21;
@@ -176,7 +206,7 @@ v2.set([2, 1], 21);
 
 ## Trait Aliases
 
-The following trait aliases can be used instead.
+The following trait aliases can be used instead, to fix the first generic type parameter on dimension.
 
 ```rust ignore
 V1<T>     <====>   NVec<D1, T>
@@ -190,21 +220,31 @@ V2Mut<T>  <====>   NVecMut<D2, T>
 
 ## V for Vectors!
 
-You might have noticed in the above examples the use of `V`. This is basically the entry point of builders of different types of multi dimensional vectors. It is followed by the dimension of the vector to be created, such as `V.d1()` or `V.d3()`. Next we can call methods to create special vectors such as:
-* `ConstVec` => `V.d1().const(42)`
-* `EmptyVec` => `V.d3().empty::<i32>()`
-* `SparseVec` => `V.d2().sparse(1000)`;
-* `FunVec` => `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j]))`
-* `CachedVec` => `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j])).into_cached()`
+You might have observed in some of examples above the use of `V`. This is basically the entry point of builders of different types of multi dimensional vectors. It is followed by the dimension of the vector to be created, such as `V.d1()` or `V.d3()`. Next we can call methods to create special vectors such as:
+* **ConstantVec**
+  * `V.d1().const(42)`
+  * a vector that yields only 42 for all indices
+* **EmptyVec**
+  * `V.d3().empty::<i32>()`
+  * a vector with no elements, zero cardinality
+* **SparseVec**
+  * `V.d2().sparse(1000)`
+  * a sparse vector where all non-set elements are equal to 1000
+* **FunVec**
+  * `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j]))`
+  * a lazy vector which computes elements on the fly as requested
+* **CachedVec**
+  * `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j])).into_cached()`
+  * also a functional vector; however, caches or memoizes computed elements.
 
 ## Practical Example
 
-To have a practical example, let's assume that our algorithm is the [two-opt](https://en.wikipedia.org/wiki/2-opt) which is a local search algorithm to solve the traveling salesperson problem. The algorithm takes a tour and keeps modifying it until its distance can no longer be reduced within the two-opt neighborhood. We can have our generic implementation as follows.
+To demonstrate when and why these traits are useful, let's assume that we are implementing the [two-opt](https://en.wikipedia.org/wiki/2-opt) which is a local search algorithm to solve the traveling salesperson problem. The algorithm takes a tour and keeps modifying it until its distance can no longer be reduced within the two-opt neighborhood. We can have our generic implementation as follows.
 
 ```rust
 use orx_v::*;
 
-fn apply_two_opt(tour: &mut impl V1Mut<usize>, i: usize, j: usize) {
+fn apply_two_opt(mut tour: impl V1Mut<usize>, i: usize, j: usize) {
     let mut i = i + 1;
     let mut j = j;
     while i < j {
@@ -216,7 +256,7 @@ fn apply_two_opt(tour: &mut impl V1Mut<usize>, i: usize, j: usize) {
     }
 }
 
-fn two_opt(distances: impl V2<u32>, tour: &mut impl V1Mut<usize>) -> u32 {
+fn two_opt(distances: impl V2<u32>, mut tour: impl V1Mut<usize>) -> u32 {
     let mut improvement = 0;
     let d = distances;
     let n = tour.card([]);
@@ -239,7 +279,7 @@ fn two_opt(distances: impl V2<u32>, tour: &mut impl V1Mut<usize>) -> u32 {
                 if removed_len > added_len {
                     improved = true;
                     improvement += removed_len - added_len;
-                    apply_two_opt(tour, i, j);
+                    apply_two_opt(&mut tour, i, j);
                 }
             }
         }
@@ -249,7 +289,11 @@ fn two_opt(distances: impl V2<u32>, tour: &mut impl V1Mut<usize>) -> u32 {
 }
 ```
 
-Notice that this implementation resembles the implementation where we would use `&mut [usize]` for a tour and `Vec<Vec<u32>>` for a distance matrix. However, we can call this method with many more input types that make sense in different situations.
+Notice that this implementation is not much different than the implementation where we would use `Vec<usize>` for a tour and `Vec<Vec<u32>>` for a distance matrix.
+
+However, it is much different in the caller side.
+
+We can call this algorithm with a wide range of input types that make sense in different situations.
 
 ```rust ignore
 let n = 100;
@@ -313,9 +357,13 @@ let _improvement = two_opt(&distances, &mut tour);
 
 ## Matrices
 
-`Matrix<T>` and `MatrixMut<T>` traits are also defined to allow for polymorphic matrix types. Their interface is quite similar to those of `V2<T>` and `V2Mut<T>` except that they require rectangular bounds.
+In addition to vector traits, specialized [`Matrix<T>`](https://docs.rs/orx-imp-vec/latest/orx_v/trait.Matrix.html) and [`MatrixMut<T>`]((https://docs.rs/orx-imp-vec/latest/orx_v/trait.Matrix.html)) traits are also defined to allow for polymorphic matrix types.
 
-They can be crated by calling `as_matrix` or `v1_as_matrix` methods on one-dimensional (flattened matrix) and two-dimensional vectors.
+Their interface is naturally very similar to those of `V2<T>` and `V2Mut<T>` except that they require rectangular bounds.
+
+Any `V2` vector with rectangular cardinality can be converted into or viewed as a row-major or column-major matrix by calling `into_matrix` or `as_matrix` methods.
+
+Further, any `V1` vector can be transformed or viewed as a flattened matrix by calling `v1_into_matrix` or `v1_as_matrix` methods.
 
 ## Features
 
@@ -323,7 +371,7 @@ Vector trait implementations for vectors in well known external libraries are be
 
 ## Contributing
 
-Contributions are welcome! Feedback based on experiences are appreciated
+Contributions, ideas and feedback are welcome!
 
 If you notice an error, have a question or think something could be improved, or think certain data types must also implement the vector traits, please open an [issue](https://github.com/orxfun/orx-imp-vec/issues/new) or create a PR.
 
