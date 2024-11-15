@@ -12,7 +12,7 @@ Two vector traits are defined:
 
 ### Immutable Vectors: NVec<D, T>
 
-`NVec<D, T>` is a `D` dimensional vector where the scalar elements are of type `T`.
+[**NVec<D, T>**](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html) is a `D` dimensional vector where the scalar elements are of type `T`.
 
 It has only a few required methods. At its core, the following define the vectors' shared behavior:
 * `at`: efficient random access by indices
@@ -21,7 +21,7 @@ It has only a few required methods. At its core, the following define the vector
 
 #### Random Access
 
-The first shared functionality is defined by the `at` method which is analogous to the index operator of a Vec, however, extended to higher dimensions.
+The first shared functionality is defined by the [`at`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#tymethod.at) method which is analogous to the index operator of a Vec, however, extended to higher dimensions.
 
 ```rust ignore
 fn at(&self, idx: impl IntoIdx<D>) -> T;
@@ -66,13 +66,13 @@ Further, due to the abstraction through traits, we can have composed definitions
 
 #### Cardinality
 
-The second shared functionality is the knowledge of the vectors and all of its children's cardinality all the way down to the scalars. This is provided by the `card` method that is analogous to `len` method extended to provide complete cardinality information rather than only the number of immediate children.
+The second shared functionality is the knowledge of the vector's and all of its children's cardinality all the way down to the scalars. This is provided by the [`card`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#method.card) method that is analogous to `len` method extended to provide complete cardinality information rather than only the number of immediate children.
 
 ```rust ignore
 fn card(&self, idx: impl Into<D::CardIdx>) -> usize;
 ```
 
-Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrates how to define their bounds.
+Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrate how to define their bounds.
 
 ```rust
 use orx_v::*;
@@ -149,13 +149,13 @@ assert_eq!(v2.card([1]), 0);
 assert_eq!(v2.card([2]), 3);
 ```
 
-You may again notice the benefit of the abstraction in the `num_elements` definition above. In this example, we used a Vec but actually we could use any `NVec<D1, usize>` implementation. For instance, assume we have a `D2` vector where each row has 1000 elements while the last element has 1. We can easily represent this with a functional vector or a sparse vector and avoid allocating the entire vector of number of elements.
+The `num_elements` definition also demonstrates the benefit of abstraction. In this example, we used a Vec, but we could've used any `NVec<D1, usize>` implementation. For instance, assume we have a `D2` vector where each row has 1000 elements while the last element has 1. We can easily represent this with a functional vector or a sparse vector and avoid allocating the entire vector of number of elements.
 
 #### Sequential Access
 
-Not to be confused with `iter()` method on collections, `all` method yields the inner-most scalar elements.
+Not to be confused with `iter()` method on collections, [`all`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#tymethod.all) method yields the inner-most scalar elements.
 
-In order to iterate over the immediate children, `children` method can be used.
+In order to iterate over the immediate children, `children` method can be used instead.
 
 ```rust
 use orx_v::*;
@@ -180,9 +180,9 @@ assert!(children.next().is_none());
 
 ### Mutable Vectors: NVecMut<D, T>
 
-As expected, `NVecMut` extends `NVec`; i.e., `NVecMut<D, T>: NVec<D, T>`.
+As expected, [**NVecMut**](https://docs.rs/orx-v/latest/orx_v/trait.NVecMut.html) extends `NVec`; i.e., `NVecMut<D, T>: NVec<D, T>`.
 
-Its core functionality is defined by the `at_mut` method.
+Its core functionality is defined by the [`at_mut`](https://docs.rs/orx-v/latest/orx_v/trait.NVecMut.html#tymethod.at_mut) method.
 
 ```rust ignore
 fn at_mut<Idx: IntoIdx<D>>(&mut self, idx: Idx) -> &mut T;
@@ -220,26 +220,26 @@ V2Mut<T>  <====>   NVecMut<D2, T>
 
 ## V for Vectors!
 
-You might have observed in some of examples above the use of `V`. This is basically the entry point of builders of different types of multi dimensional vectors. It is followed by the dimension of the vector to be created, such as `V.d1()` or `V.d3()`. Next we can call methods to create special vectors such as:
-* **ConstantVec**
+[**V**](https://docs.rs/orx-v/latest/orx_v/struct.V.html) is basically the entry point of builders for various vector types of multi dimensional vectors. It is followed by the dimension of the vector to be created, such as `V.d1()` or `V.d3()`. Next we can call methods to create special vectors such as:
+* [**ConstantVec**](https://docs.rs/orx-v/latest/orx_v/struct.ConstantVec.html)
   * `V.d1().const(42)`
   * a vector that yields only 42 for all indices
-* **EmptyVec**
+* [**EmptyVec**](https://docs.rs/orx-v/latest/orx_v/struct.EmptyVec.html)
   * `V.d3().empty::<i32>()`
   * a vector with no elements, zero cardinality
-* **SparseVec**
+* [**SparseVec**](https://docs.rs/orx-v/latest/orx_v/struct.SparseVec.html)
   * `V.d2().sparse(1000)`
-  * a sparse vector where all non-set elements are equal to 1000
-* **FunVec**
+  * a sparse vector where all elements which are not explicitly set are equal to 1000
+* [**FunVec**](https://docs.rs/orx-v/latest/orx_v/struct.FunVec.html)
   * `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j]))`
   * a lazy vector which computes elements on the fly as requested
-* **CachedVec**
+* [**CachedVec**](https://docs.rs/orx-v/latest/orx_v/struct.CachedVec.html)
   * `V.d2().fun(|[i, j]| euclidean(&locations[i], &locations[j])).into_cached()`
-  * also a functional vector; however, caches or memoizes computed elements.
+  * also a lazy vector vector; however, it caches or memoizes computed elements
 
 ## Practical Example
 
-To demonstrate when and why these traits are useful, let's assume that we are implementing the [two-opt](https://en.wikipedia.org/wiki/2-opt) which is a local search algorithm to solve the traveling salesperson problem. The algorithm takes a tour and keeps modifying it until its distance can no longer be reduced within the two-opt neighborhood. We can have our generic implementation as follows.
+To demonstrate when and why these traits might be useful, let's assume that we are implementing the [two-opt](https://en.wikipedia.org/wiki/2-opt) which is a local search algorithm to solve the traveling salesperson problem. The algorithm takes a tour and keeps modifying it until its distance can no longer be reduced within the two-opt neighborhood. We can have our generic implementation as follows.
 
 ```rust
 use orx_v::*;
@@ -357,13 +357,13 @@ let _improvement = two_opt(&distances, &mut tour);
 
 ## Matrices
 
-In addition to vector traits, specialized [`Matrix<T>`](https://docs.rs/orx-imp-vec/latest/orx_v/trait.Matrix.html) and [`MatrixMut<T>`]((https://docs.rs/orx-imp-vec/latest/orx_v/trait.Matrix.html)) traits are also defined to allow for polymorphic matrix types.
+In addition to vector traits, specialized [**Matrix&lt;T&gt;**](https://docs.rs/orx-v/latest/orx_v/trait.Matrix.html) and [**MatrixMut&lt;T&gt;**](https://docs.rs/orx-v/latest/orx_v/trait.MatrixMut.html) traits are also defined to allow for polymorphic matrix types.
 
 Their interface is naturally very similar to those of `V2<T>` and `V2Mut<T>` except that they require rectangular bounds.
 
-Any `V2` vector with rectangular cardinality can be converted into or viewed as a row-major or column-major matrix by calling `into_matrix` or `as_matrix` methods.
+Any `V2` vector with rectangular cardinality can be converted into or viewed as a row-major or column-major matrix by calling `into_matrix` or `as_matrix` methods of the [**V2AsMatrix**](https://docs.rs/orx-v/latest/orx_v/trait.V2AsMatrix.html) trait.
 
-Further, any `V1` vector can be transformed or viewed as a flattened matrix by calling `v1_into_matrix` or `v1_as_matrix` methods.
+Further, any `V1` vector can be transformed or viewed as a flattened matrix by calling `v1_into_matrix` or `v1_as_matrix` methods of the [**V1AsMatrix**](https://docs.rs/orx-v/latest/orx_v/trait.V1AsMatrix.html) trait.
 
 ## Features
 
