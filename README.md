@@ -8,20 +8,20 @@ You may find an article discussing the motivation [here](https://orxfun.github.i
 
 ## Traits
 
-Two vector traits are defined:
+Two vector traits are defined: one for immutable vectors and the other one extending it to mutable vectors.
 
 ### Immutable Vectors: NVec<D, T>
 
 [**NVec<D, T>**](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html) is a `D` dimensional vector where the scalar elements are of type `T`.
 
-It has only a few required methods. At its core, the following define the vectors' shared behavior:
+At its core, the following define the vectors' shared behavior:
 * `at`: efficient random access by indices
 * `card`: complete knowledge of its size
 * `all`: efficient serial access over all scalar elements
 
 #### Random Access
 
-The first shared functionality is defined by the [`at`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#tymethod.at) method which is analogous to the index operator of a Vec, however, extended to higher dimensions.
+The first shared functionality is defined by the [`at`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#tymethod.at) method. It is analogous to the index operator of a Vec, however, extended to higher dimensions.
 
 ```rust ignore
 fn at(&self, idx: impl IntoIdx<D>) -> T;
@@ -52,7 +52,7 @@ assert_eq!(v2.at([2, 1]), 21);
 assert_eq!(v2.at([1, 0]), 1000);
 ```
 
-As the examples reveal, various useful concrete types implement the vector traits, such as:
+As the examples reveal, various useful concrete types already implement the vector traits, such as:
 * the standard vector, arrays, slices;
 * ndarray arrays such as Array1, Array2, etc.;
 * sparse vectors;
@@ -60,19 +60,19 @@ As the examples reveal, various useful concrete types implement the vector trait
 * functional vectors, and so on.
 
 Further, due to the abstraction through traits, we can have composed definitions. For instance
-* Both `Vec<T>` and `SparseVec<D1, T>` implements `NVec<D1, T>`.
-* Then, both `Vec<Vec<T>>` and `Vec<SparseVec<D1, T>>` implement `NVec<D2, T>`.
-* Actually, any `Vec<V>` where `V: NVec<D1, T>` implements `NVec<D2, T>`.
+* `Vec<T>` and `SparseVec<D1, T>` both implement `NVec<D1, T>`.
+* Then,  `Vec<Vec<T>>` and `Vec<SparseVec<D1, T>>` both implement `NVec<D2, T>`.
+* Actually, any `Vec<V>` where `V: NVec<D1, T>` automatically implements `NVec<D2, T>`.
 
 #### Cardinality
 
-The second shared functionality is the knowledge of the vector's and all of its children's cardinality all the way down to the scalars. This is provided by the [`card`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#method.card) method that is analogous to `len` method extended to provide complete cardinality information rather than only the number of immediate children.
+The second shared functionality is the knowledge of the vector's and all of its children's cardinality, all the way down to scalars. This is provided by the [`card`](https://docs.rs/orx-v/latest/orx_v/trait.NVec.html#method.card) method. It is analogous to `len` method of common collections; however, extended to provide complete cardinality information rather than only the number of immediate children.
 
 ```rust ignore
 fn card(&self, idx: impl Into<D::CardIdx>) -> usize;
 ```
 
-Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrate how to define their bounds.
+Below, you may see examples for `D1` vectors. Notice that some vectors are naturally unbounded, such as a constant vector, a functional vector or a sparse vector. The examples also illustrate how to define their bounds whenever needed.
 
 ```rust
 use orx_v::*;
@@ -289,7 +289,7 @@ fn two_opt(distances: impl V2<u32>, mut tour: impl V1Mut<usize>) -> u32 {
 }
 ```
 
-Notice that this implementation is not much different than the implementation where we would use `Vec<usize>` for a tour and `Vec<Vec<u32>>` for a distance matrix.
+This implementation is not much different than the implementation where we would use `Vec<usize>` for a tour and `Vec<Vec<u32>>` for a distance matrix.
 
 However, it is much different in the caller side.
 
