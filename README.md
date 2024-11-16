@@ -1,5 +1,8 @@
 # orx-v
 
+[![orx-v crate](https://img.shields.io/crates/v/orx-v.svg)](https://crates.io/crates/orx-v)
+[![orx-v documentation](https://docs.rs/orx-v/badge.svg)](https://docs.rs/orx-v)
+
 Traits to unify all vectors!
 
 The focus of this crate is mainly computation and algorithms. The goal is to allow for a generic algorithm implementation that can be called by many polymorphic vector types having a corresponding practical use case.
