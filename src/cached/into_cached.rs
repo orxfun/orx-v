@@ -79,6 +79,20 @@ where
     /// In such scenarios, [`IntoCached`] trait makes it very convenient to convert a functional
     /// vector into a cached functional vector.
     ///
+    /// # Safety
+    ///
+    /// The cache implementation that `CachedVec` uses by default is
+    /// * `HashMap` when std feature is enabled,
+    /// * `BTReeMap` in a no-std program.
+    ///
+    /// The cached vector adds interior mutability to these structures which is currently not
+    /// thread-safe.
+    /// Practically, this means the following:
+    /// * We can use this vector safely by a single thread.
+    /// * Using this vector concurrently by multiple threads leads to data race.
+    ///   For instance, if the cached vector is an input of a parallelized algorithm,
+    ///   we need to provide a different copy of the vector to each thread.
+    ///
     /// # Examples
     ///
     /// ```
