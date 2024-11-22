@@ -1,5 +1,5 @@
 use super::{
-    layout::{ColMajor, RowMajor},
+    layout::{V1MatrixColMajor, V1MatrixRowMajor},
     v1_matrix::V1Matrix,
 };
 use crate::{NVec, NVecMut, D1};
@@ -52,11 +52,11 @@ pub trait V1AsMatrix<T> {
     ///
     /// assert_eq!(mat.all().count(), 12);
     /// ```
-    fn v1_into_matrix(self, num_rows: usize, num_cols: usize) -> V1Matrix<T, Self, RowMajor>
+    fn v1_into_matrix(self, num_rows: usize, num_cols: usize) -> V1Matrix<T, Self, V1MatrixRowMajor>
     where
         Self: NVec<D1, T>,
     {
-        V1Matrix::new(RowMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixRowMajor::new(num_rows, num_cols), self)
     }
 
     /// Creates a row-major matrix view over the flat `D1` vector.
@@ -105,11 +105,11 @@ pub trait V1AsMatrix<T> {
     ///
     /// assert_eq!(mat.all().count(), 12);
     /// ```
-    fn v1_as_matrix(&self, num_rows: usize, num_cols: usize) -> V1Matrix<T, &Self, RowMajor>
+    fn v1_as_matrix(&self, num_rows: usize, num_cols: usize) -> V1Matrix<T, &Self, V1MatrixRowMajor>
     where
         Self: NVec<D1, T>,
     {
-        V1Matrix::new(RowMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixRowMajor::new(num_rows, num_cols), self)
     }
 
     /// Creates a mutable row-major matrix view over the flat `D1` vector.
@@ -158,11 +158,11 @@ pub trait V1AsMatrix<T> {
         &mut self,
         num_rows: usize,
         num_cols: usize,
-    ) -> V1Matrix<T, &mut Self, RowMajor>
+    ) -> V1Matrix<T, &mut Self, V1MatrixRowMajor>
     where
         Self: NVecMut<D1, T>,
     {
-        V1Matrix::new(RowMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixRowMajor::new(num_rows, num_cols), self)
     }
 
     /// Converts the flat `D1` vector into a column-major matrix.
@@ -213,11 +213,11 @@ pub trait V1AsMatrix<T> {
         self,
         num_rows: usize,
         num_cols: usize,
-    ) -> V1Matrix<T, Self, ColMajor>
+    ) -> V1Matrix<T, Self, V1MatrixColMajor>
     where
         Self: NVec<D1, T>,
     {
-        V1Matrix::new(ColMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixColMajor::new(num_rows, num_cols), self)
     }
 
     /// Creates a column-major matrix view over the flat `D1` vector.
@@ -268,11 +268,11 @@ pub trait V1AsMatrix<T> {
         &self,
         num_rows: usize,
         num_cols: usize,
-    ) -> V1Matrix<T, &Self, ColMajor>
+    ) -> V1Matrix<T, &Self, V1MatrixColMajor>
     where
         Self: NVec<D1, T>,
     {
-        V1Matrix::new(ColMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixColMajor::new(num_rows, num_cols), self)
     }
 
     /// Creates a mutable column-major matrix view over the flat `D1` vector.
@@ -319,11 +319,11 @@ pub trait V1AsMatrix<T> {
         &mut self,
         num_rows: usize,
         num_cols: usize,
-    ) -> V1Matrix<T, &mut Self, ColMajor>
+    ) -> V1Matrix<T, &mut Self, V1MatrixColMajor>
     where
         Self: NVecMut<D1, T>,
     {
-        V1Matrix::new(ColMajor::new(num_rows, num_cols), self)
+        V1Matrix::new(V1MatrixColMajor::new(num_rows, num_cols), self)
     }
 }
 

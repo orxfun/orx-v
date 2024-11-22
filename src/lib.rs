@@ -56,7 +56,8 @@ pub use flat_jagged::{FlatJagged, IntoJagged};
 pub use fun::FunVec;
 pub use matrices::{
     Matrix, MatrixColMajor, MatrixColMajorMut, MatrixMut, MatrixRowMajor, MatrixRowMajorMut,
-    V1AsMatrix, V2AsMatrix,
+    V1AsMatrix, V1Matrix, V1MatrixColMajor, V1MatrixLayout, V1MatrixRowMajor, V2AsMatrix,
+    V2MatrixColMajor, V2MatrixRowMajor,
 };
 pub use nvec::NVec;
 pub use nvec_aliases::*;

@@ -9,5 +9,5 @@ pub use matrix::Matrix;
 pub use matrix_col_major::{MatrixColMajor, MatrixColMajorMut};
 pub use matrix_mut::MatrixMut;
 pub use matrix_row_major::{MatrixRowMajor, MatrixRowMajorMut};
-pub use v1::V1AsMatrix;
-pub use v2::V2AsMatrix;
+pub use v1::{V1AsMatrix, V1Matrix, V1MatrixColMajor, V1MatrixLayout, V1MatrixRowMajor};
+pub use v2::{V2AsMatrix, V2MatrixColMajor, V2MatrixRowMajor};
