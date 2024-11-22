@@ -5,6 +5,7 @@ use super::super::{
 use crate::{matrices::MatrixMut, IntoIdx, NVec, NVecMut, D1, D2};
 use core::marker::PhantomData;
 
+/// A row major matrix.
 pub struct V2MatrixRowMajor<T, V>
 where
     V: NVec<D2, T>,

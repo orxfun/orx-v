@@ -2,6 +2,7 @@ use super::super::{matrix::Matrix, MatrixColMajor, MatrixColMajorMut};
 use crate::{matrices::MatrixMut, IntoIdx, NVec, NVecMut, D1, D2};
 use core::marker::PhantomData;
 
+/// A column major matrix.
 pub struct V2MatrixColMajor<T, V>
 where
     V: NVec<D2, T>,
