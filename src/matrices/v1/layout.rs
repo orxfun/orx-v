@@ -42,18 +42,18 @@ pub trait V1MatrixLayout: Clone {
 
 /// Row major layout.
 #[derive(Clone)]
-pub struct V1MatrixRowMajor {
+pub struct V1LayoutRowMajor {
     num_rows: usize,
     num_cols: usize,
 }
 
-impl V1MatrixRowMajor {
+impl V1LayoutRowMajor {
     pub(super) fn new(num_rows: usize, num_cols: usize) -> Self {
         Self { num_rows, num_cols }
     }
 }
 
-impl V1MatrixLayout for V1MatrixRowMajor {
+impl V1MatrixLayout for V1LayoutRowMajor {
     #[inline(always)]
     fn num_rows(&self) -> usize {
         self.num_rows
@@ -98,18 +98,18 @@ impl V1MatrixLayout for V1MatrixRowMajor {
 
 /// Column major layout.
 #[derive(Clone)]
-pub struct V1MatrixColMajor {
+pub struct V1LayoutColMajor {
     num_rows: usize,
     num_cols: usize,
 }
 
-impl V1MatrixColMajor {
+impl V1LayoutColMajor {
     pub(super) fn new(num_rows: usize, num_cols: usize) -> Self {
         Self { num_rows, num_cols }
     }
 }
 
-impl V1MatrixLayout for V1MatrixColMajor {
+impl V1MatrixLayout for V1LayoutColMajor {
     #[inline(always)]
     fn num_rows(&self) -> usize {
         self.num_rows

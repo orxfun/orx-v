@@ -1,4 +1,4 @@
-use super::layout::{V1MatrixColMajor, V1MatrixLayout, V1MatrixRowMajor};
+use super::layout::{V1LayoutColMajor, V1LayoutRowMajor, V1MatrixLayout};
 use crate::{
     matrices::{
         Matrix, MatrixColMajor, MatrixColMajorMut, MatrixMut, MatrixRowMajor, MatrixRowMajorMut,
@@ -6,6 +6,16 @@ use crate::{
     IntoIdx, NVec, NVecMut, D1, D2,
 };
 use core::marker::PhantomData;
+
+/// A row-major matrix represented by a flat one-dimensional vector `V1`.
+///
+/// Type alias for [`V1Matrix<T, V, V1LayoutRowMajor>`].
+pub type V1MatrixRowMajor<T, V> = V1Matrix<T, V, V1LayoutRowMajor>;
+
+/// A col-major matrix represented by a flat one-dimensional vector `V1`.
+///
+/// Type alias for [`V1Matrix<T, V, V1LayoutColMajor>`].
+pub type V1MatrixColMajor<T, V> = V1Matrix<T, V, V1LayoutColMajor>;
 
 /// A matrix represented by a flat one-dimensional vector `V1`.
 #[derive(Clone)]
@@ -91,7 +101,7 @@ where
     }
 }
 
-impl<T, V> MatrixRowMajor<T> for V1Matrix<T, V, V1MatrixRowMajor>
+impl<T, V> MatrixRowMajor<T> for V1Matrix<T, V, V1LayoutRowMajor>
 where
     V: NVec<D1, T>,
 {
@@ -100,7 +110,7 @@ where
     }
 }
 
-impl<T, V> MatrixRowMajorMut<T> for V1Matrix<T, V, V1MatrixRowMajor>
+impl<T, V> MatrixRowMajorMut<T> for V1Matrix<T, V, V1LayoutRowMajor>
 where
     V: NVecMut<D1, T>,
 {
@@ -109,7 +119,7 @@ where
     }
 }
 
-impl<T, V> MatrixColMajor<T> for V1Matrix<T, V, V1MatrixColMajor>
+impl<T, V> MatrixColMajor<T> for V1Matrix<T, V, V1LayoutColMajor>
 where
     V: NVec<D1, T>,
 {
@@ -118,7 +128,7 @@ where
     }
 }
 
-impl<T, V> MatrixColMajorMut<T> for V1Matrix<T, V, V1MatrixColMajor>
+impl<T, V> MatrixColMajorMut<T> for V1Matrix<T, V, V1LayoutColMajor>
 where
     V: NVecMut<D1, T>,
 {

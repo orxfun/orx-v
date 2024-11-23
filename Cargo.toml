@@ -1,6 +1,6 @@
 [package]
 name = "orx-v"
-version = "1.0.4"
+version = "1.1.0"
 edition = "2021"
 authors = ["orxfun <orx.ugur.arikan@gmail.com>"]
 description = "Traits to unify all vectors!"

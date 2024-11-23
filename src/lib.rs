@@ -29,7 +29,6 @@ mod fun;
 mod impl_nvec;
 mod impl_nvec_core;
 mod impl_nvec_mut;
-mod matrices;
 mod nvec;
 mod nvec_aliases;
 mod nvec_core;
@@ -37,6 +36,9 @@ mod nvec_core_sealed;
 mod nvec_mut;
 mod sparse;
 mod v;
+
+/// Matrix representations.
+pub mod matrices;
 
 // pub(crate) use
 
@@ -56,8 +58,7 @@ pub use flat_jagged::{FlatJagged, IntoJagged};
 pub use fun::FunVec;
 pub use matrices::{
     Matrix, MatrixColMajor, MatrixColMajorMut, MatrixMut, MatrixRowMajor, MatrixRowMajorMut,
-    V1AsMatrix, V1Matrix, V1MatrixColMajor, V1MatrixLayout, V1MatrixRowMajor, V2AsMatrix,
-    V2MatrixColMajor, V2MatrixRowMajor,
+    V1AsMatrix, V2AsMatrix,
 };
 pub use nvec::NVec;
 pub use nvec_aliases::*;

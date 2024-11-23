@@ -1,4 +1,4 @@
-use super::layout::{V1MatrixColMajor, V1MatrixLayout};
+use super::layout::{V1LayoutColMajor, V1MatrixLayout};
 use crate::{Dim, IntoIdx, NVec, NVecCoreSealed, NVecMut, D1};
 use core::marker::PhantomData;
 
@@ -7,7 +7,7 @@ where
     V: NVec<D1, T>,
 {
     data: V,
-    layout: V1MatrixColMajor,
+    layout: V1LayoutColMajor,
     j: usize,
     phantom: PhantomData<T>,
 }
@@ -16,7 +16,7 @@ impl<T, V> Col<T, V>
 where
     V: NVec<D1, T>,
 {
-    pub(super) fn new(data: V, layout: V1MatrixColMajor, j: usize) -> Self {
+    pub(super) fn new(data: V, layout: V1LayoutColMajor, j: usize) -> Self {
         Self {
             data,
             layout,
