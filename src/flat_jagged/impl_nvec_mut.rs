@@ -3,7 +3,7 @@ use crate::{Dim, IntoIdx, NVec, NVecMut, D1, D2};
 
 // row
 
-impl<'b, V, I, T> NVecMut<D1, T> for FlatJaggedRowMut<'b, V, I, T>
+impl<V, I, T> NVecMut<D1, T> for FlatJaggedRowMut<'_, V, I, T>
 where
     V: NVec<D1, T> + NVecMut<D1, T>,
     I: NVec<D1, usize>,
