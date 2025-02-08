@@ -1,5 +1,6 @@
 use crate::{impl_v1_mut, impl_vn_mut, D2, D3, D4};
 use orx_fixed_vec::*;
+use orx_iterable::CollectionMut;
 
 impl_v1_mut!([T], FixedVec<T>, [T: Copy]);
 impl_vn_mut!(D2, [T, C], FixedVec<C>, [C: NVecMut<<D2 as Dim>::PrevDim, T>]);
