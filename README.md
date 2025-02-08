@@ -1,6 +1,7 @@
 # orx-v
 
 [![orx-v crate](https://img.shields.io/crates/v/orx-v.svg)](https://crates.io/crates/orx-v)
+[![orx-v crate](https://img.shields.io/crates/d/orx-v.svg)](https://crates.io/crates/orx-v)
 [![orx-v documentation](https://docs.rs/orx-v/badge.svg)](https://docs.rs/orx-v)
 
 Traits to unify all vectors!
@@ -382,4 +383,4 @@ If you notice an error, have a question or think something could be improved, or
 
 ## License
 
-This library is licensed under MIT license. See LICENSE for details.
+Dual-licensed under [Apache 2.0](LICENSE-APACHE) or [MIT](LICENSE-MIT).
