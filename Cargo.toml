@@ -15,8 +15,8 @@ ndarray = { version = "0.16.1", default-features = false, optional = true }
 orx-fixed-vec = { path = "../orx-fixed-vec", default-features = false, optional = true }
 orx-iterable = { path = "../orx-iterable", default-features = false }
 orx-split-vec = { path = "../orx-split-vec", default-features = false, optional = true }
-smallvec = { version = "1.13.2", default-features = false, optional = true }
-tinyvec = { version = "1.8.1", default-features = false, optional = true, features = [
+smallvec = { version = "1.14.0", default-features = false, optional = true }
+tinyvec = { version = "1.9.0", default-features = false, optional = true, features = [
     "alloc",
 ] }
 
