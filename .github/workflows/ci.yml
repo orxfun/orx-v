@@ -16,7 +16,8 @@ jobs:
     strategy:
       matrix:
         toolchain: ["stable"]
-        features: ["", "--features all"]
+        features: ["", "--no-default-features", "--features all", "--features all_no_std"]
+        no_std_features: ["--no-default-features", "--no-default-features --features all_no_std"]
 
     steps:
     - uses: actions/checkout@v4
@@ -47,7 +48,7 @@ jobs:
     - name: Test-32bit
       run: cargo test --verbose --target i686-unknown-linux-musl ${{ matrix.features }}
     - name: Check-wasm
-      run: cargo check --verbose --target wasm32v1-none ${{ matrix.features }}
+      run: cargo check --verbose --target wasm32v1-none ${{ matrix.no_std_features }}
 
     - name: Clippy
       run: cargo clippy ${{ matrix.features }} -- -D warnings --verbose
