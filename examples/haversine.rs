@@ -54,15 +54,15 @@ fn calc_avg_distance(paths: &[Vec<usize>], distance_matrix: impl Matrix<f64>) ->
 fn random_locations(rng: &mut ChaCha8Rng, n: usize) -> Vec<Location> {
     (0..n)
         .map(|_| Location {
-            lat: -90.0 + 180.0 * rng.gen::<f64>(),
-            lng: -180.0 + 360.0 * rng.gen::<f64>(),
+            lat: -90.0 + 180.0 * rng.random::<f64>(),
+            lng: -180.0 + 360.0 * rng.random::<f64>(),
         })
         .collect()
 }
 
 fn random_path(rng: &mut ChaCha8Rng, n: usize) -> Vec<usize> {
-    let path_len = rng.gen_range(0..n);
-    (0..path_len).map(|_| rng.gen_range(0..n)).collect()
+    let path_len = rng.random_range(0..n);
+    (0..path_len).map(|_| rng.random_range(0..n)).collect()
 }
 
 fn random_paths(rng: &mut ChaCha8Rng, n: usize, num_paths: usize) -> Vec<Vec<usize>> {

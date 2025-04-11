@@ -51,12 +51,12 @@ fn random_graph(seed: u64, connectivity: f64, n: usize) -> impl V2<Edge> {
         let mut list = vec![];
 
         for j in 0..n {
-            if rng.gen_bool(connectivity) {
+            if rng.random_bool(connectivity) {
                 let begin = i.saturating_sub(15) as u32;
                 let end = i.saturating_add(15) as u32;
                 list.push(Edge {
                     head: j,
-                    cost: rng.gen_range(begin..end),
+                    cost: rng.random_range(begin..end),
                 });
             }
         }

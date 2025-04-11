@@ -52,7 +52,7 @@ fn complete_distance_matrix_d2(n: usize) -> Vec<Vec<u32>> {
     let mut mat = vec![vec![0; n]; n];
     for i in 0..n {
         for j in (i + 1)..n {
-            let d = rng.gen_range(1..20);
+            let d = rng.random_range(1..20);
             mat[i][j] = d;
             mat[j][i] = d;
         }
@@ -66,7 +66,7 @@ fn complete_ndarray_d2(n: usize) -> ndarray::Array2<u32> {
     let mut mat = ndarray::Array2::zeros((n, n));
     for i in 0..n {
         for j in (i + 1)..n {
-            let d = rng.gen_range(1..20);
+            let d = rng.random_range(1..20);
             mat[[i, j]] = d;
             mat[[j, i]] = d;
         }
@@ -79,7 +79,7 @@ fn complete_distance_matrix_d1(n: usize) -> Vec<u32> {
     let mut mat = vec![0; n * n];
     for i in 0..n {
         for j in (i + 1)..n {
-            let d = rng.gen_range(1..20);
+            let d = rng.random_range(1..20);
             mat[i * n + j] = d;
             mat[j * n + i] = d;
         }
@@ -93,7 +93,7 @@ fn complete_ndarray_d1(n: usize) -> ndarray::Array1<u32> {
     let mut mat = ndarray::Array1::zeros(n * n);
     for i in 0..n {
         for j in (i + 1)..n {
-            let d = rng.gen_range(1..20);
+            let d = rng.random_range(1..20);
             mat[i * n + j] = d;
             mat[j * n + i] = d;
         }
@@ -107,9 +107,9 @@ fn finite_distances_map(n: usize) -> std::collections::HashMap<[usize; 2], u32> 
     let num_finite = 5 * n;
     (0..num_finite)
         .flat_map(|_| {
-            let i = rng.gen_range(0..n);
-            let j = rng.gen_range(0..n);
-            let distance = rng.gen_range(1..20);
+            let i = rng.random_range(0..n);
+            let j = rng.random_range(0..n);
+            let distance = rng.random_range(1..20);
             [([i, j], distance), ([j, i], distance)]
         })
         .collect()
@@ -129,7 +129,7 @@ fn routing_engine(a: &Location, b: &Location) -> u32 {
 fn get_locations(n: usize) -> Vec<Location> {
     let mut rng = ChaCha8Rng::seed_from_u64(33);
     (0..n)
-        .map(|_| Location(rng.gen_range(-20..20), rng.gen_range(-20..20)))
+        .map(|_| Location(rng.random_range(-20..20), rng.random_range(-20..20)))
         .collect()
 }
 

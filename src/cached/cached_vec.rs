@@ -1,6 +1,6 @@
 use super::cache::{Cache, DefaultCache};
 use crate::common_trait_helpers::debug::*;
-use crate::{dim::*, NVec};
+use crate::{NVec, dim::*};
 use core::fmt::Debug;
 use core::{cell::UnsafeCell, marker::PhantomData};
 
@@ -72,7 +72,7 @@ where
     #[allow(clippy::mut_from_ref)]
     #[inline(always)]
     pub(super) unsafe fn entry_or_insert_with(&self, idx: impl IntoIdx<D>) -> &mut T {
-        let cache = &mut *self.cache.get();
+        let cache = unsafe { &mut *self.cache.get() };
         cache.entry_or_insert_with(idx.into_idx(), |idx| self.vec.at(idx))
     }
 
