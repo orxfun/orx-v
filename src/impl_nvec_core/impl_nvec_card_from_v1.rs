@@ -1,4 +1,4 @@
-/// Implements `NVecCoreSealed<D1>` for a struct which is sort of like a 1-dimensional
+/// Implements `NVecCore<D1>` for a struct which is sort of like a 1-dimensional
 /// vector, such as the standard `Vec<T>`.
 #[macro_export]
 macro_rules! impl_v1_card {
@@ -6,7 +6,7 @@ macro_rules! impl_v1_card {
         #[allow(unused_imports)]
         use $crate::*;
 
-        impl<$($impl_generics)*> NVecCoreSealed<D1, T> for $V where $($where)* {
+        impl<$($impl_generics)*> NVecCore<D1, T> for $V where $($where)* {
             #[inline(always)]
             fn core_num_children(&self) -> usize {
                 self.len()
@@ -17,7 +17,7 @@ macro_rules! impl_v1_card {
                 self.len()
             }
 
-            fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+            fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
                 self
             }
 
@@ -35,7 +35,7 @@ macro_rules! impl_v1_card {
         #[allow(unused_imports)]
         use $crate::*;
 
-        impl<const $const_arg: usize, $($impl_generics)*> NVecCoreSealed<D1, T> for $V where $($where)* {
+        impl<const $const_arg: usize, $($impl_generics)*> NVecCore<D1, T> for $V where $($where)* {
             #[inline(always)]
             fn core_num_children(&self) -> usize {
                 self.len()
@@ -46,7 +46,7 @@ macro_rules! impl_v1_card {
                 self.len()
             }
 
-            fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+            fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
                 self
             }
 
@@ -62,7 +62,7 @@ macro_rules! impl_v1_card {
     };
 }
 
-/// Implements `NVecCoreSealed<D>` for a struct which is sort of like a 1-dimensional
+/// Implements `NVecCore<D>` for a struct which is sort of like a 1-dimensional
 /// vector, such as the standard `Vec<T>`, and a dimension `D` which is at least
 /// 2-dimensional.
 #[macro_export]
@@ -71,7 +71,7 @@ macro_rules! impl_vn_card {
         #[allow(unused_imports)]
         use $crate::*;
 
-        impl<$($impl_generics)*> NVecCoreSealed<$dim, T> for $V where $($where)* {
+        impl<$($impl_generics)*> NVecCore<$dim, T> for $V where $($where)* {
             #[inline(always)]
             fn core_num_children(&self) -> usize {
                 self.len()
@@ -82,14 +82,14 @@ macro_rules! impl_vn_card {
                 idx.into().card(self)
             }
 
-            fn core_child(&self, i: <$dim as Dim>::ChildIdx) -> impl NVecCoreSealed<<$dim as Dim>::PrevDim, T> {
+            fn core_child(&self, i: <$dim as Dim>::ChildIdx) -> impl NVecCore<<$dim as Dim>::PrevDim, T> {
                 &self[i]
             }
 
             #[allow(unused_imports)]
             fn core_map<F: FnMut(&T) -> O, O>(&self, idx: impl IntoIdx<$dim>, f: &mut F) -> O {
                 let (i, c_idx) = idx.into_idx().split_idx();
-                let child = <$V as NVecCoreSealed<$dim, T>>::core_child(self, i);
+                let child = <$V as NVecCore<$dim, T>>::core_child(self, i);
                 child.core_map(c_idx, f)
             }
 
@@ -102,7 +102,7 @@ macro_rules! impl_vn_card {
         #[allow(unused_imports)]
         use $crate::*;
 
-        impl<const $const_arg: usize, $($impl_generics)*> NVecCoreSealed<$dim, T> for $V where $($where)* {
+        impl<const $const_arg: usize, $($impl_generics)*> NVecCore<$dim, T> for $V where $($where)* {
             #[inline(always)]
             fn core_num_children(&self) -> usize {
                 self.len()
@@ -113,14 +113,14 @@ macro_rules! impl_vn_card {
                 idx.into().card(self)
             }
 
-            fn core_child(&self, i: <$dim as Dim>::ChildIdx) -> impl NVecCoreSealed<<$dim as Dim>::PrevDim, T> {
+            fn core_child(&self, i: <$dim as Dim>::ChildIdx) -> impl NVecCore<<$dim as Dim>::PrevDim, T> {
                 &self[i]
             }
 
             #[allow(unused_imports)]
             fn core_map<F: FnMut(&T) -> O, O>(&self, idx: impl IntoIdx<$dim>, f: &mut F) -> O {
                 let (i, c_idx) = idx.into_idx().split_idx();
-                let child = <$V as NVecCoreSealed<$dim, T>>::core_child(self, i);
+                let child = <$V as NVecCore<$dim, T>>::core_child(self, i);
                 child.core_map(c_idx, f)
             }
 

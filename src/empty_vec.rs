@@ -1,4 +1,4 @@
-use crate::{CardIdx, Dim, EmptyCard, IntoIdx, NVec, NVecCoreSealed, NVecMut};
+use crate::{CardIdx, Dim, EmptyCard, IntoIdx, NVec, NVecCore, NVecMut};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 
@@ -26,7 +26,7 @@ impl<D: Dim, T> Debug for EmptyVec<D, T> {
     }
 }
 
-impl<D: Dim, T> NVecCoreSealed<D, T> for EmptyVec<D, T> {
+impl<D: Dim, T> NVecCore<D, T> for EmptyVec<D, T> {
     fn core_num_children(&self) -> usize {
         0
     }
@@ -40,7 +40,7 @@ impl<D: Dim, T> NVecCoreSealed<D, T> for EmptyVec<D, T> {
     }
 
     #[allow(unreachable_code)]
-    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCoreSealed<<D as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCore<<D as Dim>::PrevDim, T> {
         EmptyCard::<D>::panic_oob(i);
         EmptyVec::<_, T>::default()
     }

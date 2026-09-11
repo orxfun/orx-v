@@ -1,6 +1,6 @@
 use super::child_d2::ChildD4D2;
 use crate::{cardinality::panic_on_all_when_udd, Dim, IdxLeqD2, IntoIdx, NVec, D3, D4};
-use crate::{NVecCore, NVecCoreSealed, NVecMut};
+use crate::{NVecCore, NVecMut};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 
@@ -30,7 +30,7 @@ where
     }
 }
 
-impl<V, T> NVecCoreSealed<D3, T> for ChildD4D3<V, T>
+impl<V, T> NVecCore<D3, T> for ChildD4D3<V, T>
 where
     V: NVecCore<D4, T>,
 {
@@ -46,7 +46,7 @@ where
         }
     }
 
-    fn core_child(&self, j: <D3 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D3 as Dim>::PrevDim, T> {
+    fn core_child(&self, j: <D3 as Dim>::ChildIdx) -> impl NVecCore<<D3 as Dim>::PrevDim, T> {
         ChildD4D2::<_, T> {
             i: self.i,
             j,

@@ -1,4 +1,4 @@
-use crate::{dim::*, nvec_core::NVecCore, NVecCoreSealed};
+use crate::{dim::*, nvec_core::NVecCore};
 
 /// A `D` dimensional vector.
 ///
@@ -321,7 +321,7 @@ pub trait NVec<D: Dim, T>: NVecCore<D, T> {
     /// ```
     #[inline(always)]
     fn num_children(&self) -> usize {
-        <Self as NVecCoreSealed<D, T>>::core_num_children(self)
+        <Self as NVecCore<D, T>>::core_num_children(self)
     }
 
     /// Returns the cardinality of the vec in any of the lower dimensions.
@@ -378,7 +378,7 @@ pub trait NVec<D: Dim, T>: NVecCore<D, T> {
     /// ```
     #[inline(always)]
     fn card(&self, idx: impl Into<D::CardIdx>) -> usize {
-        <Self as NVecCoreSealed<D, T>>::core_card(self, idx)
+        <Self as NVecCore<D, T>>::core_card(self, idx)
     }
 
     /// Returns whether or not the vector is bounded.
@@ -440,7 +440,7 @@ pub trait NVec<D: Dim, T>: NVecCore<D, T> {
     /// [`FunVec`]: crate::FunVec
     #[inline(always)]
     fn is_bounded(&self) -> bool {
-        <Self as NVecCoreSealed<D, T>>::core_num_children(self) < usize::MAX
+        <Self as NVecCore<D, T>>::core_num_children(self) < usize::MAX
     }
 
     /// Returns whether or not the cardinalities of the vector are rectangular.
@@ -600,7 +600,7 @@ pub trait NVec<D: Dim, T>: NVecCore<D, T> {
     /// [`FunVec`]: crate::FunVec
     #[inline(always)]
     fn is_unbounded(&self) -> bool {
-        <Self as NVecCoreSealed<D, T>>::core_num_children(self) == usize::MAX
+        <Self as NVecCore<D, T>>::core_num_children(self) == usize::MAX
     }
 
     /// Returns whether or not the given `idx` is in bounds.

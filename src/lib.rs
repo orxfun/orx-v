@@ -32,7 +32,6 @@ mod impl_nvec_mut;
 mod nvec;
 mod nvec_aliases;
 mod nvec_core;
-mod nvec_core_sealed;
 mod nvec_mut;
 mod sparse;
 mod v;
@@ -42,7 +41,7 @@ pub mod matrices;
 
 // pub(crate) use
 
-pub(crate) use nvec_core_sealed::NVecCoreSealed;
+// pub(crate) use nvec_core_sealed::NVecCore;
 
 // pub use
 

@@ -1,5 +1,5 @@
 use super::{FlatJagged, FlatJaggedRowMut};
-use crate::{Dim, IntoIdx, NVec, NVecMut, D1, D2};
+use crate::{D1, D2, Dim, IntoIdx, NVec, NVecMut};
 
 // row
 

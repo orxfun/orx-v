@@ -1,10 +1,10 @@
 use crate::children::{ChildD2D1, ChildD3D2, ChildD4D3};
-use crate::{dim::*, NVecCoreSealed};
+use crate::{dim::*, NVecCore};
 use ndarray::{Array, Ix2, Ix3, Ix4};
 
 // d2 - full-indexed
 
-impl<T> NVecCoreSealed<D2, T> for Array<T, Ix2> {
+impl<T> NVecCore<D2, T> for Array<T, Ix2> {
     #[inline(always)]
     fn core_num_children(&self) -> usize {
         self.dim().0
@@ -18,7 +18,7 @@ impl<T> NVecCoreSealed<D2, T> for Array<T, Ix2> {
         }
     }
 
-    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D2 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCore<<D2 as Dim>::PrevDim, T> {
         ChildD2D1 {
             i,
             parent: self,
@@ -38,7 +38,7 @@ impl<T> NVecCoreSealed<D2, T> for Array<T, Ix2> {
 
 // d3 - full-indexed
 
-impl<T> NVecCoreSealed<D3, T> for Array<T, Ix3> {
+impl<T> NVecCore<D3, T> for Array<T, Ix3> {
     #[inline(always)]
     fn core_num_children(&self) -> usize {
         self.dim().0
@@ -53,7 +53,7 @@ impl<T> NVecCoreSealed<D3, T> for Array<T, Ix3> {
         }
     }
 
-    fn core_child(&self, i: usize) -> impl NVecCoreSealed<<D3 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: usize) -> impl NVecCore<<D3 as Dim>::PrevDim, T> {
         ChildD3D2 {
             i,
             parent: self,
@@ -73,7 +73,7 @@ impl<T> NVecCoreSealed<D3, T> for Array<T, Ix3> {
 
 // d4 - full-indexed
 
-impl<T> NVecCoreSealed<D4, T> for Array<T, Ix4> {
+impl<T> NVecCore<D4, T> for Array<T, Ix4> {
     #[inline(always)]
     fn core_num_children(&self) -> usize {
         self.dim().0
@@ -89,7 +89,7 @@ impl<T> NVecCoreSealed<D4, T> for Array<T, Ix4> {
         }
     }
 
-    fn core_child(&self, i: usize) -> impl NVecCoreSealed<<D4 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: usize) -> impl NVecCore<<D4 as Dim>::PrevDim, T> {
         ChildD4D3 {
             i,
             parent: self,

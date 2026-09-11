@@ -1,5 +1,5 @@
 use super::CardIdx;
-use crate::{dim::*, NVec, NVecCore, NVecCoreSealed};
+use crate::{NVec, NVecCore, dim::*};
 use index_card::{CardEquality, Equality};
 use index_sums::{IdxLeqD2, IdxLeqD3};
 
@@ -56,17 +56,17 @@ impl CardIdx<D4> for IdxLeqD3 {
                         Equality::Equal => {}
                         Equality::UnequalCard(idx, x, y) => match idx {
                             IdxLeqD2::IdxD0(_) => {
-                                return Equality::UnequalCard(IdxLeqD3::IdxD1([i]), x, y)
+                                return Equality::UnequalCard(IdxLeqD3::IdxD1([i]), x, y);
                             }
                             IdxLeqD2::IdxD1([j]) => {
-                                return Equality::UnequalCard(IdxLeqD3::IdxD2([i, j]), x, y)
+                                return Equality::UnequalCard(IdxLeqD3::IdxD2([i, j]), x, y);
                             }
                             IdxLeqD2::IdxD2([j, k]) => {
-                                return Equality::UnequalCard(IdxLeqD3::IdxD3([i, j, k]), x, y)
+                                return Equality::UnequalCard(IdxLeqD3::IdxD3([i, j, k]), x, y);
                             }
                         },
                         Equality::UnequalValue([j, k, l]) => {
-                            return Equality::UnequalValue([i, j, k, l])
+                            return Equality::UnequalValue([i, j, k, l]);
                         }
                     }
                 }

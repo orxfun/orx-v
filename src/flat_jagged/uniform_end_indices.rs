@@ -1,4 +1,4 @@
-use crate::{Dim, IntoIdx, NVec, NVecCoreSealed, D1};
+use crate::{D1, Dim, IntoIdx, NVec, NVecCore};
 
 pub struct UniformEndIndices {
     num_rows: usize,
@@ -27,7 +27,7 @@ impl UniformEndIndices {
     }
 }
 
-impl NVecCoreSealed<D1, usize> for UniformEndIndices {
+impl NVecCore<D1, usize> for UniformEndIndices {
     fn core_num_children(&self) -> usize {
         self.num_rows
     }
@@ -36,10 +36,7 @@ impl NVecCoreSealed<D1, usize> for UniformEndIndices {
         self.num_rows
     }
 
-    fn core_child(
-        &self,
-        _: <D1 as Dim>::ChildIdx,
-    ) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, usize> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, usize> {
         self
     }
 

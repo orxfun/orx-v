@@ -1,5 +1,5 @@
 use crate::{cardinality::panic_on_all_when_udd, Dim, IntoIdx, NVec, D1, D2};
-use crate::{NVecCore, NVecCoreSealed, NVecMut, D3, D4};
+use crate::{NVecCore, NVecMut, D3, D4};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 
@@ -29,7 +29,7 @@ where
     }
 }
 
-impl<V, T> NVecCoreSealed<D1, T> for ChildD2D1<V, T>
+impl<V, T> NVecCore<D1, T> for ChildD2D1<V, T>
 where
     V: NVecCore<D2, T>,
 {
@@ -43,7 +43,7 @@ where
         self.parent.core_card([self.i])
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 
@@ -117,7 +117,7 @@ where
 // D3 -> D1
 pub struct ChildD3D1<V, T>
 where
-    V: NVecCoreSealed<D3, T>,
+    V: NVecCore<D3, T>,
 {
     pub(crate) parent: V,
     pub(crate) i: usize,
@@ -128,7 +128,7 @@ where
 impl<V, T> Debug for ChildD3D1<V, T>
 where
     T: Debug,
-    V: NVecCoreSealed<D3, T>,
+    V: NVecCore<D3, T>,
 {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(
@@ -141,9 +141,9 @@ where
     }
 }
 
-impl<V, T> NVecCoreSealed<D1, T> for ChildD3D1<V, T>
+impl<V, T> NVecCore<D1, T> for ChildD3D1<V, T>
 where
-    V: NVecCoreSealed<D3, T>,
+    V: NVecCore<D3, T>,
 {
     #[inline(always)]
     fn core_num_children(&self) -> usize {
@@ -155,7 +155,7 @@ where
         self.parent.core_card([self.i, self.j])
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 
@@ -230,7 +230,7 @@ where
 // D4 -> D1
 pub struct ChildD4D1<V, T>
 where
-    V: NVecCoreSealed<D4, T>,
+    V: NVecCore<D4, T>,
 {
     pub(crate) parent: V,
     pub(crate) i: usize,
@@ -242,7 +242,7 @@ where
 impl<V, T> Debug for ChildD4D1<V, T>
 where
     T: Debug,
-    V: NVecCoreSealed<D4, T>,
+    V: NVecCore<D4, T>,
 {
     fn fmt(&self, f: &mut core::fmt::Formatter<'_>) -> core::fmt::Result {
         write!(
@@ -255,9 +255,9 @@ where
     }
 }
 
-impl<V, T> NVecCoreSealed<D1, T> for ChildD4D1<V, T>
+impl<V, T> NVecCore<D1, T> for ChildD4D1<V, T>
 where
-    V: NVecCoreSealed<D4, T>,
+    V: NVecCore<D4, T>,
 {
     #[inline(always)]
     fn core_num_children(&self) -> usize {
@@ -269,7 +269,7 @@ where
         self.parent.core_card([self.i, self.j, self.k])
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 

@@ -1,6 +1,6 @@
-use crate::{dim::*, Card, FunVec, NVecCoreSealed};
+use crate::{Card, FunVec, NVecCore, dim::*};
 
-impl<D, T, F, C> NVecCoreSealed<D, T> for FunVec<D, T, F, C>
+impl<D, T, F, C> NVecCore<D, T> for FunVec<D, T, F, C>
 where
     D: Dim,
     F: Fn(<D as Dim>::Idx) -> T,
@@ -16,7 +16,7 @@ where
         idx.into().card(self)
     }
 
-    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCoreSealed<<D as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCore<<D as Dim>::PrevDim, T> {
         let i: usize = i.into();
         let fun = self.card.child_fun(i.into(), &self.fun);
         let card = self.card.child_card(i.into());

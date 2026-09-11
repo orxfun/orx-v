@@ -1,11 +1,9 @@
 use super::{cache::Cache, cached_vec::CachedVec};
-use crate::{
-    CardD1, Dim, FunVec, NVec, NVecCoreSealed, VariableCardD2, VariableCardD3, D1, D2, D3, D4,
-};
+use crate::{CardD1, D1, D2, D3, D4, Dim, FunVec, NVec, NVecCore, VariableCardD2, VariableCardD3};
 
 // D1
 
-impl<T, V, C> NVecCoreSealed<D1, T> for CachedVec<D1, T, V, C>
+impl<T, V, C> NVecCore<D1, T> for CachedVec<D1, T, V, C>
 where
     V: NVec<D1, T>,
     C: Cache<<D1 as Dim>::Idx, T>,
@@ -21,7 +19,7 @@ where
         self.vec.card(idx)
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 
@@ -37,7 +35,7 @@ where
 
 // D2
 
-impl<T, V, C> NVecCoreSealed<D2, T> for CachedVec<D2, T, V, C>
+impl<T, V, C> NVecCore<D2, T> for CachedVec<D2, T, V, C>
 where
     V: NVec<D2, T>,
     C: Cache<<D2 as Dim>::Idx, T>,
@@ -53,7 +51,7 @@ where
         self.vec.card(idx)
     }
 
-    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D2 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCore<<D2 as Dim>::PrevDim, T> {
         let fun = move |idx: <<D2 as Dim>::PrevDim as Dim>::Idx| {
             let idx = D2::left_join_from_lower_dim(i, idx);
             self.at(idx)
@@ -73,7 +71,7 @@ where
 
 // D3
 
-impl<T, V, C> NVecCoreSealed<D3, T> for CachedVec<D3, T, V, C>
+impl<T, V, C> NVecCore<D3, T> for CachedVec<D3, T, V, C>
 where
     V: NVec<D3, T>,
     C: Cache<<D3 as Dim>::Idx, T>,
@@ -89,7 +87,7 @@ where
         self.vec.card(idx)
     }
 
-    fn core_child(&self, i: <D3 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D3 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D3 as Dim>::ChildIdx) -> impl NVecCore<<D3 as Dim>::PrevDim, T> {
         let fun = move |idx: <<D3 as Dim>::PrevDim as Dim>::Idx| {
             let idx = D3::left_join_from_lower_dim(i, idx);
             self.at(idx)
@@ -115,7 +113,7 @@ where
 
 // D4
 
-impl<T, V, C> NVecCoreSealed<D4, T> for CachedVec<D4, T, V, C>
+impl<T, V, C> NVecCore<D4, T> for CachedVec<D4, T, V, C>
 where
     V: NVec<D4, T>,
     C: Cache<<D4 as Dim>::Idx, T>,
@@ -131,7 +129,7 @@ where
         self.vec.card(idx)
     }
 
-    fn core_child(&self, i: <D4 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D4 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D4 as Dim>::ChildIdx) -> impl NVecCore<<D4 as Dim>::PrevDim, T> {
         let fun = move |idx: <<D4 as Dim>::PrevDim as Dim>::Idx| {
             let idx = D4::left_join_from_lower_dim(i, idx);
             self.at(idx)

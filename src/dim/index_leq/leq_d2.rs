@@ -1,5 +1,5 @@
 use super::LeqIdx;
-use crate::{IdxLeqD2, NVecCore, NVecCoreSealed, D2};
+use crate::{D2, IdxLeqD2, NVecCore};
 
 impl LeqIdx<D2> for IdxLeqD2 {
     fn in_leq_bounds<T>(self, vec: &impl NVecCore<D2, T>) -> bool {

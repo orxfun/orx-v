@@ -53,7 +53,7 @@ impl<D: Dim> Display for Equality<D> {
 
 // #[cfg(test)]
 // mod tests {
-//     use crate::{dim::Equality, IdxLeqD0, IdxLeqD1, IdxLeqD2, IdxLeqD3, NVec, NVecCoreSealed};
+//     use crate::{dim::Equality, IdxLeqD0, IdxLeqD1, IdxLeqD2, IdxLeqD3, NVec, NVecCore};
 //     use alloc::vec;
 
 //     #[test]

@@ -1,7 +1,7 @@
 use super::sparse_vec::SparseVec;
-use crate::{children::ChildD3D2, Card, Dim, IntoIdx, Lookup, NVec, NVecCoreSealed, NVecMut, D3};
+use crate::{Card, D3, Dim, IntoIdx, Lookup, NVec, NVecCore, NVecMut, children::ChildD3D2};
 
-impl<T, L, C> NVecCoreSealed<D3, T> for SparseVec<D3, T, C, L>
+impl<T, L, C> NVecCore<D3, T> for SparseVec<D3, T, C, L>
 where
     T: Copy,
     L: Lookup<<D3 as Dim>::Idx, T>,
@@ -17,7 +17,7 @@ where
         self.sparse_card(idx)
     }
 
-    fn core_child(&self, i: <D3 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D3 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D3 as Dim>::ChildIdx) -> impl NVecCore<<D3 as Dim>::PrevDim, T> {
         ChildD3D2::<_, T> {
             i,
             parent: self,

@@ -1,7 +1,7 @@
 use crate::common_trait_helpers::debug::*;
 use crate::{
-    dim::*, Card, CardD1, IntoIdx, NVec, NVecCoreSealed, RectangularCardD2, RectangularCardD3,
-    RectangularCardD4, UnboundedCard, VariableCardD2, VariableCardD3, VariableCardD4, V1, V2, V3,
+    Card, CardD1, IntoIdx, NVec, NVecCore, RectangularCardD2, RectangularCardD3, RectangularCardD4,
+    UnboundedCard, V1, V2, V3, VariableCardD2, VariableCardD3, VariableCardD4, dim::*,
 };
 use core::fmt::Debug;
 use core::marker::PhantomData;
@@ -89,7 +89,7 @@ where
     }
 }
 
-impl<D, T, C> NVecCoreSealed<D, T> for ConstantVec<D, T, C>
+impl<D, T, C> NVecCore<D, T> for ConstantVec<D, T, C>
 where
     D: Dim,
     T: Copy,
@@ -103,7 +103,7 @@ where
         self.card.cardinality_of(idx)
     }
 
-    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCoreSealed<<D as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D as Dim>::ChildIdx) -> impl NVecCore<<D as Dim>::PrevDim, T> {
         ConstantVec {
             card: self.card.child_card(i),
             value: self.value,

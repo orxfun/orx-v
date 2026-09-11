@@ -1,9 +1,9 @@
 use super::{FlatJagged, FlatJaggedRowMut};
-use crate::{CardD1, Dim, FunVec, IdxLeqD0, IdxLeqD1, IntoIdx, NVec, NVecCoreSealed, D1, D2};
+use crate::{CardD1, D1, D2, Dim, FunVec, IdxLeqD0, IdxLeqD1, IntoIdx, NVec, NVecCore};
 
 // row
 
-impl<V, I, T> NVecCoreSealed<D1, T> for FlatJaggedRowMut<'_, V, I, T>
+impl<V, I, T> NVecCore<D1, T> for FlatJaggedRowMut<'_, V, I, T>
 where
     V: NVec<D1, T>,
     I: NVec<D1, usize>,
@@ -18,7 +18,7 @@ where
         }
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 
@@ -35,7 +35,7 @@ where
 
 // vec
 
-impl<V, I, T> NVecCoreSealed<D2, T> for FlatJagged<V, I, T>
+impl<V, I, T> NVecCore<D2, T> for FlatJagged<V, I, T>
 where
     V: NVec<D1, T>,
     I: NVec<D1, usize>,
@@ -54,7 +54,7 @@ where
         }
     }
 
-    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D2 as Dim>::PrevDim, T> {
+    fn core_child(&self, i: <D2 as Dim>::ChildIdx) -> impl NVecCore<<D2 as Dim>::PrevDim, T> {
         let (begin, end) = self.row_range(i);
         FunVec::new(move |[j]| self.at([i, j]), CardD1::from(end - begin))
     }

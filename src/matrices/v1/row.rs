@@ -1,5 +1,5 @@
 use super::layout::{V1LayoutRowMajor, V1MatrixLayout};
-use crate::{Dim, IntoIdx, NVec, NVecCoreSealed, NVecMut, D1};
+use crate::{Dim, IntoIdx, NVec, NVecCore, NVecMut, D1};
 use core::marker::PhantomData;
 
 pub struct Row<T, V>
@@ -31,7 +31,7 @@ where
     }
 }
 
-impl<T, V> NVecCoreSealed<D1, T> for Row<T, V>
+impl<T, V> NVecCore<D1, T> for Row<T, V>
 where
     V: NVec<D1, T>,
 {
@@ -43,7 +43,7 @@ where
         self.layout.num_cols()
     }
 
-    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCoreSealed<<D1 as Dim>::PrevDim, T> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, T> {
         self
     }
 
