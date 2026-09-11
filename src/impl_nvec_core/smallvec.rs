@@ -1,4 +1,4 @@
-use crate::{impl_v1_card, impl_vn_card, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1_card, impl_vn_card};
 use smallvec::{Array, SmallVec};
 
 impl_v1_card!(N, [T], SmallVec<[T; N]>, [[T; N]: Array<Item = T>]);

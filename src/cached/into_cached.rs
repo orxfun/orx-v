@@ -1,4 +1,4 @@
-use super::{cache::DefaultCache, Cache, CachedVec};
+use super::{Cache, CachedVec, cache::DefaultCache};
 use crate::{Dim, NVec};
 use core::hash::Hash;
 

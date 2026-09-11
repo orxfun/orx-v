@@ -9,7 +9,7 @@ mod index_sums;
 mod into_idx;
 mod split;
 
-pub use d1::{IdxNever, D1};
+pub use d1::{D1, IdxNever};
 pub use d2::D2;
 pub use d3::D3;
 pub use d4::D4;

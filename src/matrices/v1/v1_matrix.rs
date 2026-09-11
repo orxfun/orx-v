@@ -1,9 +1,9 @@
 use super::layout::{V1LayoutColMajor, V1LayoutRowMajor, V1MatrixLayout};
 use crate::{
+    D1, D2, IntoIdx, NVec, NVecMut,
     matrices::{
         Matrix, MatrixColMajor, MatrixColMajorMut, MatrixMut, MatrixRowMajor, MatrixRowMajorMut,
     },
-    IntoIdx, NVec, NVecMut, D1, D2,
 };
 use core::marker::PhantomData;
 

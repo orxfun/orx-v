@@ -1,4 +1,4 @@
-use crate::{Dim, IntoIdx, NVecCore, D1};
+use crate::{D1, Dim, IntoIdx, NVecCore};
 use core::ops::Range;
 
 impl NVecCore<D1, usize> for Range<usize> {
@@ -13,10 +13,7 @@ impl NVecCore<D1, usize> for Range<usize> {
     }
 
     #[inline(always)]
-    fn core_child(
-        &self,
-        _: <D1 as Dim>::ChildIdx,
-    ) -> impl NVecCore<<D1 as Dim>::PrevDim, usize> {
+    fn core_child(&self, _: <D1 as Dim>::ChildIdx) -> impl NVecCore<<D1 as Dim>::PrevDim, usize> {
         self
     }
 

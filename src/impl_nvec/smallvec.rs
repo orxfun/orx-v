@@ -1,4 +1,4 @@
-use crate::{impl_v1, impl_vn, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1, impl_vn};
 use smallvec::{Array, SmallVec};
 
 impl_v1!(N, [T], SmallVec<[T; N]>, [T: Copy, [T; N]: Array<Item = T>]);
@@ -11,7 +11,7 @@ mod tests {
     use crate::*;
     use alloc::vec;
     use alloc::vec::Vec;
-    use smallvec::{smallvec, SmallVec};
+    use smallvec::{SmallVec, smallvec};
 
     #[test]
     fn smallvec_d1() {

@@ -1,5 +1,5 @@
 use super::{cache::Cache, cached_vec::CachedVec};
-use crate::{CardD1, Dim, FunVec, IntoIdx, NVec, VariableCardD2, VariableCardD3, D1, D2, D3, D4};
+use crate::{CardD1, D1, D2, D3, D4, Dim, FunVec, IntoIdx, NVec, VariableCardD2, VariableCardD3};
 
 // D1
 

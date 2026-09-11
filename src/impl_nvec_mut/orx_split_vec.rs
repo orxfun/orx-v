@@ -1,4 +1,4 @@
-use crate::{impl_v1_mut, impl_vn_mut, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1_mut, impl_vn_mut};
 use orx_split_vec::*;
 
 impl_v1_mut!([T, G], SplitVec<T, G>, [T: Copy, G: Growth]);

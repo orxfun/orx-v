@@ -1,5 +1,5 @@
-use super::{uniform_end_indices::UniformEndIndices, FlatJagged};
-use crate::{NVec, D1};
+use super::{FlatJagged, uniform_end_indices::UniformEndIndices};
+use crate::{D1, NVec};
 use alloc::vec::Vec;
 
 /// Transforms a `D1` vector into a jagged `D2` vector via `into_x` methods;
@@ -385,30 +385,38 @@ where
 fn validate_row_end_indices<T, V: NVec<D1, T>, I: NVec<D1, usize>>(flat_vec: &V, end_indices: I) {
     let mut begin = 0;
     for end in end_indices.all() {
-        assert!(end >= begin,
+        assert!(
+            end >= begin,
             "`row_end_indices` must be a non-decreasing vector. \
             For example, end indices [1, 2, 2, 5] represents a jagged vector with row lengths of [1, 1, 0, 3]. \
             However, received a decreasing sequence [.., {}, {}, ..].",
-            begin, end
+            begin,
+            end
         );
         begin = end;
     }
-    assert_eq!(flat_vec.card([]), begin,
+    assert_eq!(
+        flat_vec.card([]),
+        begin,
         "Last entry of the `row_end_indices` must equal the cardinality of the flat V1 storage. \
         For example, end indices [1, 2, 2, 5] for flat storage [0, 1, 2, 3, 4] represents a jagged vector of \
         [ [0], [1], [], [2, 3, 4] ]. \
         However, received a flat storage cardinality of {} while the last entry of row end indices is {}.",
-        flat_vec.card([]), begin
+        flat_vec.card([]),
+        begin
     );
 }
 
 fn validate_row_end_lengths<T, V: NVec<D1, T>, I: NVec<D1, usize>>(flat_vec: &V, lengths: I) {
     let total_len: usize = lengths.all().sum();
-    assert_eq!(flat_vec.card([]), total_len,
+    assert_eq!(
+        flat_vec.card([]),
+        total_len,
         "Sum of elements of `row_lengths` must equal the cardinality of the flat V1 storage. \
         For example, row lengths [1, 1, 0, 3] for flat storage [0, 1, 2, 3, 4] represents a jagged vector of \
         [ [0], [1], [], [2, 3, 4] ]. \
         However, received a flat storage cardinality of {} while sum of row lengths is {}.",
-        flat_vec.card([]), total_len
+        flat_vec.card([]),
+        total_len
     );
 }

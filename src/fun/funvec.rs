@@ -1,5 +1,5 @@
 use crate::common_trait_helpers::debug::*;
-use crate::{dim::*, Card, NVec, UnboundedCard};
+use crate::{Card, NVec, UnboundedCard, dim::*};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 

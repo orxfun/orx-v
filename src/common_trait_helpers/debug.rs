@@ -1,4 +1,4 @@
-use crate::{NVecCore, D1, D2, D3, D4};
+use crate::{D1, D2, D3, D4, NVecCore};
 use core::fmt::Debug;
 
 // impl
@@ -79,11 +79,11 @@ pub(crate) fn dbg_values_d1<T: Debug, V: NVecCore<D1, T>>(
 
     write!(f, "[")?;
     if n > 0 {
-        vec.core_dbg_at(0, f)?;
+        vec.core_debug_at(0, f)?;
     }
     for i in 1..view_len(n) {
         write!(f, ", ")?;
-        vec.core_dbg_at(i, f)?;
+        vec.core_debug_at(i, f)?;
     }
     if n == usize::MAX {
         write!(f, ", ..")?;

@@ -1,5 +1,5 @@
 use super::card::Card;
-use crate::{Dim, NVec, D1};
+use crate::{D1, Dim, NVec};
 
 /// A cardinality of dimension `D1` vectors, which is simply a length.
 #[derive(Clone, Copy)]

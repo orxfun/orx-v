@@ -1,4 +1,4 @@
-use crate::{impl_v1_card, impl_vn_card, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1_card, impl_vn_card};
 use ndarray::{Array, Ix1};
 
 impl_v1_card!([T], Array<T, Ix1>, []);

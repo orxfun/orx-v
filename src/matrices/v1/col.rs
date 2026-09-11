@@ -1,5 +1,5 @@
 use super::layout::{V1LayoutColMajor, V1MatrixLayout};
-use crate::{Dim, IntoIdx, NVec, NVecCore, NVecMut, D1};
+use crate::{D1, Dim, IntoIdx, NVec, NVecCore, NVecMut};
 use core::marker::PhantomData;
 
 pub struct Col<T, V>

@@ -1,4 +1,4 @@
-use crate::{impl_v1_card, impl_vn_card, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1_card, impl_vn_card};
 use orx_split_vec::*;
 
 impl_v1_card!([G, T], SplitVec<T, G>, [G: Growth]);

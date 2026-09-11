@@ -1,5 +1,5 @@
 use super::{v2_col_major::V2MatrixColMajor, v2_row_major::V2MatrixRowMajor};
-use crate::{NVec, NVecMut, D2};
+use crate::{D2, NVec, NVecMut};
 
 /// Creates matrix views of a rectangular `D2` vector.
 pub trait V2AsMatrix<T> {

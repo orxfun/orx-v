@@ -1,8 +1,8 @@
 use super::{
-    card::{child_fun_unchecked, Card},
+    card::{Card, child_fun_unchecked},
     panic_d1,
 };
-use crate::{cardinality::d1::CardD1, Dim, IdxLeqD1, NVec, D2, V1};
+use crate::{D2, Dim, IdxLeqD1, NVec, V1, cardinality::d1::CardD1};
 
 /// A variable cardinality of dimension `D2` vectors such that every child
 /// in every lower dimension can have different numbers of children.

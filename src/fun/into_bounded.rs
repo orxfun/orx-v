@@ -1,7 +1,7 @@
 use super::FunVec;
 use crate::{
-    dim::*, CardD1, RectangularCardD2, RectangularCardD3, RectangularCardD4, UnboundedCard,
-    VariableCardD2, VariableCardD3, VariableCardD4, V1, V2, V3,
+    CardD1, RectangularCardD2, RectangularCardD3, RectangularCardD4, UnboundedCard, V1, V2, V3,
+    VariableCardD2, VariableCardD3, VariableCardD4, dim::*,
 };
 
 // D1

@@ -2,7 +2,7 @@ use super::{
     layout::{V1LayoutColMajor, V1LayoutRowMajor},
     v1_matrix::V1Matrix,
 };
-use crate::{NVec, NVecMut, D1};
+use crate::{D1, NVec, NVecMut};
 
 /// Creates matrix views of a flat `D1` vector.
 pub trait V1AsMatrix<T> {

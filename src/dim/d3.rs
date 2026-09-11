@@ -1,5 +1,5 @@
 use super::{D2, IdxLeqD1, IdxLeqD2, IdxLeqD3, IntoIdx, dimension::Dim};
-use crate::{NVecCore};
+use crate::NVecCore;
 use core::fmt::Debug;
 
 /// Three dimensions.

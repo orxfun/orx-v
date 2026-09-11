@@ -1,9 +1,9 @@
 use super::{
-    card::{child_fun_unchecked, Card},
+    card::{Card, child_fun_unchecked},
     panic_d1, panic_d2,
 };
 use crate::{
-    cardinality::d2_variable::VariableCardD2, CardD1, Dim, FunVec, IdxLeqD2, NVec, D3, V2,
+    CardD1, D3, Dim, FunVec, IdxLeqD2, NVec, V2, cardinality::d2_variable::VariableCardD2,
 };
 
 /// A variable cardinality of dimension `D3` vectors such that every child

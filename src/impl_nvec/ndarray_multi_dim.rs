@@ -71,7 +71,7 @@ mod tests {
     use crate::*;
     use alloc::vec;
     use alloc::vec::Vec;
-    use ndarray::{array, Array2, Array3};
+    use ndarray::{Array2, Array3, array};
 
     #[test]
     fn ndarray_d2() {

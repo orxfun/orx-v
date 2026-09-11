@@ -1,5 +1,5 @@
 use super::FlatJagged;
-use crate::{NVec, D1};
+use crate::{D1, NVec};
 
 /// A mutable row of a [`FlatJagged`] vector, which is naturally a `D1` vector.
 ///

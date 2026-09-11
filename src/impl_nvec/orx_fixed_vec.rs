@@ -1,4 +1,4 @@
-use crate::{impl_v1, impl_vn, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1, impl_vn};
 use orx_fixed_vec::*;
 
 impl_v1!([T], FixedVec<T>, [T: Copy]);

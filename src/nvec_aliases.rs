@@ -1,6 +1,6 @@
-use crate::dim::*;
 use crate::NVec;
 use crate::NVecMut;
+use crate::dim::*;
 
 /// A type alias: `V1<T>` is equivalent to `NVec<D1, T>`.
 pub trait V1<T>: NVec<D1, T> {}

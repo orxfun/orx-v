@@ -1,5 +1,5 @@
 use super::Matrix;
-use crate::{IntoIdx, D2};
+use crate::{D2, IntoIdx};
 
 /// A mutable matrix view over a `D2` vector with rectangular cardinality,
 /// or over a flattened representation by a `D1` vector.

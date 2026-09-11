@@ -30,7 +30,7 @@ rand_chacha = "0.9"
 orx-split-vec = "3.16.0"
 
 [features]
-default = ["std"]
+default = ["all"]
 std = []
 all = [
     "std",

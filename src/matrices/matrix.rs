@@ -1,4 +1,4 @@
-use crate::{Dim, Equality, IdxLeqD1, IdxLeqD2, IntoIdx, D2};
+use crate::{D2, Dim, Equality, IdxLeqD1, IdxLeqD2, IntoIdx};
 
 /// A matrix or a matrix view over a `D2` vector with rectangular cardinality,
 /// or over a flattened representation by a `D1` vector.

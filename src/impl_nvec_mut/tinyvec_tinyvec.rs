@@ -1,4 +1,4 @@
-use crate::{impl_v1_mut, impl_vn_mut, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1_mut, impl_vn_mut};
 use tinyvec::{Array, TinyVec};
 
 impl_v1_mut!(N, [T], TinyVec<[T; N]>, [T: Copy, [T; N]: Array<Item = T>]);
@@ -11,7 +11,7 @@ mod tests {
     use crate::*;
     use alloc::vec;
     use alloc::vec::Vec;
-    use tinyvec::{tiny_vec, TinyVec};
+    use tinyvec::{TinyVec, tiny_vec};
 
     #[test]
     fn tinyvec_tinyvec_d1() {

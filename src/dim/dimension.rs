@@ -1,4 +1,4 @@
-use super::{index_card::CardIdx, IntoIdx, LeqIdx};
+use super::{IntoIdx, LeqIdx, index_card::CardIdx};
 use crate::NVecCore;
 use core::fmt::Debug;
 

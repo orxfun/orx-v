@@ -1,5 +1,5 @@
 use super::child_d1::{ChildD3D1, ChildD4D1};
-use crate::{cardinality::panic_on_all_when_udd, Dim, IdxLeqD1, IntoIdx, NVec, D2, D3, D4};
+use crate::{D2, D3, D4, Dim, IdxLeqD1, IntoIdx, NVec, cardinality::panic_on_all_when_udd};
 use crate::{NVecCore, NVecMut};
 use core::fmt::Debug;
 use core::marker::PhantomData;

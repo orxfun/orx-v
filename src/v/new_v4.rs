@@ -1,6 +1,6 @@
 use crate::{
-    constant_vec::ConstantVec, empty_vec::EmptyVec, DefaultLookup, Dim, FunVec, Lookup, SparseVec,
-    UnboundedCard, D4,
+    D4, DefaultLookup, Dim, FunVec, Lookup, SparseVec, UnboundedCard, constant_vec::ConstantVec,
+    empty_vec::EmptyVec,
 };
 
 /// `V4<T>` (`NVec<D4, T>`) builder.

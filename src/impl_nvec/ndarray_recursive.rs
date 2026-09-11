@@ -1,4 +1,4 @@
-use crate::{impl_v1, impl_vn, D2, D3, D4};
+use crate::{D2, D3, D4, impl_v1, impl_vn};
 use ndarray::{Array, Ix1};
 
 impl_v1!([T], Array<T, Ix1>, [T: Copy]);
@@ -11,7 +11,7 @@ mod tests {
     use crate::*;
     use alloc::vec;
     use alloc::vec::Vec;
-    use ndarray::{array, Array1};
+    use ndarray::{Array1, array};
 
     #[test]
     fn ndarray_d1() {

@@ -1,9 +1,9 @@
 use super::{
-    card::{child_fun_unchecked, Card},
+    card::{Card, child_fun_unchecked},
     d1::CardD1,
     panic_d1,
 };
-use crate::{Dim, IdxLeqD1, NVec, D2};
+use crate::{D2, Dim, IdxLeqD1, NVec};
 
 /// A rectangular cardinality of dimension `D2` vectors, which is equal to two
 /// lengths across each dimensions.

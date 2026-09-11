@@ -1,8 +1,8 @@
 use super::{
-    card::{child_fun_unchecked, Card},
+    card::{Card, child_fun_unchecked},
     panic_d1, panic_d2,
 };
-use crate::{cardinality::d2_rectangular::RectangularCardD2, Dim, IdxLeqD2, NVec, D3};
+use crate::{D3, Dim, IdxLeqD2, NVec, cardinality::d2_rectangular::RectangularCardD2};
 
 /// A rectangular cardinality of dimension `D3` vectors, which is equal to three
 /// lengths across each dimensions.

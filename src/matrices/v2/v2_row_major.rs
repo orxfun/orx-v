@@ -2,7 +2,7 @@ use super::super::{
     matrix::Matrix,
     matrix_row_major::{MatrixRowMajor, MatrixRowMajorMut},
 };
-use crate::{matrices::MatrixMut, IntoIdx, NVec, NVecMut, D1, D2};
+use crate::{D1, D2, IntoIdx, NVec, NVecMut, matrices::MatrixMut};
 use core::marker::PhantomData;
 
 /// A row major matrix.

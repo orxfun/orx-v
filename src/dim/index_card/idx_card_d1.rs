@@ -1,5 +1,5 @@
 use super::CardIdx;
-use crate::{dim::*, NVec, NVecCore};
+use crate::{NVec, NVecCore, dim::*};
 use index_card::{CardEquality, Equality};
 use index_sums::IdxLeqD0;
 

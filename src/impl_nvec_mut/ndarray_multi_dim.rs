@@ -1,5 +1,5 @@
 use crate::children::{ChildD2D1, ChildD3D2, ChildD4D3};
-use crate::{dim::*, NVecMut};
+use crate::{NVecMut, dim::*};
 use ndarray::{Array, Ix2, Ix3, Ix4};
 
 // d2 - full-indexed
@@ -121,7 +121,7 @@ mod tests {
     use crate::*;
     use alloc::vec;
     use alloc::vec::Vec;
-    use ndarray::{array, Array1, Array2, Array3};
+    use ndarray::{Array1, Array2, Array3, array};
 
     #[test]
     fn ndarray_d1() {

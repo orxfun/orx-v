@@ -1,5 +1,5 @@
-use super::card::{child_fun_unchecked, Card};
-use crate::{cardinality::card::panic_on_all_when_udd, Dim, NVec};
+use super::card::{Card, child_fun_unchecked};
+use crate::{Dim, NVec, cardinality::card::panic_on_all_when_udd};
 use core::marker::PhantomData;
 
 /// Unbounded cardinality.

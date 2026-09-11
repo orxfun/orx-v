@@ -1,6 +1,6 @@
 use super::jagged_row::FlatJaggedRowMut;
 use crate::common_trait_helpers::debug::dbg_values_d2;
-use crate::{Dim, NVec, D1, D2};
+use crate::{D1, D2, Dim, NVec};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 
@@ -160,11 +160,14 @@ where
         };
 
         let end = self.row_end_indices.at(i);
-        assert!(begin<=end, "Invalid row end indices of the FlatJagged; elements of the row end indices must be non-decreasing");
+        assert!(
+            begin <= end,
+            "Invalid row end indices of the FlatJagged; elements of the row end indices must be non-decreasing"
+        );
         (begin, end)
     }
 
-    pub(super) fn row_mut(&mut self, i: usize) -> FlatJaggedRowMut<V, I, T> {
+    pub(super) fn row_mut(&mut self, i: usize) -> FlatJaggedRowMut<'_, V, I, T> {
         match i < self.num_rows() {
             true => FlatJaggedRowMut { jagged: self, i },
             false => panic_oob_i(i, self.num_rows()),

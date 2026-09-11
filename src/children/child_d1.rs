@@ -1,5 +1,5 @@
-use crate::{cardinality::panic_on_all_when_udd, Dim, IntoIdx, NVec, D1, D2};
-use crate::{NVecCore, NVecMut, D3, D4};
+use crate::{D1, D2, Dim, IntoIdx, NVec, cardinality::panic_on_all_when_udd};
+use crate::{D3, D4, NVecCore, NVecMut};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 

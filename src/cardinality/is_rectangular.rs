@@ -1,4 +1,4 @@
-use crate::{Dim, NVecCore, D1, D2, D3, D4};
+use crate::{D1, D2, D3, D4, Dim, NVecCore};
 
 pub trait IsRectangular: Dim {
     fn is_rectangular<T>(vec: &impl NVecCore<Self, T>) -> bool;

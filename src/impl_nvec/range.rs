@@ -1,4 +1,4 @@
-use crate::{Dim, IntoIdx, NVec, D1};
+use crate::{D1, Dim, IntoIdx, NVec};
 use core::ops::Range;
 
 impl NVec<D1, usize> for Range<usize> {

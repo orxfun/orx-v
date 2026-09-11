@@ -1,4 +1,4 @@
-use crate::{dim::*, Card, FunVec, NVec};
+use crate::{Card, FunVec, NVec, dim::*};
 
 impl<D, T, F, C> NVec<D, T> for FunVec<D, T, F, C>
 where

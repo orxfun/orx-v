@@ -1,4 +1,4 @@
-use super::card::{child_fun_unchecked, Card};
+use super::card::{Card, child_fun_unchecked};
 use crate::{CardIdx, Dim, NVec};
 use core::{fmt::Debug, marker::PhantomData};
 

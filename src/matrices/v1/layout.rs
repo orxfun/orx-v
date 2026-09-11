@@ -1,5 +1,5 @@
 use super::{col::Col, row::Row};
-use crate::{NVec, NVecMut, D1};
+use crate::{D1, NVec, NVecMut};
 
 /// Layout for matrices with an underlying flat vector of `D1`.
 pub trait V1MatrixLayout: Clone {

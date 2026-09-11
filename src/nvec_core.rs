@@ -92,7 +92,7 @@ pub trait NVecCore<D: Dim, T>: Sized {
         self.core_num_children() < usize::MAX
     }
 
-    fn core_dbg_at(
+    fn core_debug_at(
         &self,
         idx: impl IntoIdx<D>,
         f: &mut core::fmt::Formatter<'_>,

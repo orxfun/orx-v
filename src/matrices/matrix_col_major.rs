@@ -1,5 +1,5 @@
 use super::{Matrix, MatrixMut};
-use crate::{NVec, NVecMut, D1};
+use crate::{D1, NVec, NVecMut};
 
 /// A column major matrix.
 ///

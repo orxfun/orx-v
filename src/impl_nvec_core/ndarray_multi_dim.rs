@@ -1,5 +1,5 @@
 use crate::children::{ChildD2D1, ChildD3D2, ChildD4D3};
-use crate::{dim::*, NVecCore};
+use crate::{NVecCore, dim::*};
 use ndarray::{Array, Ix2, Ix3, Ix4};
 
 // d2 - full-indexed

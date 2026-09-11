@@ -1,6 +1,6 @@
 use super::DefaultLookup;
 use crate::common_trait_helpers::debug::*;
-use crate::{Card, Dim, IntoIdx, LeqIdx, Lookup, NVec, D1, D2, D3, D4};
+use crate::{Card, D1, D2, D3, D4, Dim, IntoIdx, LeqIdx, Lookup, NVec};
 use core::fmt::Debug;
 use core::marker::PhantomData;
 

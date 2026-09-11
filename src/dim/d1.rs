@@ -1,4 +1,4 @@
-use super::{dimension::Dim, index_sums::IdxLeqD0, IdxLeqD1, IntoIdx};
+use super::{IdxLeqD1, IntoIdx, dimension::Dim, index_sums::IdxLeqD0};
 use crate::NVecCore;
 use core::fmt::Debug;
 

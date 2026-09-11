@@ -1,5 +1,5 @@
-use super::super::{matrix::Matrix, MatrixColMajor, MatrixColMajorMut};
-use crate::{matrices::MatrixMut, IntoIdx, NVec, NVecMut, D1, D2};
+use super::super::{MatrixColMajor, MatrixColMajorMut, matrix::Matrix};
+use crate::{D1, D2, IntoIdx, NVec, NVecMut, matrices::MatrixMut};
 use core::marker::PhantomData;
 
 /// A column major matrix.
