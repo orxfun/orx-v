@@ -33,6 +33,7 @@ mod nvec;
 mod nvec_aliases;
 mod nvec_core;
 mod nvec_mut;
+mod redesign;
 mod sparse;
 mod v;
 
