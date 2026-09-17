@@ -1,3 +1,2 @@
-mod slice;
 mod slice_mut;
 mod vec;

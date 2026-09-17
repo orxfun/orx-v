@@ -5,5 +5,5 @@ pub trait NVecMut<D: Dim, T>: NVec<D, T> {
     where
         Self: 'a;
 
-    fn at_mut(&self, idx: impl Into<D::Idx>) -> Self::ItemMut<'_>;
+    fn at_mut(&mut self, idx: impl Into<D::Idx>) -> Self::ItemMut<'_>;
 }
