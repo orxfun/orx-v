@@ -1,4 +1,4 @@
-use super::dimensions::Dim;
+use super::Dim;
 
 pub trait NVec<D: Dim, T> {
     type ItemRef<'a>

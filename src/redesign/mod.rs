@@ -1,5 +1,6 @@
 mod dimensions;
 mod nvec;
+mod nvec_mut;
 
 mod impl_nvec;
 
