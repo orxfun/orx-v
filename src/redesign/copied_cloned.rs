@@ -3,7 +3,7 @@ use core::marker::PhantomData;
 
 // copied
 
-pub struct Copied<'a, D, T, V>(V, PhantomData<&'a (D, T)>)
+pub struct Copied<'a, D, T, V>(pub V, pub PhantomData<&'a (D, T)>)
 where
     D: Dim,
     T: Copy + 'a,
