@@ -9,3 +9,13 @@ where
         self[i].at(j)
     }
 }
+
+impl<'a, T, V> NVec<D2, &'a T> for &'a Vec<V>
+where
+    V: NVec<D1, &'a T>,
+    T: 'a,
+{
+    fn at(&self, [i, j]: <D2 as Dim>::Idx) -> &'a T {
+        self[i].at(j)
+    }
+}
