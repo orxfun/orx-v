@@ -11,3 +11,7 @@ where
 {
     v.at(1) + v.at(3)
 }
+
+pub fn second<T>(v: impl NVec<D1, T>) -> T {
+    v.at(1)
+}
