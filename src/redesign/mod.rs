@@ -1,5 +1,5 @@
 mod impl_nvec1;
-mod impl_nvec2;
+// mod impl_nvec2;
 
 mod copied_cloned;
 mod dimensions;
