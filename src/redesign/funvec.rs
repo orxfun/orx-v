@@ -1,4 +1,4 @@
-use super::super::{Dim, NVec};
+use super::{Dim, NVec};
 use core::marker::PhantomData;
 
 pub struct FunVec<D, T, F>
@@ -8,6 +8,19 @@ where
 {
     fun: F,
     p: PhantomData<(D, T)>,
+}
+
+impl<D, T, F> FunVec<D, T, F>
+where
+    D: Dim,
+    F: Fn(D::Idx) -> T,
+{
+    pub fn new(fun: F) -> Self {
+        Self {
+            fun,
+            p: PhantomData,
+        }
+    }
 }
 
 impl<D, T, F> NVec<D, T> for FunVec<D, T, F>
