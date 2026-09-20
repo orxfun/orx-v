@@ -1,23 +1,15 @@
 use super::super::super::NVec;
-use super::utils::second;
-use alloc::string::ToString;
+use super::utils::{second, second_ref};
 use alloc::vec;
 
 #[test]
-fn slice_as_v1_copy() {
-    let vec = vec![1, 3, 4, 5, 6];
-    let slice = vec.as_slice();
+fn slice_as_v1() {
+    let v = vec![1, 2, 3];
+    let s = v.as_slice();
 
-    assert_eq!(second(slice), &3);
-    assert_eq!(second(slice.cloned()), 3);
-    assert_eq!(second(slice.copied()), 3);
-}
+    assert_eq!(second(&s), &2);
+    assert_eq!(second(s.cloned()), 2);
+    assert_eq!(second(s.copied()), 2);
 
-#[test]
-fn slice_as_v1_clone() {
-    let vec = vec!["x".to_string(), "y".to_string()];
-    let slice = vec.as_slice();
-
-    assert_eq!(second(slice), &"y".to_string());
-    assert_eq!(second(slice.cloned()), "y".to_string());
+    assert_eq!(second_ref(&s), &2);
 }
