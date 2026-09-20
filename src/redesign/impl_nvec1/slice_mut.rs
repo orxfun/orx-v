@@ -1,15 +1,22 @@
-use super::super::{D1, Dim, NVecMut, NVecRef};
+use super::super::{D1, Dim, NVec, NVecMut, NVecRef};
 
-impl<'a, T> NVecRef<D1, T> for &'a mut [T] {
+impl<T> NVecRef<D1, T> for &'_ mut [T] {
     #[inline(always)]
     fn at_ref(&self, idx: <D1 as Dim>::Idx) -> &T {
         &self[idx]
     }
 }
 
-impl<'a, T> NVecMut<D1, T> for &'a mut [T] {
+impl<T> NVecMut<D1, T> for &'_ mut [T] {
     #[inline(always)]
     fn at_mut(&mut self, idx: <D1 as Dim>::Idx) -> &mut T {
         &mut self[idx]
+    }
+}
+
+impl<'a, T> NVec<D1, &'a T> for &'a &'_ mut [T] {
+    #[inline(always)]
+    fn at(&self, idx: <D1 as Dim>::Idx) -> &'a T {
+        <&'_ mut [T] as NVecRef<D1, T>>::at_ref(self, idx)
     }
 }

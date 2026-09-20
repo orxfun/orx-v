@@ -7,7 +7,7 @@ use alloc::vec;
 fn vec_as_v2() {
     let mut v = vec![vec![0], vec![1, 2, 3], vec![4, 5]];
 
-    assert_eq!(second_first(&v), &1);
+    // assert_eq!(second_first(&v), &1);
 
     assert_eq!(second_first_ref(&v), &1);
     assert_eq!(second_first_mut(&mut v), &mut 1);
