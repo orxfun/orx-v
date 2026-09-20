@@ -1,4 +1,4 @@
-use super::super::{D1, Dim, NVec};
+use super::super::{D1, Dim, NVec, NVecMut};
 use alloc::vec::Vec;
 
 impl<'a, T> NVec<D1, &'a T> for &'a Vec<T> {
@@ -8,12 +8,15 @@ impl<'a, T> NVec<D1, &'a T> for &'a Vec<T> {
     }
 }
 
-impl<'a, T> NVec<D1, &'a mut T> for &'a mut Vec<T> {
+impl<T> NVecMut<D1, T> for Vec<T> {
     #[inline(always)]
-    fn at(&self, idx: <D1 as Dim>::Idx) -> &'a mut T {
-        let x = self as *const &mut Vec<T>;
-        let y = unsafe { x.read() };
-        &mut y[idx]
+    fn at(&self, idx: <D1 as Dim>::Idx) -> &T {
+        &self[idx]
+    }
+
+    #[inline(always)]
+    fn at_mut(&mut self, idx: <D1 as Dim>::Idx) -> &mut T {
+        &mut self[idx]
     }
 }
 
@@ -22,8 +25,8 @@ mod tests {
     use super::*;
     use alloc::vec;
 
-    fn second<'a, T>(v: impl NVec<D1, &'a mut T>) -> &'a mut T {
-        v.at(1)
+    fn second<T>(v: &mut impl NVecMut<D1, T>) -> &mut T {
+        v.at_mut(1)
     }
 
     #[test]
@@ -41,13 +44,13 @@ mod tests {
     fn creates_aliasing_mutable_references() {
         let mut v = vec![0, 1];
 
-        let r: &mut Vec<_> = &mut v;
+        let mut r: &mut Vec<_> = &mut v;
         // let shared: &&mut Vec<_> = &r;
 
-        let first = r.at(0);
-        let second = r.at(1);
-
+        let first = r.at_mut(0);
         *first = 10;
+
+        let second = r.at_mut(1);
         *second = 20;
     }
 }
