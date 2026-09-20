@@ -16,6 +16,7 @@ impl<T, V: NVecMut<D1, T>> NVecMut<D2, T> for Vec<V> {
 impl<'a, T, V> NVec<D2, &'a T> for &'a Vec<V>
 where
     &'a V: NVec<D1, &'a T>,
+    // for<'b> &'b V: NVec<D1, &'b T>,
 {
     fn at(&self, [i, j]: <D2 as Dim>::Idx) -> &'a T {
         let child: &'a V = &self[i];
