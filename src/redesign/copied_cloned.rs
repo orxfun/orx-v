@@ -1,78 +1,78 @@
-use super::{Dim, NVec};
-use core::marker::PhantomData;
+// use super::{Dim, NVec};
+// use core::marker::PhantomData;
 
-// copied
+// // copied
 
-pub struct Copied<'a, D, T, V>(pub V, pub PhantomData<&'a (D, T)>)
-where
-    D: Dim,
-    T: Copy + 'a,
-    V: NVec<D, &'a T>;
+// pub struct Copied<'a, D, T, V>(pub V, pub PhantomData<&'a (D, T)>)
+// where
+//     D: Dim,
+//     T: Copy + 'a,
+//     V: NVec<D, &'a T>;
 
-impl<'a, D, T, V> Clone for Copied<'a, D, T, V>
-where
-    D: Dim,
-    T: Copy + 'a,
-    V: NVec<D, &'a T>,
-{
-    fn clone(&self) -> Self {
-        *self
-    }
-}
+// impl<'a, D, T, V> Clone for Copied<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Copy + 'a,
+//     V: NVec<D, &'a T>,
+// {
+//     fn clone(&self) -> Self {
+//         *self
+//     }
+// }
 
-impl<'a, D, T, V> Copy for Copied<'a, D, T, V>
-where
-    D: Dim,
-    T: Copy + 'a,
-    V: NVec<D, &'a T>,
-{
-}
+// impl<'a, D, T, V> Copy for Copied<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Copy + 'a,
+//     V: NVec<D, &'a T>,
+// {
+// }
 
-impl<'a, D, T, V> NVec<D, T> for Copied<'a, D, T, V>
-where
-    D: Dim,
-    T: Copy + 'a,
-    V: NVec<D, &'a T>,
-{
-    fn at(self, idx: <D as Dim>::Idx) -> T {
-        *self.0.at(idx)
-    }
-}
+// impl<'a, D, T, V> NVec<D, T> for Copied<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Copy + 'a,
+//     V: NVec<D, &'a T>,
+// {
+//     fn at(self, idx: <D as Dim>::Idx) -> T {
+//         *self.0.at(idx)
+//     }
+// }
 
-// cloned
+// // cloned
 
-pub struct Cloned<'a, D, T, V>(V, PhantomData<&'a (D, T)>)
-where
-    D: Dim,
-    T: Clone + 'a,
-    V: NVec<D, &'a T>;
+// pub struct Cloned<'a, D, T, V>(V, PhantomData<&'a (D, T)>)
+// where
+//     D: Dim,
+//     T: Clone + 'a,
+//     V: NVec<D, &'a T>;
 
-impl<'a, D, T, V> Clone for Cloned<'a, D, T, V>
-where
-    D: Dim,
-    T: Clone + 'a,
-    V: NVec<D, &'a T>,
-{
-    fn clone(&self) -> Self {
-        *self
-    }
-}
+// impl<'a, D, T, V> Clone for Cloned<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Clone + 'a,
+//     V: NVec<D, &'a T>,
+// {
+//     fn clone(&self) -> Self {
+//         *self
+//     }
+// }
 
-impl<'a, D, T, V> Copy for Cloned<'a, D, T, V>
-where
-    D: Dim,
-    T: Clone + 'a,
-    V: NVec<D, &'a T>,
-{
-}
+// impl<'a, D, T, V> Copy for Cloned<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Clone + 'a,
+//     V: NVec<D, &'a T>,
+// {
+// }
 
-impl<'a, D, T, V> NVec<D, T> for Cloned<'a, D, T, V>
-where
-    D: Dim,
-    T: Clone + 'a,
-    V: NVec<D, &'a T>,
-{
-    fn at(self, idx: <D as Dim>::Idx) -> T {
-        self.0.at(idx).clone()
-    }
-}
+// impl<'a, D, T, V> NVec<D, T> for Cloned<'a, D, T, V>
+// where
+//     D: Dim,
+//     T: Clone + 'a,
+//     V: NVec<D, &'a T>,
+// {
+//     fn at(self, idx: <D as Dim>::Idx) -> T {
+//         self.0.at(idx).clone()
+//     }
+// }
