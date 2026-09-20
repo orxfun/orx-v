@@ -36,3 +36,25 @@ where
         (self.fun)(idx)
     }
 }
+
+// clone & copy
+
+impl<D, T, F> Clone for FunVec<D, T, F>
+where
+    D: Dim,
+    F: Fn(D::Idx) -> T + Clone,
+{
+    fn clone(&self) -> Self {
+        Self {
+            fun: self.fun.clone(),
+            p: PhantomData,
+        }
+    }
+}
+
+impl<D, T, F> Copy for FunVec<D, T, F>
+where
+    D: Dim,
+    F: Fn(D::Idx) -> T + Copy,
+{
+}

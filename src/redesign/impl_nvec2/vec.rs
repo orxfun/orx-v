@@ -13,6 +13,19 @@ impl<T, V: NVecMut<D1, T>> NVecMut<D2, T> for Vec<V> {
     }
 }
 
+// impl<'b, T, V> NVec<D2, &'b T> for &'b Vec<V>
+// where
+//     for<'a> &'a V: NVec<D1, &'a T>,
+// {
+//     fn at<'a>(&'a self, [i, j]: <D2 as Dim>::Idx) -> &'b T
+//     where
+//         &'b T: 'a,
+//     {
+//         let row: &'b V = &(*self)[i];
+//         row.at(j)
+//     }
+// }
+
 impl<'b, T, V> NVec<D2, &'b T> for &'b Vec<V>
 where
     for<'a> &'a V: NVec<D1, &'a T>,
@@ -21,6 +34,8 @@ where
     where
         &'b T: 'a,
     {
-        (&self[i]).at(j)
+        let row: &'b V = &(*self)[i];
+
+        <&'b V as NVec<D1, &'b T>>::at(&row, j)
     }
 }
