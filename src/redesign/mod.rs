@@ -3,6 +3,7 @@ mod impl_nvec2;
 
 mod copied_cloned;
 mod dimensions;
+mod fun;
 mod nvec;
 
 pub use copied_cloned::{Cloned, Copied};
