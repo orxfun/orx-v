@@ -1,3 +1,3 @@
 // mod slice;
 mod utils;
-// mod vec;
+mod vec;
