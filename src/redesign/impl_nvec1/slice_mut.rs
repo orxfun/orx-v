@@ -1,7 +1,6 @@
 use super::super::{D1, Dim, NVecMut};
-use alloc::vec::Vec;
 
-impl<T> NVecMut<D1, T> for Vec<T> {
+impl<'a, T> NVecMut<D1, T> for &'a mut [T] {
     #[inline(always)]
     fn at(&self, idx: <D1 as Dim>::Idx) -> &T {
         &self[idx]
