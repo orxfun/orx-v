@@ -10,8 +10,10 @@ fn vec_as_v1_copy() {
     assert_eq!(second(v.copied()), 2);
 }
 
-// #[test]
-// fn vec_as_v1_ref() {
-//     let v = vec!["x".to_string(), "y".to_string()];
-//     assert_eq!(&"y".to_string(), second(&v));
-// }
+#[test]
+fn vec_as_v1_clone() {
+    let v = vec!["x".to_string(), "y".to_string()];
+
+    assert_eq!(second(&v), &"y".to_string());
+    assert_eq!(second(v.cloned()), "y".to_string());
+}
