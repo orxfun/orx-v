@@ -27,3 +27,17 @@ fn vec_slice_as_v2() {
 
     assert_eq!(second_first_ref(&v), &1);
 }
+
+#[test]
+fn vec_vecref_slice_as_v2() {
+    let a = vec![0];
+    let b = vec![1, 2, 3];
+    let c = vec![4, 5];
+    let v = vec![&a, &b, &c];
+
+    assert_eq!(second_first(&&v), &1);
+    // assert_eq!(second_first(&v.cloned()), 2);
+    // assert_eq!(second_first(&v.copied()), 2);
+
+    // assert_eq!(second_first_ref(&v), &1);
+}
