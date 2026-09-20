@@ -21,7 +21,6 @@ where
     where
         &'b T: 'a,
     {
-        let child = &self[i];
-        child.at(j)
+        (&self[i]).at(j)
     }
 }
