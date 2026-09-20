@@ -36,4 +36,18 @@ mod tests {
 
         assert_eq!(vec, vec![1, 22, 3]);
     }
+
+    #[test]
+    fn creates_aliasing_mutable_references() {
+        let mut v = vec![0, 1];
+
+        let r: &mut Vec<_> = &mut v;
+        let shared: &&mut Vec<_> = &r;
+
+        let first = shared.at(0);
+        let second = shared.at(1);
+
+        *first = 10;
+        *second = 20;
+    }
 }
