@@ -9,9 +9,8 @@ impl<'a, T> NVec<D0, &'a T> for &'a T {
 
 #[cfg(test)]
 mod tests {
-    use alloc::string::ToString;
-
     use super::*;
+    use alloc::string::ToString;
 
     fn get<T>(v: impl NVec<D0, T>) -> T {
         v.at([])
