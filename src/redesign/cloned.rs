@@ -43,7 +43,11 @@ where
     T: Clone + 'a,
     V: NVec<D, &'a T>,
 {
-    fn at(&self, idx: <D as Dim>::Idx) -> T {
+    #[inline(always)]
+    fn at<'b>(&'b self, idx: <D as Dim>::Idx) -> T
+    where
+        T: 'b,
+    {
         self.0.at(idx).clone()
     }
 }

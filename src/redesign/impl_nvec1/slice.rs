@@ -8,7 +8,10 @@ impl<T> NVecRef<D1, T> for &'_ [T] {
 
 impl<'a, T> NVec<D1, &'a T> for &'a &'_ [T] {
     #[inline(always)]
-    fn at(&self, idx: <D1 as Dim>::Idx) -> &'a T {
+    fn at<'r>(&'r self, idx: <D1 as Dim>::Idx) -> &'a T
+    where
+        &'a T: 'r,
+    {
         <&'_ [T] as NVecRef<D1, T>>::at_ref(self, idx)
     }
 }

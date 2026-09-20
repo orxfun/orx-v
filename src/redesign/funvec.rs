@@ -29,7 +29,10 @@ where
     F: Fn(D::Idx) -> T,
 {
     #[inline(always)]
-    fn at(&self, idx: <D as Dim>::Idx) -> T {
+    fn at<'a>(&'a self, idx: <D as Dim>::Idx) -> T
+    where
+        T: 'a,
+    {
         (self.fun)(idx)
     }
 }

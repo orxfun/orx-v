@@ -1,7 +1,9 @@
 use super::{Cloned, Copied, Dim};
 
 pub trait NVec<D: Dim, T> {
-    fn at(&self, idx: D::Idx) -> T;
+    fn at<'r>(&'r self, idx: D::Idx) -> T
+    where
+        T: 'r;
 
     // transformations
 

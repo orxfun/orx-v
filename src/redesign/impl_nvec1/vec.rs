@@ -17,7 +17,19 @@ impl<T> NVecMut<D1, T> for Vec<T> {
 
 impl<'a, T> NVec<D1, &'a T> for &'a Vec<T> {
     #[inline(always)]
-    fn at(&self, idx: <D1 as Dim>::Idx) -> &'a T {
+    fn at<'r>(&'r self, idx: <D1 as Dim>::Idx) -> &'a T
+    where
+        &'a T: 'r,
+    {
         <Vec<T> as NVecRef<D1, T>>::at_ref(self, idx)
+    }
+}
+
+impl<'a, T> NVec<D1, &'a mut T> for &'a mut Vec<T> {
+    fn at<'r>(&'r self, idx: <D1 as Dim>::Idx) -> &'a mut T
+    where
+        &'a mut T: 'r,
+    {
+        todo!()
     }
 }
