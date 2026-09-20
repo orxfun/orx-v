@@ -42,10 +42,10 @@ mod tests {
         let mut v = vec![0, 1];
 
         let r: &mut Vec<_> = &mut v;
-        let shared: &&mut Vec<_> = &r;
+        // let shared: &&mut Vec<_> = &r;
 
-        let first = shared.at(0);
-        let second = shared.at(1);
+        let first = r.at(0);
+        let second = r.at(1);
 
         *first = 10;
         *second = 20;
