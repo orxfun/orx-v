@@ -34,13 +34,3 @@ fn vec_slice_as_v1_copy() {
     assert_eq!(second_first(vec_slice.cloned()), 1);
     assert_eq!(second_first(vec_slice.copied()), 1);
 }
-
-#[test]
-fn slice_vec_as_v1_copy() {
-    let vec_vec = vec![vec![0], vec![1, 2, 3], vec![4, 5]];
-    let slice_vec = vec_vec.as_slice();
-
-    // assert_eq!(second_first(&slice_vec), &1);
-    // assert_eq!(second_first(slice_vec.cloned()), 1);
-    // assert_eq!(second_first(slice_vec.copied()), 1);
-}
