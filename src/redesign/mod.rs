@@ -1,3 +1,4 @@
+mod impl_nvec0;
 mod impl_nvec1;
 mod impl_nvec2;
 
@@ -7,5 +8,5 @@ mod fun;
 mod nvec;
 
 pub use copied_cloned::{Cloned, Copied};
-pub use dimensions::{D1, D2, Dim};
+pub use dimensions::{D0, D1, D2, DNever, Dim};
 pub use nvec::NVec;
