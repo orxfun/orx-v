@@ -7,6 +7,7 @@ fn vec_as_v1_copy() {
     let v = vec![1, 2, 3];
 
     assert_eq!(second(&v), &2);
+    assert_eq!(second(v.cloned()), 2);
     assert_eq!(second(v.copied()), 2);
 }
 
