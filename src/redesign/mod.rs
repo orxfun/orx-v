@@ -12,7 +12,7 @@ mod nvec_ref;
 
 pub use cloned::Cloned;
 pub use copied::Copied;
-pub use dimensions::{D0, D1, D2, DNever, Dim, IdxNever};
+pub use dimensions::{D0, D1, D2, D3, D4, Dim};
 pub use fun::FunVec;
 pub use impl_nvec0::NVecNever;
 pub use nvec::NVec;
