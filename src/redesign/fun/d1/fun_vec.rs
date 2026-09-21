@@ -36,3 +36,15 @@ where
         Self { data, f, p }
     }
 }
+
+// impl V
+
+impl<D, S, T, F> V<D1, T> for FunVec1<D, S, T, F>
+where
+    S: SoR<D>,
+    F: Fun1<D, T>,
+{
+    fn at(&self, i: <D1 as Dim>::Idx) -> T {
+        self.f.at(self.data.get_ref(), i)
+    }
+}
