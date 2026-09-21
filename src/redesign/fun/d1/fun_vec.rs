@@ -1,5 +1,5 @@
 use super::super::super::{D1, D2, D3, D4, Dim, NVecNever, V};
-use super::fun_trait::{Fun1, FunWithData1, FunWithoutData1};
+use super::fun_trait::{Fun1, FunRefWithData1, FunWithoutData1};
 use core::marker::PhantomData;
 use orx_self_or::SoR;
 
@@ -13,13 +13,13 @@ where
     p: PhantomData<(D, T)>,
 }
 
-impl<D, S, T, F> FunVec1<D, S, T, FunWithData1<D, T, F>>
+impl<D, S, T, F> FunVec1<D, S, T, FunRefWithData1<D, T, F>>
 where
     S: SoR<D>,
     F: Fn(&D, usize) -> T,
 {
     pub fn with_data(data: S, f: F) -> Self {
-        let f = FunWithData1::new(f);
+        let f = FunRefWithData1::new(f);
         let p = PhantomData;
         Self { data, f, p }
     }
