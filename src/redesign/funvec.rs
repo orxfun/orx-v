@@ -35,6 +35,8 @@ where
     {
         (self.fun)(idx)
     }
+
+    // child
 }
 
 // clone & copy

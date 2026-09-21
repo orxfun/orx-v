@@ -4,4 +4,6 @@ pub trait Dim {
     type Idx;
 
     type PrevDim: Dim;
+
+    type ChildIdx;
 }

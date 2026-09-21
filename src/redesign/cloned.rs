@@ -37,16 +37,16 @@ where
 {
 }
 
-impl<'a, D, T, V> NVec<D, T> for Cloned<'a, D, T, V>
+impl<'b, D, T, V> NVec<D, T> for Cloned<'b, D, T, V>
 where
     D: Dim,
-    T: Clone + 'a,
-    V: NVec<D, &'a T>,
+    T: Clone + 'b,
+    V: NVec<D, &'b T>,
 {
     #[inline(always)]
-    fn at<'b>(&'b self, idx: <D as Dim>::Idx) -> T
+    fn at<'r>(&'r self, idx: <D as Dim>::Idx) -> T
     where
-        T: 'b,
+        T: 'r,
     {
         self.0.at(idx).clone()
     }

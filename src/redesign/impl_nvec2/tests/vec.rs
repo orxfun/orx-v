@@ -1,5 +1,5 @@
 use super::super::super::{FunVec, NVec};
-use super::utils::{second_first, second_first_mut, second_first_ref};
+use super::utils::{reduce_first_child, second_first, second_first_mut, second_first_ref};
 use alloc::vec;
 
 #[test]
@@ -12,6 +12,9 @@ fn vec_vec_as_v2() {
 
     assert_eq!(second_first_ref(&v), &1);
     assert_eq!(second_first_mut(&mut v), &mut 1);
+
+    let sum_c1 = reduce_first_child(&v, 0, |a, b| a + b);
+    assert_eq!(sum_c1, 6);
 }
 
 #[test]
@@ -26,6 +29,9 @@ fn vec_slice_as_v2() {
     assert_eq!(second_first(&v.copied()), 1);
 
     assert_eq!(second_first_ref(&v), &1);
+
+    let sum_c1 = reduce_first_child(&v, 0, |a, b| a + b);
+    assert_eq!(sum_c1, 6);
 }
 
 #[test]

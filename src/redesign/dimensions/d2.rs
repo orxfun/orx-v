@@ -7,5 +7,7 @@ impl Dim for D2 {
 
     type Idx = [usize; 2];
 
+    type ChildIdx = usize;
+
     type PrevDim = D1;
 }

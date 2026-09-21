@@ -1,4 +1,4 @@
-use super::super::{D1, Dim, NVec, NVecMut, NVecRef};
+use super::super::{D1, Dim, NVec, NVecMut, NVecNever, NVecRef};
 use alloc::vec::Vec;
 
 // ref
@@ -8,6 +8,14 @@ impl<T> NVecRef<D1, T> for Vec<T> {
     fn at_ref(&self, idx: <D1 as Dim>::Idx) -> &T {
         &self[idx]
     }
+
+    // child
+
+    type Child = NVecNever;
+
+    fn child(&self, _: <D1 as Dim>::ChildIdx) -> &Self::Child {
+        unreachable!()
+    }
 }
 
 impl<T> NVecRef<D1, T> for &Vec<T> {
@@ -15,12 +23,28 @@ impl<T> NVecRef<D1, T> for &Vec<T> {
     fn at_ref(&self, idx: <D1 as Dim>::Idx) -> &T {
         &self[idx]
     }
+
+    // child
+
+    type Child = NVecNever;
+
+    fn child(&self, _: <D1 as Dim>::ChildIdx) -> &Self::Child {
+        unreachable!()
+    }
 }
 
 impl<T> NVecRef<D1, T> for &mut Vec<T> {
     #[inline(always)]
     fn at_ref(&self, idx: <D1 as Dim>::Idx) -> &T {
         &self[idx]
+    }
+
+    // child
+
+    type Child = NVecNever;
+
+    fn child(&self, _: <D1 as Dim>::ChildIdx) -> &Self::Child {
+        unreachable!()
     }
 }
 
