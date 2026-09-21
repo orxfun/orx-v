@@ -21,6 +21,10 @@ where
             p: PhantomData,
         }
     }
+
+    pub fn get(&self, idx: D::Idx) -> T {
+        (self.fun)(idx)
+    }
 }
 
 impl<D, T, F> NVec<D, T> for FunVec<D, T, F>

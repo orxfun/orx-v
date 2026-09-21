@@ -23,3 +23,7 @@ pub trait NVec<D: Dim, T> {
         Cloned::new(self)
     }
 }
+
+pub trait V<D: Dim, T> {
+    fn at(&self, idx: D::Idx) -> T;
+}
