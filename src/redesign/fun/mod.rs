@@ -1,3 +1,6 @@
+#[cfg(test)]
+mod tests;
+
 mod funvec;
 mod funvec1;
 mod funvec2;

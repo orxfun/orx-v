@@ -1,8 +1,17 @@
 use super::super::{D1, D2, D3, D4, Dim, NVecNever, V};
 
-pub struct FunVec1<'a, T, F>(pub(super) &'a F)
+pub struct FunVec1<'a, T, F>(&'a F)
 where
     F: Fn(<D1 as Dim>::Idx) -> T;
+
+impl<'a, T, F> FunVec1<'a, T, F>
+where
+    F: Fn(<D1 as Dim>::Idx) -> T,
+{
+    pub fn new(f: &'a F) -> Self {
+        Self(f)
+    }
+}
 
 pub struct FunVec1ChildOfD2<'a, T, F>(pub(super) &'a F, pub(super) usize)
 where
