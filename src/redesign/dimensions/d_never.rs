@@ -1,8 +1,10 @@
-use super::{Dim, IdxNever};
+use super::Dim;
 
-pub struct D0;
+pub enum IdxNever {}
 
-impl Dim for D0 {
+pub struct DNever;
+
+impl Dim for DNever {
     const D: usize = 0;
 
     type Idx = IdxNever;

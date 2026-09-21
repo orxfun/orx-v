@@ -1,4 +1,4 @@
-use super::{D0, Dim, IdxNever};
+use super::{DNever, Dim, IdxNever};
 
 pub struct D1;
 
@@ -9,5 +9,5 @@ impl Dim for D1 {
 
     type ChildIdx = IdxNever;
 
-    type PrevDim = D0;
+    type PrevDim = DNever;
 }
