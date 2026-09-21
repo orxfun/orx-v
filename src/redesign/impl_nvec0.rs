@@ -34,9 +34,9 @@ impl<T> V<DNever, T> for NVecNever {
         unreachable!()
     }
 
-    type Child = Self;
+    type Child<'a> = Self;
 
-    fn child(&self, _: <DNever as Dim>::ChildIdx) -> Self::Child {
+    fn child(&self, _: <DNever as Dim>::ChildIdx) -> Self::Child<'_> {
         unreachable!()
     }
 }

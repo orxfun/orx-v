@@ -27,9 +27,11 @@ pub trait NVec<D: Dim, T> {
 pub trait V<D: Dim, T> {
     fn at(&self, idx: D::Idx) -> T;
 
-    type Child: V<D::PrevDim, T>;
+    type Child<'a>: V<D::PrevDim, T>
+    where
+        Self: 'a;
 
-    fn child(&self, idx: D::ChildIdx) -> Self::Child {
+    fn child(&self, idx: D::ChildIdx) -> Self::Child<'_> {
         unreachable!()
     }
 }
