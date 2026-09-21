@@ -1,4 +1,4 @@
-use super::{Dim, NVec};
+use super::super::{Dim, NVec};
 use core::marker::PhantomData;
 
 pub struct FunVec<D, T, F>
@@ -35,8 +35,6 @@ where
     {
         (self.fun)(idx)
     }
-
-    // child
 }
 
 // clone & copy
