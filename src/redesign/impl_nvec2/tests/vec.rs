@@ -29,7 +29,7 @@ fn vec_slice_as_v2() {
 }
 
 #[test]
-fn vec_vecref_slice_as_v2() {
+fn vec_vecref_as_v2() {
     let a = vec![0];
     let b = vec![1, 2, 3];
     let c = vec![4, 5];
