@@ -1,4 +1,4 @@
-use super::{DNever, Dim, NVec, NVecMut, NVecRef};
+use super::{DNever, Dim, NVec, NVecMut, NVecRef, V};
 
 pub struct NVecNever;
 
@@ -25,6 +25,18 @@ impl<T> NVec<DNever, T> for NVecNever {
     where
         T: 'r,
     {
+        unreachable!()
+    }
+}
+
+impl<T> V<DNever, T> for NVecNever {
+    fn at(&self, _: <DNever as Dim>::Idx) -> T {
+        unreachable!()
+    }
+
+    type Child = Self;
+
+    fn child(&self, _: <DNever as Dim>::ChildIdx) -> Self::Child {
         unreachable!()
     }
 }

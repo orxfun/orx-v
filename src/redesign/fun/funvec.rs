@@ -25,6 +25,10 @@ where
     pub fn get(&self, idx: D::Idx) -> T {
         (self.fun)(idx)
     }
+
+    pub fn into_inner(self) -> F {
+        self.fun
+    }
 }
 
 impl<D, T, F> NVec<D, T> for FunVec<D, T, F>
