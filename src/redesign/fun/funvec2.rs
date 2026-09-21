@@ -24,7 +24,9 @@ where
 
 // impl V
 
-impl<T, F> V<D2, T> for FunVec2<'_, T, F>
+// TODO: impl V for self (FunVec2) too
+
+impl<T, F> V<D2, T> for &FunVec2<'_, T, F>
 where
     F: Fn(<D2 as Dim>::Idx) -> T,
 {
