@@ -20,13 +20,13 @@ smallvec = { version = "1.15.0", default-features = false, optional = true }
 tinyvec = { version = "1.9.0", default-features = false, optional = true, features = [
     "alloc",
 ] }
-orx-self-or = { version = "1.2" }
+# orx-self-or = { version = "1.2" }
+orx-self-or = { path = "../orx-self-or" }
 
 [dev-dependencies]
 ndarray = "0.16.1"
 num = "0.4.3"
 orx-priority-queue = "1.7.0"
-orx-self-or = { version = "1.2" }
 rand = "0.9"
 rand_chacha = "0.9"
 orx-split-vec = "3.16.0"
