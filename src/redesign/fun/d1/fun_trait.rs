@@ -1,7 +1,7 @@
 use core::marker::PhantomData;
 
 pub trait Fun1<D, T> {
-    fn exe(&self, data: &D, i: usize) -> T;
+    fn at(&self, data: &D, i: usize) -> T;
 }
 
 // with data
@@ -29,7 +29,7 @@ where
     F: Fn(&D, usize) -> T,
 {
     #[inline(always)]
-    fn exe(&self, data: &D, i: usize) -> T {
+    fn at(&self, data: &D, i: usize) -> T {
         (self.fun)(data, i)
     }
 }
@@ -57,7 +57,7 @@ where
     F: Fn(usize) -> T,
 {
     #[inline(always)]
-    fn exe(&self, _: &(), i: usize) -> T {
+    fn at(&self, _: &(), i: usize) -> T {
         (self.fun)(i)
     }
 }
