@@ -2,11 +2,17 @@ use super::super::{D1, D2, D3, D4, Dim, NVecNever, Vm};
 use core::marker::PhantomData;
 use orx_self_or::SoM;
 
-pub struct FunMutVec1<D, S, T, Fr, Fm>(S, Fr, Fm, PhantomData<(D, T)>)
+pub struct FunMutVec1<D, S, T, Fr, Fm>
 where
     S: SoM<D>,
     Fr: Fn(&D, <D1 as Dim>::Idx) -> &T,
-    Fm: Fn(&mut D, <D1 as Dim>::Idx) -> &mut T;
+    Fm: Fn(&mut D, <D1 as Dim>::Idx) -> &mut T,
+{
+    data: S,
+    f: Fr,
+    m: Fm,
+    p: PhantomData<(D, T)>,
+}
 
 impl<D, S, T, Fr, Fm> FunMutVec1<D, S, T, Fr, Fm>
 where
@@ -14,8 +20,9 @@ where
     Fr: Fn(&D, <D1 as Dim>::Idx) -> &T,
     Fm: Fn(&mut D, <D1 as Dim>::Idx) -> &mut T,
 {
-    pub fn new(data: S, g: Fr, m: Fm) -> Self {
-        Self(data, g, m, PhantomData)
+    pub fn new(data: S, f: Fr, m: Fm) -> Self {
+        let p = PhantomData;
+        Self { data, f, m, p }
     }
 }
 
@@ -28,11 +35,11 @@ where
     Fm: Fn(&mut D, <D1 as Dim>::Idx) -> &mut T,
 {
     fn at(&self, idx: <D1 as Dim>::Idx) -> &T {
-        (self.1)(self.0.get_ref(), idx)
+        (self.f)(self.data.get_ref(), idx)
     }
 
     fn mut_at(&mut self, idx: <D1 as Dim>::Idx) -> &mut T {
-        (self.2)(self.0.get_mut(), idx)
+        (self.m)(self.data.get_mut(), idx)
     }
 }
 

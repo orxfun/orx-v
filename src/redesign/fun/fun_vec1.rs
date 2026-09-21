@@ -1,10 +1,31 @@
 use super::super::{D1, D2, D3, D4, Dim, NVecNever, V};
+use core::marker::PhantomData;
+use orx_self_or::SoR;
 
-pub struct FunVec1<'a, T, F>(&'a F)
+pub struct FunVec1<D, S, T, Fr>(S, Fr, PhantomData<(D, T)>)
+where
+    S: SoR<D>,
+    Fr: Fn(&D, <D1 as Dim>::Idx) -> &T;
+
+impl<D, S, T, Fr> FunVec1<D, S, T, Fr>
+where
+    S: SoR<D>,
+    Fr: Fn(&D, <D1 as Dim>::Idx) -> &T,
+{
+    pub fn new(data: S, f: Fr) -> Self {
+        Self(data, f, PhantomData)
+    }
+}
+
+// impl V
+
+// arch
+
+pub struct FunVec1Zzz<'a, T, F>(&'a F)
 where
     F: Fn(<D1 as Dim>::Idx) -> T;
 
-impl<'a, T, F> FunVec1<'a, T, F>
+impl<'a, T, F> FunVec1Zzz<'a, T, F>
 where
     F: Fn(<D1 as Dim>::Idx) -> T,
 {
@@ -32,7 +53,7 @@ where
 
 // impl V
 
-impl<T, F> V<D1, T> for FunVec1<'_, T, F>
+impl<T, F> V<D1, T> for FunVec1Zzz<'_, T, F>
 where
     F: Fn(<D1 as Dim>::Idx) -> T,
 {
