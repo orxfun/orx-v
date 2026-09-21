@@ -33,26 +33,28 @@ impl<'a, T> NVec<D0, &'a T> for &'a T {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use alloc::string::ToString;
 
     fn get<T>(v: impl NVec<D0, T>) -> T {
         v.at([])
     }
 
-    #[test]
-    fn scalar_as_v0_copy() {
-        let a = 12;
+    fn get_ref<T>(v: &impl NVecRef<D0, T>) -> &T {
+        v.at_ref([])
+    }
 
-        assert_eq!(get(&a), &12);
-        assert_eq!(get(a.cloned()), 12);
-        assert_eq!(get(a.copied()), 12);
+    fn get_mut<T>(v: &mut impl NVecMut<D0, T>) -> &mut T {
+        v.at_mut([])
     }
 
     #[test]
-    fn scalar_as_v0_clone() {
-        let a = "x".to_string();
+    fn scalar_as_v0() {
+        let mut v = 2;
 
-        assert_eq!(get(&a), &"x".to_string());
-        assert_eq!(get(a.cloned()), "x".to_string());
+        assert_eq!(get(&v), &2);
+        assert_eq!(get(v.cloned()), 2);
+        assert_eq!(get(v.copied()), 2);
+
+        assert_eq!(get_ref(&v), &2);
+        assert_eq!(get_mut(&mut v), &mut 2);
     }
 }
