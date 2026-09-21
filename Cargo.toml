@@ -20,6 +20,7 @@ smallvec = { version = "1.15.0", default-features = false, optional = true }
 tinyvec = { version = "1.9.0", default-features = false, optional = true, features = [
     "alloc",
 ] }
+orx-self-or = { version = "1.2" }
 
 [dev-dependencies]
 ndarray = "0.16.1"

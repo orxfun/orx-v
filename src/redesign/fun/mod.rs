@@ -5,6 +5,7 @@ mod fun_vec1;
 mod fun_vec2;
 mod fun_vec3;
 mod fun_vec4;
+mod fun_vec_mut1;
 mod funvec;
 
 pub use fun_vec1::{FunVec1, FunVec1ChildOfD2, FunVec1ChildOfD3, FunVec1ChildOfD4};
