@@ -1,4 +1,24 @@
-use super::{D0, Dim, NVec};
+use super::{D0, Dim, NVec, NVecMut, NVecRef};
+
+// ref
+
+impl<'a, T> NVecRef<D0, T> for T {
+    #[inline(always)]
+    fn at_ref(&self, _: <D0 as Dim>::Idx) -> &T {
+        self
+    }
+}
+
+// mut
+
+impl<'a, T> NVecMut<D0, T> for T {
+    #[inline(always)]
+    fn at_mut(&mut self, _: <D0 as Dim>::Idx) -> &mut T {
+        self
+    }
+}
+
+// nvec
 
 impl<'a, T> NVec<D0, &'a T> for &'a T {
     #[inline(always)]
