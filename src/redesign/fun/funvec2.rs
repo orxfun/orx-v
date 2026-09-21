@@ -1,5 +1,5 @@
-use super::super::{D2, D3, D4, Dim, NVecNever, V};
-use super::{FunVec, FunVec1ChildOfD2};
+use super::super::{D2, D3, D4, Dim, V};
+use super::FunVec1ChildOfD2;
 
 pub struct FunVec2<'a, T, F>(pub(super) &'a F)
 where
