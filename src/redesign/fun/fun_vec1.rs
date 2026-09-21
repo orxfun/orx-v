@@ -17,7 +17,11 @@ where
     S: SoR<D>,
     Fr: Fn(&D, <D1 as Dim>::Idx) -> T,
 {
-    pub fn new(data: S, f: Fr) -> Self {
+    // pub fn new(f: Fr) -> impl FunVec1<(), (), T, impl Fn(&D, <D1 as Dim>::Idx) -> T> {
+    //     todo!()
+    // }
+
+    pub fn with_data(data: S, f: Fr) -> Self {
         let p = PhantomData;
         Self { data, f, p }
     }
@@ -46,25 +50,25 @@ mod tests {
     fn abc() {
         let data = vec![1, 2, 3];
 
-        let v = FunVec1::new(&data, |d: &Vec<_>, i| d[i]);
+        let v = FunVec1::with_data(&data, |d: &Vec<_>, i| d[i]);
         assert_eq!(v.at(1), 2);
 
-        let v = FunVec1::new((), |_, i| i + 1);
-        assert_eq!(v.at(1), 2);
-
-        let one = vec![String::from("x")];
-        let v = FunVec1::new((), |_, i| i + one[0].len());
+        let v = FunVec1::with_data((), |_, i| i + 1);
         assert_eq!(v.at(1), 2);
 
         let one = vec![String::from("x")];
-        let v = FunVec1::new((), move |_, i| i + one[0].len());
+        let v = FunVec1::with_data((), |_, i| i + one[0].len());
         assert_eq!(v.at(1), 2);
 
         let one = vec![String::from("x")];
-        let v = FunVec1::new(&one, |data: &Vec<_>, i| i + data[0].len());
+        let v = FunVec1::with_data((), move |_, i| i + one[0].len());
         assert_eq!(v.at(1), 2);
 
-        let v = FunVec1::new(one, |data, i| i + data[0].len());
+        let one = vec![String::from("x")];
+        let v = FunVec1::with_data(&one, |data: &Vec<_>, i| i + data[0].len());
+        assert_eq!(v.at(1), 2);
+
+        let v = FunVec1::with_data(one, |data, i| i + data[0].len());
         assert_eq!(v.at(1), 2);
     }
 }

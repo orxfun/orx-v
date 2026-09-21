@@ -5,6 +5,8 @@ mod fun_vec1;
 // mod fun_vec2;
 // mod fun_vec3;
 // mod fun_vec4;
+mod d1;
+mod fun_traits1;
 mod fun_vec_mut1;
 mod funvec;
 
