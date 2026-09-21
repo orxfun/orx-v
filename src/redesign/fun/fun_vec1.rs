@@ -1,110 +1,70 @@
-use super::super::{D1, D2, D3, D4, Dim, NVecNever, V};
+use super::super::{D1, D2, D3, D4, Dim, NVecNever, V, Vzzz};
 use core::marker::PhantomData;
 use orx_self_or::SoR;
 
-pub struct FunVec1<D, S, T, Fr>(S, Fr, PhantomData<(D, T)>)
+pub struct FunVec1<D, S, T, Fr>
 where
     S: SoR<D>,
-    Fr: Fn(&D, <D1 as Dim>::Idx) -> &T;
+    Fr: Fn(&D, <D1 as Dim>::Idx) -> T,
+{
+    data: S,
+    f: Fr,
+    p: PhantomData<(D, T)>,
+}
 
 impl<D, S, T, Fr> FunVec1<D, S, T, Fr>
 where
     S: SoR<D>,
-    Fr: Fn(&D, <D1 as Dim>::Idx) -> &T,
+    Fr: Fn(&D, <D1 as Dim>::Idx) -> T,
 {
     pub fn new(data: S, f: Fr) -> Self {
-        Self(data, f, PhantomData)
+        let p = PhantomData;
+        Self { data, f, p }
     }
 }
 
 // impl V
 
-// arch
-
-pub struct FunVec1Zzz<'a, T, F>(&'a F)
+impl<D, S, T, Fr> V<D1, T> for FunVec1<D, S, T, Fr>
 where
-    F: Fn(<D1 as Dim>::Idx) -> T;
-
-impl<'a, T, F> FunVec1Zzz<'a, T, F>
-where
-    F: Fn(<D1 as Dim>::Idx) -> T,
+    S: SoR<D>,
+    Fr: Fn(&D, <D1 as Dim>::Idx) -> T,
 {
-    pub fn new(f: &'a F) -> Self {
-        Self(f)
+    fn at(&self, idx: <D1 as Dim>::Idx) -> T {
+        (self.f)(self.data.get_ref(), idx)
     }
 }
 
-pub struct FunVec1ChildOfD2<'a, T, F>(pub(super) &'a F, pub(super) usize)
-where
-    F: Fn(<D2 as Dim>::Idx) -> T;
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use alloc::string::String;
+    use alloc::vec;
+    use alloc::vec::Vec;
 
-pub struct FunVec1ChildOfD3<'a, T, F>(pub(super) &'a F, pub(super) usize, pub(super) usize)
-where
-    F: Fn(<D3 as Dim>::Idx) -> T;
+    #[test]
+    fn abc() {
+        let data = vec![1, 2, 3];
 
-pub struct FunVec1ChildOfD4<'a, T, F>(
-    pub(super) &'a F,
-    pub(super) usize,
-    pub(super) usize,
-    pub(super) usize,
-)
-where
-    F: Fn(<D4 as Dim>::Idx) -> T;
+        let v = FunVec1::new(&data, |d: &Vec<_>, i| d[i]);
+        assert_eq!(v.at(1), 2);
 
-// impl V
+        let v = FunVec1::new((), |_, i| i + 1);
+        assert_eq!(v.at(1), 2);
 
-impl<T, F> V<D1, T> for FunVec1Zzz<'_, T, F>
-where
-    F: Fn(<D1 as Dim>::Idx) -> T,
-{
-    fn at(&self, idx: <D1 as Dim>::Idx) -> T {
-        (self.0)(idx)
+        let one = vec![String::from("x")];
+        let v = FunVec1::new((), |_, i| i + one[0].len());
+        assert_eq!(v.at(1), 2);
+
+        let one = vec![String::from("x")];
+        let v = FunVec1::new((), move |_, i| i + one[0].len());
+        assert_eq!(v.at(1), 2);
+
+        let one = vec![String::from("x")];
+        let v = FunVec1::new(&one, |data: &Vec<_>, i| i + data[0].len());
+        assert_eq!(v.at(1), 2);
+
+        let v = FunVec1::new(one, |data, i| i + data[0].len());
+        assert_eq!(v.at(1), 2);
     }
-
-    type Child<'a>
-        = NVecNever
-    where
-        Self: 'a;
-}
-
-impl<T, F> V<D1, T> for FunVec1ChildOfD2<'_, T, F>
-where
-    F: Fn(<D2 as Dim>::Idx) -> T,
-{
-    fn at(&self, idx: <D1 as Dim>::Idx) -> T {
-        (self.0)([self.1, idx])
-    }
-
-    type Child<'a>
-        = NVecNever
-    where
-        Self: 'a;
-}
-
-impl<T, F> V<D1, T> for FunVec1ChildOfD3<'_, T, F>
-where
-    F: Fn(<D3 as Dim>::Idx) -> T,
-{
-    fn at(&self, idx: <D1 as Dim>::Idx) -> T {
-        (self.0)([self.1, self.2, idx])
-    }
-
-    type Child<'a>
-        = NVecNever
-    where
-        Self: 'a;
-}
-
-impl<T, F> V<D1, T> for FunVec1ChildOfD4<'_, T, F>
-where
-    F: Fn(<D4 as Dim>::Idx) -> T,
-{
-    fn at(&self, idx: <D1 as Dim>::Idx) -> T {
-        (self.0)([self.1, self.2, self.3, idx])
-    }
-
-    type Child<'a>
-        = NVecNever
-    where
-        Self: 'a;
 }

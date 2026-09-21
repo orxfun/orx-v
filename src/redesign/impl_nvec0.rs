@@ -1,4 +1,4 @@
-use super::{DNever, Dim, NVec, NVecMut, NVecRef, V};
+use super::{DNever, Dim, NVec, NVecMut, NVecRef, Vzzz};
 
 pub struct NVecNever;
 
@@ -29,7 +29,7 @@ impl<T> NVec<DNever, T> for NVecNever {
     }
 }
 
-impl<T> V<DNever, T> for NVecNever {
+impl<T> Vzzz<DNever, T> for NVecNever {
     fn at(&self, _: <DNever as Dim>::Idx) -> T {
         unreachable!()
     }

@@ -53,7 +53,7 @@ mod tests {
     fn abc() {
         let mut data = vec![1, 2, 3];
 
-        fn g<'a>(d: &'a Vec<i32>, i: usize) -> &'a i32 {
+        fn f<'a>(d: &'a Vec<i32>, i: usize) -> &'a i32 {
             &d[i]
         }
 
@@ -61,7 +61,7 @@ mod tests {
             &mut d[i]
         }
 
-        let mut v = FunMutVec1::new(&mut data, g, m);
+        let mut v = FunMutVec1::new(&mut data, f, m);
         assert_eq!(v.at(1), &2);
         *v.mut_at(1) = 22;
         assert_eq!(v.at(1), &22);
