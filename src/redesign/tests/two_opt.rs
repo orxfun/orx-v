@@ -84,8 +84,20 @@ fn two_opt_var2() {
 #[test]
 fn two_opt_var3() {
     let distances = FunAt::new(|[i, j]: [usize; 2]| (5 * i + 3 * j / 2) as u32);
-    let tour = vec![0, 1, 2, 3];
+    let mut tour = vec![0, 1, 2, 3];
 
-    let result = two_opt(&distances, tour);
+    let result = two_opt(&distances, &mut tour);
     assert_eq!(result, 13);
+}
+
+#[test]
+fn two_opt_var4() {
+    let distances = FunAt::new(|[i, j]: [usize; 2]| match i == j {
+        true => 0,
+        false => 1,
+    });
+    let mut tour = vec![0, 1, 2, 3];
+
+    let result = two_opt(&distances, &mut tour);
+    assert_eq!(result, 0);
 }
