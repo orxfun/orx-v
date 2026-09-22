@@ -28,7 +28,7 @@ where
 }
 
 #[test]
-fn two_opt_var1() {
+fn matmul_var1() {
     let a = vec![
         vec![0, 3, 2, 5],
         vec![1, 6, 8, 2],
@@ -50,7 +50,17 @@ fn two_opt_var1() {
 }
 
 #[test]
-fn two_opt_var2() {
+fn matmul_var2() {
+    let a = FunAt::new(|_: [usize; 2]| 1);
+    let b = FunAt::new(|_: [usize; 2]| 7);
+    let mut c: Vec<Vec<_>> = (0..4).map(|_| (0..4).map(|_| 0u32).collect()).collect();
+
+    matmul(&a, &b, &mut c);
+    assert_eq!(c[1][2], 28);
+}
+
+#[test]
+fn matmul_var3() {
     fn make_flat_matrix<'a>(data: &'a [u32]) -> impl At<D2, u32> + 'a {
         let m = data.len().sqrt();
         FunAt::new(move |[i, j]: [usize; 2]| {
