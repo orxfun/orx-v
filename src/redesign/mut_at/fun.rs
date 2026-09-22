@@ -67,7 +67,15 @@ where
         (self.f)(self.data.borrow(), idx)
     }
 
+    fn try_at(&self, idx: <D as Dim>::Idx) -> Option<&T> {
+        Some(self.at(idx))
+    }
+
     fn mut_at(&mut self, idx: <D as Dim>::Idx) -> &mut T {
         (self.m)(self.data.borrow_mut(), idx)
+    }
+
+    fn try_mut_at(&mut self, idx: <D as Dim>::Idx) -> Option<&mut T> {
+        Some(self.mut_at(idx))
     }
 }
