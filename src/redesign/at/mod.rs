@@ -2,6 +2,7 @@
 mod tests;
 
 mod at_trait;
+mod copied;
 mod fun;
 mod slice;
 mod vec;
