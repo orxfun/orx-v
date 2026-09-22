@@ -58,4 +58,8 @@ where
     fn child<'c>(&'c self, c: <D as Dim>::ChildIdx) -> Self::Child<'c> {
         Copied::new(self.v.child(c))
     }
+
+    fn try_child<'c>(&'c self, c: <D as Dim>::ChildIdx) -> Option<Self::Child<'c>> {
+        self.v.try_child(c).map(Copied::new)
+    }
 }

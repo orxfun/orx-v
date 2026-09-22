@@ -21,4 +21,8 @@ where
     fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
         FunAt2Child::new(c, &self.fun())
     }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        Some(FunAt2Child::new(c, &self.fun()))
+    }
 }

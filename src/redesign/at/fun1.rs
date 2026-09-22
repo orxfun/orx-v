@@ -21,4 +21,8 @@ where
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
         unreachable!()
     }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
+        unreachable!()
+    }
 }

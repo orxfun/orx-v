@@ -20,6 +20,10 @@ impl<'a, T> At<D1, &'a T> for &'a [T] {
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
         unreachable!()
     }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
+        unreachable!()
+    }
 }
 
 impl<T: Copy> At<D1, T> for &[T] {
@@ -37,6 +41,10 @@ impl<T: Copy> At<D1, T> for &[T] {
         Self: 'c;
 
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
         unreachable!()
     }
 }
@@ -62,5 +70,9 @@ where
 
     fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
         &self[c]
+    }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        self.get(c)
     }
 }

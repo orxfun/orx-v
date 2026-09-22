@@ -21,6 +21,10 @@ impl<'a, T> At<D1, &'a T> for &'a Vec<T> {
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
         unreachable!()
     }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
+        unreachable!()
+    }
 }
 
 impl<T: Copy> At<D1, T> for Vec<T> {
@@ -40,6 +44,10 @@ impl<T: Copy> At<D1, T> for Vec<T> {
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
         unreachable!()
     }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
+        unreachable!()
+    }
 }
 
 impl<T: Copy> At<D1, T> for &Vec<T> {
@@ -57,6 +65,10 @@ impl<T: Copy> At<D1, T> for &Vec<T> {
         Self: 'c;
 
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
         unreachable!()
     }
 }
@@ -83,6 +95,10 @@ where
     fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
         &self[c]
     }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        self.get(c)
+    }
 }
 
 impl<T, C1> At<D2, T> for Vec<C1>
@@ -105,5 +121,9 @@ where
 
     fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
         &self[c]
+    }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        self.get(c)
     }
 }

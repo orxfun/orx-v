@@ -11,6 +11,8 @@ pub trait At<D: Dim, T> {
         Self: 'c;
 
     fn child<'c>(&'c self, c: D::ChildIdx) -> Self::Child<'c>;
+
+    fn try_child<'c>(&'c self, c: D::ChildIdx) -> Option<Self::Child<'c>>;
 }
 
 // never
@@ -32,6 +34,10 @@ impl<T> At<DNever, T> for AtNever {
         Self: 'c;
 
     fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
+
+    fn try_child<'c>(&'c self, _: IdxNever) -> Option<Self::Child<'c>> {
         unreachable!()
     }
 }

@@ -39,6 +39,10 @@ fn vec_vec_as_at2() {
 
     let sum = vec2_sum(&v1, v1.len());
     assert_eq!(sum, 12);
+
+    assert!(v1.try_child(0).is_some());
+    assert!(v1.try_child(1).is_some());
+    assert!(v1.try_child(2).is_none());
 }
 
 #[test]
@@ -56,6 +60,14 @@ fn slice_vec_as_at2() {
 
     let sum = vec2_sum(&v1.copied(), v1.len());
     assert_eq!(sum, 12);
+
+    assert!(At::<D2, &usize>::try_child(&v1, 0).is_some());
+    assert!(At::<D2, &usize>::try_child(&v1, 1).is_some());
+    assert!(At::<D2, &usize>::try_child(&v1, 2).is_none());
+
+    assert!(AtCopied::<D2>::copied(v1).try_child(0).is_some());
+    assert!(AtCopied::<D2>::copied(v1).try_child(1).is_some());
+    assert!(AtCopied::<D2>::copied(v1).try_child(2).is_none());
 }
 
 #[test]
@@ -72,4 +84,7 @@ fn fun_as_at2() {
 
     let sum = vec2_sum(&v1, 3);
     assert_eq!(sum, 27);
+
+    assert!(v1.try_child(0).is_some());
+    assert!(v1.try_child(100).is_some());
 }
