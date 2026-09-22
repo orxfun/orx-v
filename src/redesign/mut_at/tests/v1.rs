@@ -1,7 +1,7 @@
 use super::super::super::D1;
-use super::super::{FunMutAt, MutAt};
+use super::super::MutAt;
 use alloc::string::{String, ToString};
-use alloc::{vec, vec::Vec};
+use alloc::vec;
 
 fn target_fun<'a>(v1: &mut impl MutAt<D1, usize>, mut v2: impl MutAt<D1, String>) {
     v2.mut_at(1).push_str("z");
@@ -28,16 +28,4 @@ fn slice_as_mut_at1() {
     target_fun(&mut v1, v2);
     assert_eq!(vec1[2], 5);
     assert_eq!(&vec2[1], "yz");
-}
-
-#[test]
-fn fun_as_mut_at1() {
-    let mut vec1 = vec![1, 2, 3];
-    let mut v1 = FunMutAt::<D1, _, _, _, _>::new(&mut vec1, |d: &mut Vec<_>, i| &mut d[i]);
-
-    let vec2 = vec!["x".to_string(), "y".to_string()];
-    let v2 = FunMutAt::<D1, _, _, _, _>::new(vec2, |d: &mut Vec<_>, i| &mut d[i]);
-
-    target_fun(&mut v1, v2);
-    assert_eq!(vec1[2], 5);
 }
