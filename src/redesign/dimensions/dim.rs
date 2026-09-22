@@ -1,4 +1,4 @@
-pub trait Dim: Clone + Copy {
+pub trait Dim: Clone + Copy + 'static {
     const D: usize;
 
     type Idx;
