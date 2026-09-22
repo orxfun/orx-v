@@ -4,11 +4,13 @@ use super::{DNever, Dim, IdxNever};
 pub struct D1;
 
 impl Dim for D1 {
+    type PrevDim = DNever;
+
     const D: usize = 1;
 
     type Idx = usize;
 
-    type ChildIdx = IdxNever;
-
-    type PrevDim = DNever;
+    fn combine_child_and_remining_indices(_: usize, _: <Self::PrevDim as Dim>::Idx) -> Self::Idx {
+        unreachable!()
+    }
 }

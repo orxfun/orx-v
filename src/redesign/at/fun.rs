@@ -1,5 +1,4 @@
 use super::super::Dim;
-use super::At;
 use core::marker::PhantomData;
 use derive_new::new;
 
@@ -33,16 +32,12 @@ where
 {
 }
 
-impl<D, T, F> At<D, T> for FunAt<D, T, F>
+impl<D, T, F> FunAt<D, T, F>
 where
     D: Dim,
     F: Fn(D::Idx) -> T,
 {
-    fn at(&self, idx: <D as Dim>::Idx) -> T {
+    pub(super) fn core_at(&self, idx: D::Idx) -> T {
         (self.fun)(idx)
-    }
-
-    fn try_at(&self, idx: <D as Dim>::Idx) -> Option<T> {
-        Some(self.at(idx))
     }
 }

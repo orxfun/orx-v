@@ -10,7 +10,9 @@ impl Dim for DNever {
 
     type Idx = IdxNever;
 
-    type ChildIdx = IdxNever;
-
     type PrevDim = Self;
+
+    fn combine_child_and_remining_indices(_: usize, _: <Self::PrevDim as Dim>::Idx) -> Self::Idx {
+        unreachable!()
+    }
 }

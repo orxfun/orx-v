@@ -49,4 +49,9 @@ where
     fn try_at(&self, idx: <D as Dim>::Idx) -> Option<T> {
         self.v.try_at(idx).copied()
     }
+
+    type Child<'c>
+        = Copied<'a, D::PrevDim, T, V::Child<'c>>
+    where
+        Self: 'c;
 }

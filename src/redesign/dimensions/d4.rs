@@ -4,11 +4,16 @@ use super::{D3, Dim};
 pub struct D4;
 
 impl Dim for D4 {
+    type PrevDim = D3;
+
     const D: usize = 4;
 
-    type Idx = [usize; 4];
+    type Idx = [usize; Self::D];
 
-    type ChildIdx = usize;
-
-    type PrevDim = D3;
+    fn combine_child_and_remining_indices(
+        c: usize,
+        [i, j, k]: <Self::PrevDim as Dim>::Idx,
+    ) -> Self::Idx {
+        [c, i, j, k]
+    }
 }

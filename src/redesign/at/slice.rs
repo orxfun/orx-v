@@ -1,5 +1,5 @@
 use super::super::{D1, D2};
-use super::At;
+use super::{At, AtNever};
 
 // d1
 
@@ -11,6 +11,11 @@ impl<'a, T> At<D1, &'a T> for &'a [T] {
     fn try_at(&self, idx: usize) -> Option<&'a T> {
         self.get(idx)
     }
+
+    type Child<'c>
+        = AtNever
+    where
+        Self: 'c;
 }
 
 impl<T: Copy> At<D1, T> for &[T] {
@@ -21,6 +26,11 @@ impl<T: Copy> At<D1, T> for &[T] {
     fn try_at(&self, idx: usize) -> Option<T> {
         self.get(idx).copied()
     }
+
+    type Child<'c>
+        = AtNever
+    where
+        Self: 'c;
 }
 
 // d2
@@ -36,4 +46,9 @@ where
     fn try_at(&self, [i, j]: [usize; 2]) -> Option<&'a T> {
         self.get(i).and_then(|x| x.try_at(j))
     }
+
+    type Child<'c>
+        = &'a C1
+    where
+        Self: 'c;
 }
