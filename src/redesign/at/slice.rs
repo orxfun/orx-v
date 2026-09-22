@@ -59,4 +59,8 @@ where
         = &'a C1
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        &self[c]
+    }
 }

@@ -13,5 +13,4 @@ mod vec;
 pub use at_trait::{At, AtCopied, AtNever};
 pub use copied::Copied;
 pub use fun::FunAt;
-pub use fun2_child::FunChildAt2;
-// pub use fun1::
+pub use fun2_child::FunAt2Child;

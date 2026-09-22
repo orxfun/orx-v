@@ -42,6 +42,25 @@ impl<T: Copy> At<D1, T> for Vec<T> {
     }
 }
 
+impl<T: Copy> At<D1, T> for &Vec<T> {
+    fn at(&self, idx: usize) -> T {
+        self[idx]
+    }
+
+    fn try_at(&self, idx: usize) -> Option<T> {
+        self.get(idx).copied()
+    }
+
+    type Child<'c>
+        = AtNever
+    where
+        Self: 'c;
+
+    fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
+}
+
 // d2
 
 impl<'a, T, C1> At<D2, &'a T> for &'a Vec<C1>
@@ -60,11 +79,16 @@ where
         = &'a C1
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        &self[c]
+    }
 }
 
 impl<T, C1> At<D2, T> for Vec<C1>
 where
     C1: At<D1, T>,
+    for<'a> &'a C1: At<D1, T>,
 {
     fn at(&self, [i, j]: [usize; 2]) -> T {
         self[i].at(j)
@@ -75,7 +99,11 @@ where
     }
 
     type Child<'c>
-        = C1
+        = &'c C1
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        &self[c]
+    }
 }

@@ -54,4 +54,8 @@ where
         = Copied<'a, D::PrevDim, T, V::Child<'c>>
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: <D as Dim>::ChildIdx) -> Self::Child<'c> {
+        Copied::new(self.v.child(c))
+    }
 }

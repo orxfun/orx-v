@@ -1,10 +1,28 @@
-use super::super::super::D2;
+use super::super::super::{D1, D2};
 use super::super::{At, AtCopied, FunAt};
 use alloc::string::{String, ToString};
 use alloc::vec;
 
 fn target_fun<'a>(v1: &impl At<D2, usize>, v2: &impl At<D2, &'a String>) -> usize {
     v1.at([1, 0]) + v2.at([0, 1]).len()
+}
+
+fn vec_sum(v: &impl At<D1, usize>) -> usize {
+    let mut sum = 0;
+    // TODO: fix with cardinality
+    for i in 0..2 {
+        sum += v.at(i);
+    }
+    sum
+}
+
+fn vec2_sum(m: &impl At<D2, usize>, num_rows: usize) -> usize {
+    (0..num_rows)
+        .map(|c| {
+            let row = m.child(c);
+            vec_sum(&row)
+        })
+        .sum()
 }
 
 #[test]
@@ -16,6 +34,11 @@ fn vec_vec_as_at2() {
 
     let res = target_fun(&(&v1).copied(), &&v2);
     assert_eq!(res, 5);
+
+    // child
+
+    let sum = vec2_sum(&v1, v1.len());
+    assert_eq!(sum, 12);
 }
 
 #[test]
@@ -28,6 +51,11 @@ fn slice_vec_as_at2() {
 
     let res = target_fun(&v1.copied(), &v2);
     assert_eq!(res, 5);
+
+    // child
+
+    let sum = vec2_sum(&v1.copied(), v1.len());
+    assert_eq!(sum, 12);
 }
 
 #[test]
@@ -39,4 +67,9 @@ fn fun_as_at2() {
 
     let res = target_fun(&v1, &v2);
     assert_eq!(res, 5);
+
+    // child
+
+    let sum = vec2_sum(&v1, 3);
+    assert_eq!(sum, 27);
 }

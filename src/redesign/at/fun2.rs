@@ -1,5 +1,5 @@
 use super::super::D2;
-use super::{At, FunAt, FunChildAt2};
+use super::{At, FunAt, FunAt2Child};
 
 impl<T, F> At<D2, T> for FunAt<D2, T, F>
 where
@@ -14,11 +14,11 @@ where
     }
 
     type Child<'c>
-        = FunChildAt2<'c, T, F>
+        = FunAt2Child<'c, T, F>
     where
         Self: 'c;
 
     fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
-        FunChildAt2::new(c, &self.fun())
+        FunAt2Child::new(c, &self.fun())
     }
 }

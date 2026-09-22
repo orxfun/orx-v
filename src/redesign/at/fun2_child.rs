@@ -3,7 +3,7 @@ use super::{At, AtNever};
 use derive_new::new;
 
 #[derive(new)]
-pub struct FunChildAt2<'a, T, F>
+pub struct FunAt2Child<'a, T, F>
 where
     F: Fn([usize; 2]) -> T,
 {
@@ -11,7 +11,7 @@ where
     fun: &'a F,
 }
 
-impl<T, F> At<<D2 as Dim>::PrevDim, T> for FunChildAt2<'_, T, F>
+impl<T, F> At<<D2 as Dim>::PrevDim, T> for FunAt2Child<'_, T, F>
 where
     F: Fn([usize; 2]) -> T,
 {

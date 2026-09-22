@@ -10,9 +10,7 @@ pub trait At<D: Dim, T> {
     where
         Self: 'c;
 
-    fn child<'c>(&'c self, c: D::ChildIdx) -> Self::Child<'c> {
-        todo!()
-    }
+    fn child<'c>(&'c self, c: D::ChildIdx) -> Self::Child<'c>;
 }
 
 // never
