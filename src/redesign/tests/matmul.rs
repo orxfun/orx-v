@@ -6,7 +6,7 @@ fn matmul<A, B, C>(a: &A, b: &B, c: &mut C)
 where
     A: At<D2, u32>,
     B: At<D2, u32>,
-    C: MutAt<D2, u32>,
+    C: AtMut<D2, u32>,
 {
     // TODO: FIX THIS after card
     let n = 4;
@@ -14,14 +14,14 @@ where
     for i in 0..n {
         for j in 0..n {
             // TODO: FIX THIS sequential operations
-            *c.mut_at([i, j]) = 0;
+            *c.at_mut([i, j]) = 0;
         }
     }
 
     for i in 0..n {
         for j in 0..n {
             for k in 0..n {
-                *c.mut_at([i, j]) += a.at([i, k]) * b.at([k, j]);
+                *c.at_mut([i, j]) += a.at([i, k]) * b.at([k, j]);
             }
         }
     }

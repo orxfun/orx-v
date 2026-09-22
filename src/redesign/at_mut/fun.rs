@@ -1,5 +1,5 @@
 use super::super::Dim;
-use super::MutAt;
+use super::AtMut;
 use core::borrow::BorrowMut;
 use core::marker::PhantomData;
 use derive_new::new;
@@ -56,7 +56,7 @@ where
 {
 }
 
-impl<D, S, I, T, F, M> MutAt<D, T> for FunMutAt<D, S, I, T, F, M>
+impl<D, S, I, T, F, M> AtMut<D, T> for FunMutAt<D, S, I, T, F, M>
 where
     D: Dim,
     S: BorrowMut<I>,
@@ -71,11 +71,11 @@ where
         Some(self.at(idx))
     }
 
-    fn mut_at(&mut self, idx: <D as Dim>::Idx) -> &mut T {
+    fn at_mut(&mut self, idx: <D as Dim>::Idx) -> &mut T {
         (self.m)(self.data.borrow_mut(), idx)
     }
 
-    fn try_mut_at(&mut self, idx: <D as Dim>::Idx) -> Option<&mut T> {
-        Some(self.mut_at(idx))
+    fn try_at_mut(&mut self, idx: <D as Dim>::Idx) -> Option<&mut T> {
+        Some(self.at_mut(idx))
     }
 }

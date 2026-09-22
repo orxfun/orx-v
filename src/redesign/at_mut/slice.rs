@@ -1,9 +1,9 @@
 use super::super::{D1, D2};
-use super::MutAt;
+use super::AtMut;
 
 // d1
 
-impl<'a, T> MutAt<D1, T> for &'a mut [T] {
+impl<'a, T> AtMut<D1, T> for &'a mut [T] {
     fn at(&self, idx: usize) -> &T {
         &self[idx]
     }
@@ -12,20 +12,20 @@ impl<'a, T> MutAt<D1, T> for &'a mut [T] {
         self.get(idx)
     }
 
-    fn mut_at(&mut self, idx: usize) -> &mut T {
+    fn at_mut(&mut self, idx: usize) -> &mut T {
         &mut self[idx]
     }
 
-    fn try_mut_at(&mut self, idx: usize) -> Option<&mut T> {
+    fn try_at_mut(&mut self, idx: usize) -> Option<&mut T> {
         self.get_mut(idx)
     }
 }
 
 // d2
 
-impl<'a, T, C1> MutAt<D2, T> for &'a mut [C1]
+impl<'a, T, C1> AtMut<D2, T> for &'a mut [C1]
 where
-    C1: MutAt<D1, T>,
+    C1: AtMut<D1, T>,
 {
     fn at(&self, [i, j]: [usize; 2]) -> &T {
         self[i].at(j)
@@ -35,11 +35,11 @@ where
         self.get(i).and_then(|x| x.try_at(j))
     }
 
-    fn mut_at(&mut self, [i, j]: [usize; 2]) -> &mut T {
-        self[i].mut_at(j)
+    fn at_mut(&mut self, [i, j]: [usize; 2]) -> &mut T {
+        self[i].at_mut(j)
     }
 
-    fn try_mut_at(&mut self, [i, j]: [usize; 2]) -> Option<&mut T> {
-        self.get_mut(i).and_then(|x| x.try_mut_at(j))
+    fn try_at_mut(&mut self, [i, j]: [usize; 2]) -> Option<&mut T> {
+        self.get_mut(i).and_then(|x| x.try_at_mut(j))
     }
 }

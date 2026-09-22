@@ -1,12 +1,12 @@
 use super::super::super::D1;
-use super::super::MutAt;
+use super::super::AtMut;
 use alloc::string::{String, ToString};
 use alloc::vec;
 
-fn target_fun<'a>(v1: &mut impl MutAt<D1, usize>, mut v2: impl MutAt<D1, String>) {
-    v2.mut_at(1).push_str("z");
-    let x = v2.mut_at(1).len();
-    *v1.mut_at(2) += x;
+fn target_fun<'a>(v1: &mut impl AtMut<D1, usize>, mut v2: impl AtMut<D1, String>) {
+    v2.at_mut(1).push_str("z");
+    let x = v2.at_mut(1).len();
+    *v1.at_mut(2) += x;
 }
 
 #[test]

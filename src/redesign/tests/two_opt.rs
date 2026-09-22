@@ -4,14 +4,14 @@ use std::collections::HashMap;
 
 fn apply_two_opt<T>(tour: &mut T, i: usize, j: usize)
 where
-    T: MutAt<D1, usize>,
+    T: AtMut<D1, usize>,
 {
     let mut i = i + 1;
     let mut j = j;
     while i < j {
         let t = *tour.at(i);
-        *tour.mut_at(i) = *tour.at(j);
-        *tour.mut_at(j) = t;
+        *tour.at_mut(i) = *tour.at(j);
+        *tour.at_mut(j) = t;
         i += 1;
         j -= 1;
     }
@@ -20,7 +20,7 @@ where
 fn two_opt<D, T>(distances: &D, mut tour: T) -> u32
 where
     D: At<D2, u32>,
-    T: MutAt<D1, usize>,
+    T: AtMut<D1, usize>,
 {
     let mut improvement = 0;
     let d = distances;
