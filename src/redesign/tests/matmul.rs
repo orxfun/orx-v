@@ -1,5 +1,5 @@
 use super::super::*;
-use alloc::vec;
+use alloc::{vec, vec::Vec};
 
 fn matmul<A, B, C>(a: &A, b: &B, c: &mut C)
 where
@@ -20,7 +20,7 @@ where
     for i in 0..n {
         for j in 0..n {
             for k in 0..n {
-                *c.mut_at([i, j]) = *c.at([i, j]) + a.at([i, k]) * b.at([k, j]);
+                *c.mut_at([i, j]) += a.at([i, k]) * b.at([k, j]);
             }
         }
     }
@@ -50,21 +50,31 @@ fn two_opt_var1() {
 
 #[test]
 fn two_opt_var2() {
-    // let make_flat_matrix = |data: &[u32]| {
-    //     FunAt::new(|[i, j]: [usize; 2]| {
-    //         let idx = i * 4 + j;
-    //         data[idx]
-    //     })
-    // };
+    let make_flat_matrix = |data: &[u32]| {
+        FunAt::new(|[i, j]: [usize; 2]| {
+            let idx = i * 4 + j;
+            data[idx]
+        })
+    };
 
-    // let data_a = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
-    // let a = make_flat_matrix(&data_a);
+    let data_a = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
+    let a = make_flat_matrix(&data_a);
 
-    // let data_b = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
-    // let b = make_flat_matrix(&data_b);
+    let data_b = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
+    let b = make_flat_matrix(&data_b);
 
-    // let mut c = a.clone();
+    let data_c = (4, vec![0; data_a.len()]);
 
-    // matmul(&a, &b.copied(), &mut c);
+    fn f<'a>((m, data): &'a (usize, Vec<u32>), [i, j]: [usize; 2]) -> &'a u32 {
+        let idx = i * *m + j;
+        &data[idx]
+    }
+    fn m<'a>((m, data): &'a mut (usize, Vec<u32>), [i, j]: [usize; 2]) -> &'a mut u32 {
+        let idx = i * *m + j;
+        &mut data[idx]
+    }
+    let mut c = FunMutAt::new(data_c, f, m);
+
+    matmul(&a, &b, &mut c);
     // assert_eq!(c[1][2], 116);
 }
