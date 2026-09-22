@@ -41,4 +41,8 @@ where
     fn at(&self, idx: <D as Dim>::Idx) -> T {
         (self.fun)(idx)
     }
+
+    fn try_at(&self, idx: <D as Dim>::Idx) -> Option<T> {
+        Some(self.at(idx))
+    }
 }

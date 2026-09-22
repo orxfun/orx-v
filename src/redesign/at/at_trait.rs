@@ -3,6 +3,8 @@ use super::Copied;
 
 pub trait At<D: Dim, T> {
     fn at(&self, idx: D::Idx) -> T;
+
+    fn try_at(&self, idx: D::Idx) -> Option<T>;
 }
 
 pub trait AtCopied<D: Dim>: Sized {

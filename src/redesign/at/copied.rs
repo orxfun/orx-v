@@ -45,4 +45,8 @@ where
     fn at(&self, idx: <D as Dim>::Idx) -> T {
         *self.v.at(idx)
     }
+
+    fn try_at(&self, idx: <D as Dim>::Idx) -> Option<T> {
+        self.v.try_at(idx).copied()
+    }
 }
