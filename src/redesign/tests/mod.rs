@@ -1,2 +1,2 @@
-mod mat_mul;
+mod matmul;
 mod two_opt;
