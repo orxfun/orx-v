@@ -2,6 +2,7 @@ use super::Dim;
 
 pub enum IdxNever {}
 
+#[derive(Clone, Copy)]
 pub struct DNever;
 
 impl Dim for DNever {

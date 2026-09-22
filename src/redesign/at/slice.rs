@@ -1,6 +1,8 @@
 use super::super::D1;
 use super::At;
 
+// d1
+
 impl<T: Copy> At<D1, T> for &[T] {
     fn at(&self, idx: usize) -> T {
         self[idx]

@@ -1,5 +1,6 @@
 use super::{D1, Dim};
 
+#[derive(Clone, Copy)]
 pub struct D2;
 
 impl Dim for D2 {

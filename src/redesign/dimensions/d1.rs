@@ -1,5 +1,6 @@
 use super::{DNever, Dim, IdxNever};
 
+#[derive(Clone, Copy)]
 pub struct D1;
 
 impl Dim for D1 {
