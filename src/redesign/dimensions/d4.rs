@@ -10,6 +10,8 @@ impl Dim for D4 {
 
     type Idx = [usize; Self::D];
 
+    type ChildIdx = usize;
+
     fn combine_child_and_remining_indices(
         c: usize,
         [i, j, k]: <Self::PrevDim as Dim>::Idx,

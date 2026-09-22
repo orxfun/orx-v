@@ -1,4 +1,4 @@
-use super::super::{DNever, Dim};
+use super::super::{DNever, Dim, IdxNever};
 use super::Copied;
 
 pub trait At<D: Dim, T> {
@@ -9,6 +9,10 @@ pub trait At<D: Dim, T> {
     type Child<'c>: At<D::PrevDim, T>
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: D::ChildIdx) -> Self::Child<'c> {
+        todo!()
+    }
 }
 
 // never
@@ -16,11 +20,11 @@ pub trait At<D: Dim, T> {
 pub struct AtNever;
 
 impl<T> At<DNever, T> for AtNever {
-    fn at(&self, _: <DNever as Dim>::Idx) -> T {
+    fn at(&self, _: IdxNever) -> T {
         unreachable!()
     }
 
-    fn try_at(&self, _: <DNever as Dim>::Idx) -> Option<T> {
+    fn try_at(&self, _: IdxNever) -> Option<T> {
         unreachable!()
     }
 
@@ -28,6 +32,10 @@ impl<T> At<DNever, T> for AtNever {
         = Self
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
 }
 
 // copied

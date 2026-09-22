@@ -10,7 +10,12 @@ impl Dim for D1 {
 
     type Idx = usize;
 
-    fn combine_child_and_remining_indices(_: usize, _: <Self::PrevDim as Dim>::Idx) -> Self::Idx {
+    type ChildIdx = IdxNever;
+
+    fn combine_child_and_remining_indices(
+        _: IdxNever,
+        _: <Self::PrevDim as Dim>::Idx,
+    ) -> Self::Idx {
         unreachable!()
     }
 }

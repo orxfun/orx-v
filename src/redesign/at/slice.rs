@@ -1,4 +1,4 @@
-use super::super::{D1, D2};
+use super::super::{D1, D2, IdxNever};
 use super::{At, AtNever};
 
 // d1
@@ -16,6 +16,10 @@ impl<'a, T> At<D1, &'a T> for &'a [T] {
         = AtNever
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
 }
 
 impl<T: Copy> At<D1, T> for &[T] {
@@ -31,6 +35,10 @@ impl<T: Copy> At<D1, T> for &[T] {
         = AtNever
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
 }
 
 // d2

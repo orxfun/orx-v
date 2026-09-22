@@ -14,7 +14,11 @@ where
     }
 
     type Child<'c>
-        = FunChildAt2<T, F>
+        = FunChildAt2<'c, T, F>
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        FunChildAt2::new(c, &self.fun())
+    }
 }

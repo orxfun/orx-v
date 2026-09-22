@@ -1,4 +1,4 @@
-use super::super::D1;
+use super::super::{D1, IdxNever};
 use super::{At, AtNever, FunAt};
 
 impl<T, F> At<D1, T> for FunAt<D1, T, F>
@@ -17,4 +17,8 @@ where
         = AtNever
     where
         Self: 'c;
+
+    fn child<'c>(&'c self, _: IdxNever) -> Self::Child<'c> {
+        unreachable!()
+    }
 }

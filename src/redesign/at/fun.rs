@@ -37,6 +37,10 @@ where
     D: Dim,
     F: Fn(D::Idx) -> T,
 {
+    pub(super) fn fun(&self) -> &F {
+        &self.fun
+    }
+
     pub(super) fn core_at(&self, idx: D::Idx) -> T {
         (self.fun)(idx)
     }
