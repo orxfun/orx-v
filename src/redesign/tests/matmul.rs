@@ -1,5 +1,6 @@
 use super::super::*;
 use alloc::{vec, vec::Vec};
+use num::integer::Roots;
 
 fn matmul<A, B, C>(a: &A, b: &B, c: &mut C)
 where
@@ -50,12 +51,13 @@ fn two_opt_var1() {
 
 #[test]
 fn two_opt_var2() {
-    let make_flat_matrix = |data: &[u32]| {
-        FunAt::new(|[i, j]: [usize; 2]| {
-            let idx = i * 4 + j;
+    fn make_flat_matrix<'a>(data: &'a [u32]) -> impl At<D2, u32> + 'a {
+        let m = data.len().sqrt();
+        FunAt::new(move |[i, j]: [usize; 2]| {
+            let idx = i * m + j;
             data[idx]
         })
-    };
+    }
 
     let data_a = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
     let a = make_flat_matrix(&data_a);
@@ -63,7 +65,7 @@ fn two_opt_var2() {
     let data_b = vec![0, 3, 2, 5, 1, 6, 8, 2, 2, 9, 7, 4, 3, 5, 5, 6];
     let b = make_flat_matrix(&data_b);
 
-    let data_c = (4, vec![0; data_a.len()]);
+    let mut data_c = (4, vec![0; data_a.len()]);
 
     fn f<'a>((m, data): &'a (usize, Vec<u32>), [i, j]: [usize; 2]) -> &'a u32 {
         let idx = i * *m + j;
@@ -73,8 +75,8 @@ fn two_opt_var2() {
         let idx = i * *m + j;
         &mut data[idx]
     }
-    let mut c = FunMutAt::new(data_c, f, m);
+    let mut c = FunMutAt::new(&mut data_c, f, m);
 
     matmul(&a, &b, &mut c);
-    // assert_eq!(c[1][2], 116);
+    assert_eq!(data_c.1[1 * 4 + 2], 116);
 }
