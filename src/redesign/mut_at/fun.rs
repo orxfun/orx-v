@@ -35,3 +35,14 @@ where
     T: 'a,
 {
 }
+
+impl<'a, D, T, F> MutAt<D, T> for FunMutAt<'a, D, T, F>
+where
+    D: Dim,
+    F: FnMut(D::Idx) -> &'a mut T,
+    T: 'a,
+{
+    fn mut_at(&mut self, idx: <D as Dim>::Idx) -> &mut T {
+        (self.fun)(idx)
+    }
+}
