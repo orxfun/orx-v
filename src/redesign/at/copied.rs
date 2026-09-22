@@ -11,7 +11,7 @@ where
     T: Copy + 'a,
 {
     v: V,
-    p: PhantomData<fn() -> &'a (D, T)>,
+    p: PhantomData<fn() -> (D, &'a T)>,
 }
 
 impl<'a, D, T, V: Clone> Clone for Copied<'a, D, T, V>

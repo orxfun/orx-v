@@ -1,5 +1,5 @@
 use super::super::super::D1;
-use super::super::{At, FunAt};
+use super::super::{At, AtCopied, FunAt};
 use alloc::string::{String, ToString};
 use alloc::vec;
 
@@ -13,6 +13,9 @@ fn vec_as_at1() {
     let v2 = vec!["x".to_string(), "y".to_string()];
     let res = target_fun(&v1, &&v2);
     assert_eq!(res, 4);
+
+    let res = target_fun(&(&v1).copied(), &&v2);
+    assert_eq!(res, 4);
 }
 
 #[test]
@@ -24,6 +27,9 @@ fn slice_as_at1() {
     let v2 = vec2.as_slice();
 
     let res = target_fun(&v1, &v2);
+    assert_eq!(res, 4);
+
+    let res = target_fun(&v1.copied(), &v2);
     assert_eq!(res, 4);
 }
 
