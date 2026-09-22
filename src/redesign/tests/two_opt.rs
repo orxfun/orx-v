@@ -1,5 +1,6 @@
 use super::super::*;
 use alloc::vec;
+use std::collections::HashMap;
 
 fn apply_two_opt<T>(tour: &mut T, i: usize, j: usize)
 where
@@ -100,4 +101,16 @@ fn two_opt_var4() {
 
     let result = two_opt(&distances, &mut tour);
     assert_eq!(result, 0);
+}
+
+#[test]
+fn two_opt_var5() {
+    let sparse: HashMap<(usize, usize), u32> = [((0, 1), 3), ((1, 3), 2), ((3, 2), 5), ((2, 0), 7)]
+        .into_iter()
+        .collect();
+    let distances = FunAt::new(|[i, j]: [usize; 2]| sparse.get(&(i, j)).copied().unwrap_or(1000));
+    let mut tour = vec![0, 1, 2, 3];
+
+    let result = two_opt(&distances, &mut tour);
+    assert_eq!(result, 3984);
 }
