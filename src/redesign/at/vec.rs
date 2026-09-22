@@ -20,10 +20,10 @@ impl<T: Copy> At<D1, T> for Vec<T> {
 
 impl<'a, T, C1> At<D2, &'a T> for &'a Vec<C1>
 where
-    C1: At<D1, &'a T>,
+    &'a C1: At<D1, &'a T>,
 {
     fn at(&self, [i, j]: [usize; 2]) -> &'a T {
-        self[i].at(j)
+        (&self[i]).at(j)
     }
 }
 
