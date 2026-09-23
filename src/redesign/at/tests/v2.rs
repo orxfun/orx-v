@@ -7,22 +7,24 @@ fn target_fun<'a>(v1: &impl At<D2, usize>, v2: &impl At<D2, &'a String>) -> usiz
     v1.at([1, 0]) + v2.at([0, 1]).len()
 }
 
-fn vec_sum(v: &impl At<D1, usize>) -> usize {
+fn vec2_sum(m: &impl At<D2, usize>) -> usize {
     let mut sum = 0;
-    // TODO: fix with cardinality
-    for i in 0..2 {
-        sum += v.at(i);
+    for i in 0..10 {
+        if let Some(child) = m.try_child(i) {
+            sum += vec1_sum(&child);
+        }
     }
     sum
 }
 
-fn vec2_sum(m: &impl At<D2, usize>, num_rows: usize) -> usize {
-    (0..num_rows)
-        .map(|c| {
-            let row = m.child(c);
-            vec_sum(&row)
-        })
-        .sum()
+fn vec1_sum(m: &impl At<D1, usize>) -> usize {
+    let mut sum = 0;
+    for i in 0..10 {
+        if let Some(value) = m.try_at(i) {
+            sum += value
+        }
+    }
+    sum
 }
 
 #[test]
@@ -37,7 +39,7 @@ fn vec_vec_as_at2() {
 
     // child
 
-    let sum = vec2_sum(&v1, v1.len());
+    let sum = vec2_sum(&v1);
     assert_eq!(sum, 12);
 
     assert!(v1.try_child(0).is_some());
@@ -58,7 +60,7 @@ fn slice_vec_as_at2() {
 
     // child
 
-    let sum = vec2_sum(&v1.copied(), v1.len());
+    let sum = vec2_sum(&v1.copied());
     assert_eq!(sum, 12);
 
     assert!(At::<D2, &usize>::try_child(&v1, 0).is_some());
@@ -82,8 +84,7 @@ fn fun_as_at2() {
 
     // child
 
-    let sum = vec2_sum(&v1, 3);
-    assert_eq!(sum, 27);
+    assert_eq!(vec2_sum(&v1), 1200);
 
     assert!(v1.try_child(0).is_some());
     assert!(v1.try_child(100).is_some());
