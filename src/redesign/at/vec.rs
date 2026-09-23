@@ -1,4 +1,4 @@
-use super::super::{D1, D2, IdxNever};
+use super::super::{D1, D2, D3, IdxNever};
 use super::{At, AtNever};
 use alloc::vec::Vec;
 
@@ -112,6 +112,61 @@ where
 
     fn try_at(&self, [i, j]: [usize; 2]) -> Option<T> {
         self.get(i).and_then(|x| x.try_at(j))
+    }
+
+    type Child<'c>
+        = &'c C1
+    where
+        Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        &self[c]
+    }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        self.get(c)
+    }
+}
+
+// d3
+
+impl<'a, T, C1> At<D3, &'a T> for &'a Vec<C1>
+where
+    &'a C1: At<D2, &'a T>,
+{
+    fn at(&self, [i, j, k]: [usize; 3]) -> &'a T {
+        (&self[i]).at([j, k])
+    }
+
+    fn try_at(&self, [i, j, k]: [usize; 3]) -> Option<&'a T> {
+        self.get(i).and_then(|x| x.try_at([j, k]))
+    }
+
+    type Child<'c>
+        = &'a C1
+    where
+        Self: 'c;
+
+    fn child<'c>(&'c self, c: usize) -> Self::Child<'c> {
+        &self[c]
+    }
+
+    fn try_child<'c>(&'c self, c: usize) -> Option<Self::Child<'c>> {
+        self.get(c)
+    }
+}
+
+impl<T, C1> At<D3, T> for Vec<C1>
+where
+    C1: At<D2, T>,
+    for<'a> &'a C1: At<D2, T>,
+{
+    fn at(&self, [i, j, k]: [usize; 3]) -> T {
+        self[i].at([j, k])
+    }
+
+    fn try_at(&self, [i, j, k]: [usize; 3]) -> Option<T> {
+        self.get(i).and_then(|x| x.try_at([j, k]))
     }
 
     type Child<'c>
