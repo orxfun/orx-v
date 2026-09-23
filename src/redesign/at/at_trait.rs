@@ -17,7 +17,7 @@ pub trait At<D: Dim, T> {
 
 // never
 
-pub struct AtNever;
+pub enum AtNever {}
 
 impl<T> At<DNever, T> for AtNever {
     fn at(&self, _: IdxNever) -> T {

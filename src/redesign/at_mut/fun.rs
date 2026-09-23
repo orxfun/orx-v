@@ -1,5 +1,4 @@
 use super::super::Dim;
-use super::AtMut;
 use core::borrow::BorrowMut;
 use core::marker::PhantomData;
 use derive_new::new;
@@ -12,9 +11,9 @@ where
     F: for<'a> Fn(&'a I, D::Idx) -> &'a T,
     M: for<'a> FnMut(&'a mut I, D::Idx) -> &'a mut T,
 {
-    data: S,
-    f: F,
-    m: M,
+    pub(super) data: S,
+    pub(super) f: F,
+    pub(super) m: M,
     p: PhantomData<fn(&mut I) -> D>,
 }
 
@@ -27,6 +26,26 @@ where
 {
     pub fn into_data(self) -> S {
         self.data
+    }
+
+    pub(super) fn f(&self) -> &F {
+        &self.f
+    }
+
+    pub(super) fn m_mut(&mut self) -> &mut M {
+        &mut self.m
+    }
+
+    pub(super) fn data_mut(&mut self) -> &mut I {
+        self.data.borrow_mut()
+    }
+
+    pub(super) fn core_at(&self, idx: D::Idx) -> &T {
+        (self.f)(self.data.borrow(), idx)
+    }
+
+    pub(super) fn core_at_mut(&mut self, idx: D::Idx) -> &mut T {
+        (self.m)(self.data.borrow_mut(), idx)
     }
 }
 
@@ -54,28 +73,4 @@ where
     F: for<'a> Fn(&'a I, D::Idx) -> &'a T,
     M: for<'a> FnMut(&'a mut I, D::Idx) -> &'a mut T,
 {
-}
-
-impl<D, S, I, T, F, M> AtMut<D, T> for FunMutAt<D, S, I, T, F, M>
-where
-    D: Dim,
-    S: BorrowMut<I>,
-    F: for<'a> Fn(&'a I, D::Idx) -> &'a T,
-    M: for<'a> FnMut(&'a mut I, D::Idx) -> &'a mut T,
-{
-    fn at(&self, idx: <D as Dim>::Idx) -> &T {
-        (self.f)(self.data.borrow(), idx)
-    }
-
-    fn try_at(&self, idx: <D as Dim>::Idx) -> Option<&T> {
-        Some(self.at(idx))
-    }
-
-    fn at_mut(&mut self, idx: <D as Dim>::Idx) -> &mut T {
-        (self.m)(self.data.borrow_mut(), idx)
-    }
-
-    fn try_at_mut(&mut self, idx: <D as Dim>::Idx) -> Option<&mut T> {
-        Some(self.at_mut(idx))
-    }
 }
